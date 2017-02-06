@@ -3,13 +3,17 @@
   <head>
     <meta charset="UTF-8">
     <title>Mech Combat</title>
+    <script src="js/hexagon.js"></script>
   </head>
   <body>
 
-    <canvas id="canvas"></canvas>
+    <canvas id="HexCanvas" width="1000" height="700"></canvas>
+    <script>
+        var hexagonGrid = new HexagonGrid("HexCanvas", 50);
+        hexagonGrid.drawHexGrid(7, 10, 50, 50, true);
+    </script>
 
     <script src="lib/phaser/build/phaser.min.js"></script>
-    <script src="js/hexagon.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>
