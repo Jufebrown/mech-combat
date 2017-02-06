@@ -9,11 +9,18 @@
   </head>
   <body>
 
-    <canvas id="HexCanvas" width="1000" height="700"></canvas>
-    <script>
-      const hexagonGrid = new HexagonGrid("HexCanvas", 50);
-      hexagonGrid.drawHexGrid(50, 50, 0, 0, true);
-    </script>
+    <div class="loginPage">
+      <form>
+      </form>
+    </div>
+
+    <div class="gameProper hidden">
+      <canvas id="HexCanvas" width="1000" height="700"></canvas>
+      <script>
+        const hexagonGrid = new HexagonGrid("HexCanvas", 50);
+        hexagonGrid.drawHexGrid(50, 50, 0, 0, true);
+      </script>
+    </div>
 
     <script src="lib/firebase/firebase.js"></script>
     <script src="lib/materialize/dist/js/materialize.min.js"></script>
