@@ -10,10 +10,11 @@
 
     <canvas id="HexCanvas" width="1000" height="700"></canvas>
     <script>
-        var hexagonGrid = new HexagonGrid("HexCanvas", 50);
-        hexagonGrid.drawHexGrid(7, 10, 50, 50, true);
+      const hexagonGrid = new HexagonGrid("HexCanvas", 50);
+      hexagonGrid.drawHexGrid(50, 50, 0, 0, true);
     </script>
 
+    <script src="lib/firebase/firebase.js"></script>
     <script src="lib/phaser/build/phaser.min.js"></script>
     <script src="js/app.js"></script>
   </body>
