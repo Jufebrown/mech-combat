@@ -15,7 +15,7 @@ firebase.initializeApp(config);
 window.onload = function() {
 
   //starts new canvas
-  var game = new Phaser.Game(640, 480, Phaser.CANVAS, "", {preload: onPreload, create: onCreate});
+  var game = new Phaser.Game(640, 480, Phaser.CANVAS, "", {preload: onPreload, create: onCreate, update: onUpdate});
 
   //sets up hex width and height. height should be sqrt(3)/2 of width but need to tweek to get spacing right
   var hexagonHeight = 32;
@@ -144,5 +144,24 @@ window.onload = function() {
     }
   }
 
+  //moves player with arrow keys
+  function onUpdate() {
+    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+    {
+        player.x -= 4;
+    }
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+    {
+        player.x += 4;
+    }
+    if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
+    {
+        player.y -= 4;
+    }
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN))
+    {
+        player.y += 4;
+    }
+  }
 
 }
