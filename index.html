@@ -5,7 +5,6 @@
     <title>Mech Combat</title>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
     <link rel="stylesheet" type="text/css" href="lib/materialize/dist/css/materialize.min.css">
-    <script src="js/hexagon.js"></script>
   </head>
   <body>
 
@@ -14,13 +13,6 @@
       </form>
     </div>
 
-    <div class="gameProper hidden">
-      <canvas id="HexCanvas" width="1000" height="700"></canvas>
-      <script>
-        const hexagonGrid = new HexagonGrid("HexCanvas", 50);
-        hexagonGrid.drawHexGrid(50, 50, 0, 0, true);
-      </script>
-    </div>
 
     <script src="lib/firebase/firebase.js"></script>
     <script src="lib/materialize/dist/js/materialize.min.js"></script>
