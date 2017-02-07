@@ -20,13 +20,17 @@ window.onload = function() {
   //sets up hex width and height. height is sqrt(3)/2 of width
   var hexagonHeight = 32;
   var hexagonWidth = ((2/Math.sqrt(3)) * hexagonHeight);
+  //number of hexes x and y
   var gridSizeX = 22;
   var gridSizeY = 28;
+
+  //for mouse position tracking
   var columns = [Math.ceil(gridSizeY/2),Math.floor(gridSizeY/2)];
   var moveIndex;
   var sectorWidth = hexagonWidth/4*3;
   var sectorHeight = hexagonHeight;
   var gradient = (hexagonWidth/4)/(hexagonHeight/2);
+
   var marker;
   var hexagonGroup;
 
@@ -39,21 +43,25 @@ window.onload = function() {
 
   function onCreate() {
     hexagonGroup = game.add.group();
+    //background color for whole canvas element
     game.stage.backgroundColor = "#ddd"
-    for(var i = 0; i < gridSizeX/2; i ++){
-      for(var j = 0; j < gridSizeY; j ++){
+    for(var i = 0; i < gridSizeX/2; i ++) {
+      for(var j = 0; j < gridSizeY; j ++) {
         if(gridSizeX%2==0 || i+1<gridSizeX/2 || j%2==0){
+          //x position for new hex
           var hexagonX = hexagonWidth*i*1.5+(hexagonWidth/4*3)*(j%2);
+          //y position for new hex
           var hexagonY = hexagonHeight*j/2;
           var hexagon = game.add.sprite(hexagonX,hexagonY,"hexagon");
           hexagonGroup.add(hexagon);
         }
       }
     }
+
     hexagonGroup.y = (game.height-hexagonHeight*Math.ceil(gridSizeY/2))/2;
-      if(gridSizeY%2==0){
-        hexagonGroup.y-=hexagonHeight/4;
-      }
+    if(gridSizeY%2==0){
+      hexagonGroup.y-=hexagonHeight/4;
+    }
     hexagonGroup.x = (game.width-Math.ceil(gridSizeX/2)*hexagonWidth-Math.floor(gridSizeX/2)*hexagonWidth/2)/2;
     if(gridSizeX%2==0){
       hexagonGroup.x-=hexagonWidth/8;
