@@ -33,18 +33,25 @@ window.onload = function() {
 
   var marker;
   var hexagonGroup;
+  var player
+  var playerStartX = 2
+  var playerStartY = 4
 
   //preloads images
   function onPreload() {
     game.load.image("hexagon", "images/hexagon.png");
     game.load.image("marker", "images/marker.png");
+    game.load.image("player", "images/player_ph.png")
   }
 
-
   function onCreate() {
+    // adds hexagonGroup
     hexagonGroup = game.add.group();
+
     //background color for whole canvas element
     game.stage.backgroundColor = "#ddd"
+
+    // loops through and adds rows and columns of hexes to hexagonGroup
     for(var i = 0; i < gridSizeX/2; i ++) {
       for(var j = 0; j < gridSizeY; j ++) {
         if(gridSizeX%2==0 || i+1<gridSizeX/2 || j%2==0){
@@ -58,6 +65,7 @@ window.onload = function() {
       }
     }
 
+    // positions hexagonGroup
     hexagonGroup.y = (game.height-hexagonHeight*Math.ceil(gridSizeY/2))/2;
     if(gridSizeY%2==0){
       hexagonGroup.y-=hexagonHeight/4;
@@ -82,6 +90,7 @@ window.onload = function() {
       if(deltaX<((hexagonWidth/4)-deltaY*gradient)){
         candidateX--;
         candidateY--;
+        // console.log('candidateY', candidateY)
       }
       if(deltaX<((-hexagonWidth/4)+deltaY*gradient)){
         candidateX--;
@@ -118,4 +127,6 @@ window.onload = function() {
       }
     }
   }
+
+
 }
