@@ -74,11 +74,26 @@ window.onload = function() {
     if(gridSizeX%2==0){
       hexagonGroup.x-=hexagonWidth/8;
     }
+
+    //adds player
+    player = game.add.sprite(0,0,"player");
+    player.visible = true;
+    player.x = hexagonWidth/4*3*playerStartX+hexagonWidth/2;
+    player.y = hexagonHeight*playerStartY;
+    if(playerStartX%2==0){
+      player.y += hexagonHeight/2;
+    }
+    else {
+      player.y += hexagonHeight;
+    }
+    hexagonGroup.add(player);
+
+    //adds marker and hides it
     marker = game.add.sprite(0,0,"marker");
     marker.anchor.setTo(0.5);
     marker.visible=false;
-    hexagonGroup.add(marker);
-    moveIndex = game.input.addMoveCallback(checkHex, this);
+    hexagonGroup.add(marker); //adds marker to hexagonGroup
+    moveIndex = game.input.addMoveCallback(checkHex, this); //listener for mouse move
   }
 
   function checkHex(){
