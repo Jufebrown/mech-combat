@@ -19,7 +19,7 @@ window.onload = function() {
 
   //sets up hex width and height. height should be sqrt(3)/2 of width but need to tweek to get spacing right
   var hexagonHeight = 32;
-  var hexagonWidth = 35;
+  var hexagonWidth = 34;
   //number of hexes x and y
   var gridSizeX = 24;
   var gridSizeY = 29;
@@ -33,18 +33,25 @@ window.onload = function() {
 
   var marker;
   var hexagonGroup;
+  var player
+  var playerStartX = 10
+  var playerStartY = 13
 
   //preloads images
   function onPreload() {
     game.load.image("hexagon", "images/hexagon.png");
     game.load.image("marker", "images/marker.png");
+    game.load.image("player", "images/player_ph.png")
   }
 
-
   function onCreate() {
+    // adds hexagonGroup
     hexagonGroup = game.add.group();
+
     //background color for whole canvas element
     game.stage.backgroundColor = "#ddd"
+
+    // loops through and adds rows and columns of hexes to hexagonGroup
     for(var i = 0; i < gridSizeX/2; i ++) {
       for(var j = 0; j < gridSizeY; j ++) {
         if(gridSizeX%2==0 || i+1<gridSizeX/2 || j%2==0){
@@ -58,6 +65,7 @@ window.onload = function() {
       }
     }
 
+    // positions hexagonGroup
     hexagonGroup.y = (game.height-hexagonHeight*Math.ceil(gridSizeY/2))/2;
     if(gridSizeY%2==0){
       hexagonGroup.y-=hexagonHeight/4;
@@ -66,11 +74,27 @@ window.onload = function() {
     if(gridSizeX%2==0){
       hexagonGroup.x-=hexagonWidth/8;
     }
+
+    //adds player
+    player = game.add.sprite(0,0,"player");
+    player.anchor.setTo(0.5375);
+    player.visible = true;
+    player.x = hexagonWidth/4*3*playerStartX+hexagonWidth/2;
+    player.y = hexagonHeight*playerStartY;
+    if(playerStartX%2==0){
+      player.y += hexagonHeight/2;
+    }
+    else {
+      player.y += hexagonHeight;
+    }
+    hexagonGroup.add(player);
+
+    //adds marker and hides it
     marker = game.add.sprite(0,0,"marker");
     marker.anchor.setTo(0.5);
     marker.visible=false;
-    hexagonGroup.add(marker);
-    moveIndex = game.input.addMoveCallback(checkHex, this);
+    hexagonGroup.add(marker); //adds marker to hexagonGroup
+    moveIndex = game.input.addMoveCallback(checkHex, this); //listener for mouse move
   }
 
   function checkHex(){
@@ -82,6 +106,7 @@ window.onload = function() {
       if(deltaX<((hexagonWidth/4)-deltaY*gradient)){
         candidateX--;
         candidateY--;
+        // console.log('candidateY', candidateY)
       }
       if(deltaX<((-hexagonWidth/4)+deltaY*gradient)){
         candidateX--;
@@ -118,4 +143,6 @@ window.onload = function() {
       }
     }
   }
+
+
 }
