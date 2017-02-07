@@ -17,12 +17,12 @@ window.onload = function() {
   //starts new canvas
   var game = new Phaser.Game(640, 480, Phaser.CANVAS, "", {preload: onPreload, create: onCreate});
 
-  //sets up hex width and height. height is sqrt(3)/2 of width
+  //sets up hex width and height. height should be sqrt(3)/2 of width but need to tweek to get spacing right
   var hexagonHeight = 32;
-  var hexagonWidth = ((2/Math.sqrt(3)) * hexagonHeight);
+  var hexagonWidth = 35;
   //number of hexes x and y
-  var gridSizeX = 22;
-  var gridSizeY = 28;
+  var gridSizeX = 24;
+  var gridSizeY = 29;
 
   //for mouse position tracking
   var columns = [Math.ceil(gridSizeY/2),Math.floor(gridSizeY/2)];
@@ -48,9 +48,9 @@ window.onload = function() {
     for(var i = 0; i < gridSizeX/2; i ++) {
       for(var j = 0; j < gridSizeY; j ++) {
         if(gridSizeX%2==0 || i+1<gridSizeX/2 || j%2==0){
-          //x position for new hex
+          //x position for hex group
           var hexagonX = hexagonWidth*i*1.5+(hexagonWidth/4*3)*(j%2);
-          //y position for new hex
+          //y position for hex group
           var hexagonY = hexagonHeight*j/2;
           var hexagon = game.add.sprite(hexagonX,hexagonY,"hexagon");
           hexagonGroup.add(hexagon);
