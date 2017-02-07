@@ -34,8 +34,8 @@ window.onload = function() {
   var marker;
   var hexagonGroup;
   var player
-  var playerStartX = 2
-  var playerStartY = 4
+  var playerStartX = 10
+  var playerStartY = 13
 
   //preloads images
   function onPreload() {
@@ -77,6 +77,7 @@ window.onload = function() {
 
     //adds player
     player = game.add.sprite(0,0,"player");
+    player.anchor.setTo(0.5375);
     player.visible = true;
     player.x = hexagonWidth/4*3*playerStartX+hexagonWidth/2;
     player.y = hexagonHeight*playerStartY;
