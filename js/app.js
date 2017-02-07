@@ -19,7 +19,7 @@ window.onload = function() {
 
   //sets up hex width and height. height should be sqrt(3)/2 of width but need to tweek to get spacing right
   var hexagonHeight = 32;
-  var hexagonWidth = 35;
+  var hexagonWidth = 34;
   //number of hexes x and y
   var gridSizeX = 24;
   var gridSizeY = 29;
