@@ -91,14 +91,14 @@ window.onload = function() {
       player.y += hexagonHeight;
     }
     hexagonGroup.add(player);
-    game.input.onDown.add(moveSprite, this);
+    game.input.onDown.add(checkHex, this);
 
     //adds marker and hides it
     marker = game.add.sprite(0,0,"marker");
     marker.anchor.setTo(0.5);
     marker.visible=false;
     hexagonGroup.add(marker); //adds marker to hexagonGroup
-    moveIndex = game.input.addMoveCallback(checkHex, this); //listener for mouse move
+    // moveIndex = game.input.addMoveCallback(checkHex, this); //listener for mouse move
   }
 
   function checkHex(){
@@ -129,21 +129,31 @@ window.onload = function() {
       }
     }
     placeMarker(candidateX,candidateY);
+    moveSprite (candidateX,candidateY)
   }
 
-  function moveSprite (pointer) {
+  function moveSprite (posX,posY) {
     if (tween && tween.isRunning) {
       tween.stop();
     }
 
-    player.rotation = game.physics.arcade.angleToPointer(player, pointer);
+    let endX = hexagonWidth/4*3*posX+hexagonWidth/2;
+    let endY = hexagonHeight*posY;
+    if(posX%2==0){
+      endY += hexagonHeight/2;
+    }
+    else{
+      endY += hexagonHeight;
+    }
+
+    // player.rotation = game.physics.arcade.angleToPointer(player, pointer);
 
     //  300 = 300 pixels per second = the speed the sprite will move at, regardless of the distance it has to travel
-    var duration = (game.physics.arcade.distanceToPointer(player, pointer) / 300) * 1000;
-    tween = game.add.tween(player).to({ x: pointer.x, y: pointer.y }, duration, Phaser.Easing.Linear.None, true);
+    var duration = 1000 //(game.physics.arcade.distanceToPointer(player, pointer) / 300) * 1000;
+    tween = game.add.tween(player).to({ x: endX, y: endY }, duration, Phaser.Easing.Linear.None, true);
   }
 
-  function placeMarker(posX,posY){
+  function placeMarker(posX,posY,pointer){
     if(posX<0 || posY<0 || posX>=gridSizeX || posY>columns[posX%2]-1){
       marker.visible=false;
     }
