@@ -117,18 +117,18 @@ window.onload = function() {
   }
 
   function addPlayerSquad() {
-    let playerSquadArray = [
+    let startingPlayerSquadArray = [
       {positionX: 10, positionY: 13},
       {positionX: 4, positionY: 13},
       {positionX: 18, positionY: 13}
       ]
 
-    for(var i = 0, length1 = playerSquadArray.length; i < length1; i++){
-      let squaddie = game.add.sprite(0,0,"player");
+    for(var i = 0, length1 = startingplayerSquadArray.length; i < length1; i++){
+      squaddie = game.add.sprite(0,0,"player");
       squaddie.anchor.setTo(0.5375, .5);
       squaddie.visible = true;
-      squaddie.x = hexToPixelX(playerSquadArray[i].positionX)
-      squaddie.y = hexToPixelY(playerSquadArray[i].positionX,playerSquadArray[i].positionY)
+      squaddie.x = hexToPixelX(startingPlayerSquadArray[i].positionX)
+      squaddie.y = hexToPixelY(startingPlayerSquadArray[i].positionX,startingPlayerSquadArray[i].positionY)
       playerSquad.add(squaddie);
       squaddie.inputEnabled = true
       squaddie.events.onInputOver.add(makeMove, this)
