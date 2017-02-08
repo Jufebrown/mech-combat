@@ -19,7 +19,7 @@ firebase.initializeApp(config);
 
 
 
-window.onload = function() {
+// window.onload = function() {
 
   //starts new canvas
   const game = new Phaser.Game(640, 480, Phaser.CANVAS, "", {preload: onPreload, create: onCreate,});
@@ -217,4 +217,4 @@ window.onload = function() {
   //     }
   //   }
   // }
-}
+// }
