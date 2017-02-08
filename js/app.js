@@ -42,7 +42,7 @@ firebase.initializeApp(config);
   // var marker;
   let hexagonGroup;
   let playerSquad
-  const playerSquadArray = []
+  const playerSpriteArray = []
   let player
   let enemy
   let enemyStartX = 10
@@ -121,16 +121,16 @@ firebase.initializeApp(config);
       ]
 
     for(var i = 0, length1 = startingPlayerSquadArray.length; i < length1; i++){
-      playerSquadArray[i] = game.add.sprite(0,0,"player");
-      playerSquadArray[i].anchor.setTo(0.5375, .5);
-      playerSquadArray[i].visible = true;
-      playerSquadArray[i].x = hexToPixelX(startingPlayerSquadArray[i].positionX)
-      playerSquadArray[i].y = hexToPixelY(startingPlayerSquadArray[i].positionX,startingPlayerSquadArray[i].positionY)
-      playerSquad.add(playerSquadArray[i]);
-      playerSquadArray[i].inputEnabled = true
-      playerSquadArray[i].events.onInputDown.add(makeMove, playerSquadArray[i])
+      playerSpriteArray[i] = game.add.sprite(0,0,"player");
+      playerSpriteArray[i].anchor.setTo(0.5375, .5);
+      playerSpriteArray[i].visible = true;
+      playerSpriteArray[i].x = hexToPixelX(startingPlayerSquadArray[i].positionX)
+      playerSpriteArray[i].y = hexToPixelY(startingPlayerSquadArray[i].positionX,startingPlayerSquadArray[i].positionY)
+      playerSquad.add(playerSpriteArray[i]);
+      playerSpriteArray[i].inputEnabled = true
+      playerSpriteArray[i].events.onInputDown.add(makeMove, playerSpriteArray[i])
     }
-    console.log(playerSquadArray)
+    console.log(playerSpriteArray)
   }
 
   function makeMove() {
@@ -201,6 +201,7 @@ firebase.initializeApp(config);
     var duration = 1000 //(game.physics.arcade.distanceToPointer(player, pointer) / 300) * 1000;
     tween = game.add.tween(currentSprite).to({ x: endX, y: endY }, duration, Phaser.Easing.Linear.None, true);
     game.input.onDown.remove(checkHex, currentSprite);
+    currentSprite.events.onInputDown.remove(makeMove, currentSprite)
   }
 
   // function placeMarker(posX,posY,pointer){
