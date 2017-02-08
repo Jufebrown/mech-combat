@@ -169,7 +169,7 @@ firebase.initializeApp(config);
       }
     }
     // placeMarker(candidateX,candidateY);
-    moveSprite (candidateX,candidateY)
+    moveSprite (candidateX,candidateY, currentSprite)
   }
 
 
@@ -191,11 +191,7 @@ firebase.initializeApp(config);
 
 
   //moves sprite to specified hex
-  function moveSprite (posX,posY) {
-    // if (tween && tween.isRunning) {
-    //   tween.stop();
-    // }
-
+  function moveSprite (posX,posY,currentSprite) {
     let endX = hexToPixelX(posX)
     let endY = hexToPixelY(posX,posY)
 
