@@ -128,6 +128,7 @@ window.onload = function() {
     // moveIndex = game.input.addMoveCallback(checkHex, this); //listener for mouse move
   }
 
+  //checks to see what hex the mouse pointer is over
   function checkHex(){
     var candidateX = Math.floor((game.input.worldX-hexagonGroup.x)/sectorWidth);
     var candidateY = Math.floor((game.input.worldY-hexagonGroup.y)/sectorHeight);
