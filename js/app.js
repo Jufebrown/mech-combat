@@ -1,3 +1,10 @@
+/****************************************************
+This is a turn-based strategy game that uses a hex grid
+map. The map uses odd-q offset coodinates
+****************************************************/
+
+
+
 // Initialize Firebase
 const config = {
   apiKey: "AIzaSyDnjSA0d_UhYUHmmLft9EV8pWtf14Dqgd8",
