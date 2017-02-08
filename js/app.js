@@ -160,19 +160,31 @@ window.onload = function() {
     moveSprite (candidateX,candidateY)
   }
 
+  function hexToPixelX(posX) {
+    let pixelX = hexagonWidth/4*3*posX+hexagonWidth/2;
+    return pixelX
+  }
+
+  function hexToPixelY(posX, posY) {
+    let pixelY = hexagonHeight*posY;
+    if(posX%2==0){
+      pixelY += hexagonHeight/2;
+    }
+    else{
+      pixelY += hexagonHeight;
+    }
+    return pixelY
+  }
+
+
+  //moves sprite to specified hex
   function moveSprite (posX,posY) {
     if (tween && tween.isRunning) {
       tween.stop();
     }
 
-    let endX = hexagonWidth/4*3*posX+hexagonWidth/2;
-    let endY = hexagonHeight*posY;
-    if(posX%2==0){
-      endY += hexagonHeight/2;
-    }
-    else{
-      endY += hexagonHeight;
-    }
+    let endX = hexToPixelX(posX)
+    let endY = hexToPixelY(posX,posY)
 
     // player.rotation = game.physics.arcade.angleToPointer(player, pointer);
 
