@@ -34,21 +34,22 @@ window.onload = function() {
 
   //for mouse position tracking
   const columns = [Math.ceil(gridSizeY/2),Math.floor(gridSizeY/2)];
-  var moveIndex;
-  var sectorWidth = hexagonWidth/4*3;
-  var sectorHeight = hexagonHeight;
-  var gradient = (hexagonWidth/4)/(hexagonHeight/2);
+  let moveIndex;
+  let sectorWidth = hexagonWidth/4*3;
+  let sectorHeight = hexagonHeight;
+  let gradient = (hexagonWidth/4)/(hexagonHeight/2);
 
   // var marker;
-  var hexagonGroup;
-  var playerSquad
-  var player
-  var enemy
-  var playerStartX = 10
-  var playerStartY = 13
-  var enemyStartX = 10
-  var enemyStartY = 0
-  var tween;
+  let hexagonGroup;
+  let playerSquad
+  const playerSquadArray
+  let player
+  let enemy
+  let playerStartX = 10
+  let playerStartY = 13
+  let enemyStartX = 10
+  let enemyStartY = 0
+  let tween;
 
   //preloads images
   function onPreload() {
