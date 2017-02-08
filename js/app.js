@@ -41,6 +41,7 @@ window.onload = function() {
 
   // var marker;
   var hexagonGroup;
+  var playerSquad
   var player
   var enemy
   var playerStartX = 10
@@ -60,6 +61,7 @@ window.onload = function() {
   function onCreate() {
     // adds hexagonGroup
     hexagonGroup = game.add.group();
+    playerSquad = game.add.group()
 
     //background color for whole canvas element
     game.stage.backgroundColor = "#ddd"
@@ -91,18 +93,15 @@ window.onload = function() {
     }
 
     //adds player
-    player = game.add.sprite(0,0,"player");
-    player.anchor.setTo(0.5375, .5);
-    player.visible = true;
-    player.x = hexagonWidth/4*3*playerStartX+hexagonWidth/2;
-    player.y = hexagonHeight*playerStartY;
-    if(playerStartX%2==0){
-      player.y += hexagonHeight/2;
-    }
-    else {
-      player.y += hexagonHeight;
-    }
-    hexagonGroup.add(player);
+    // player = game.add.sprite(0,0,"player");
+    // player.anchor.setTo(0.5375, .5);
+    // player.visible = true;
+    // player.x = hexToPixelX(playerStartX)
+    // player.y = hexToPixelY(playerStartX,playerStartY)
+    // hexagonGroup.add(player);
+    addPlayerSquad()
+    playerSquad.x = hexagonGroup.x
+    playerSquad.y = hexagonGroup.y
     game.input.onDown.add(checkHex, this); //listens for mouse clicks
 
     //adds enemy
@@ -110,14 +109,8 @@ window.onload = function() {
     enemy = game.add.sprite(0,0,"enemy");
     enemy.anchor.setTo(0.5375, .5);
     enemy.visible = true;
-    enemy.x = hexagonWidth/4*3*enemyStartX+hexagonWidth/2;
-    enemy.y = hexagonHeight*enemyStartY;
-    if(enemyStartX%2==0){
-      enemy.y += hexagonHeight/2;
-    }
-    else {
-      enemy.y += hexagonHeight;
-    }
+    enemy.x = hexToPixelX(enemyStartX)
+    enemy.y = hexToPixelY(enemyStartX,enemyStartY)
     hexagonGroup.add(enemy);
 
     //adds marker and hides it
@@ -126,6 +119,23 @@ window.onload = function() {
     // marker.visible=false;
     // hexagonGroup.add(marker); //adds marker to hexagonGroup
     // moveIndex = game.input.addMoveCallback(checkHex, this); //listener for mouse move
+  }
+
+  function addPlayerSquad() {
+    let playerSquadArray = [
+      {positionX: 10, positionY: 13},
+      {positionX: 4, positionY: 13},
+      {positionX: 18, positionY: 13}
+      ]
+
+    for(var i = 0, length1 = playerSquadArray.length; i < length1; i++){
+      let squaddie = game.add.sprite(0,0,"player");
+      squaddie.anchor.setTo(0.5375, .5);
+      squaddie.visible = true;
+      squaddie.x = hexToPixelX(playerSquadArray[i].positionX)
+      squaddie.y = hexToPixelY(playerSquadArray[i].positionX,playerSquadArray[i].positionY)
+      playerSquad.add(squaddie);
+    }
   }
 
   //checks to see what hex the mouse pointer is over
@@ -160,6 +170,7 @@ window.onload = function() {
     moveSprite (candidateX,candidateY)
   }
 
+
   function hexToPixelX(posX) {
     let pixelX = hexagonWidth/4*3*posX+hexagonWidth/2;
     return pixelX
@@ -179,9 +190,9 @@ window.onload = function() {
 
   //moves sprite to specified hex
   function moveSprite (posX,posY) {
-    if (tween && tween.isRunning) {
-      tween.stop();
-    }
+    // if (tween && tween.isRunning) {
+    //   tween.stop();
+    // }
 
     let endX = hexToPixelX(posX)
     let endY = hexToPixelY(posX,posY)
