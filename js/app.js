@@ -34,15 +34,19 @@ window.onload = function() {
   var marker;
   var hexagonGroup;
   var player
+  var enemy
   var playerStartX = 10
   var playerStartY = 13
+  var enemyStartX = 10
+  var enemyStartY = 0
   var tween;
 
   //preloads images
   function onPreload() {
     game.load.image("hexagon", "images/hexagon.png");
-    game.load.image("marker", "images/marker.png");
+    // game.load.image("marker", "images/marker.png");
     game.load.image("player", "images/player_ph.png")
+    game.load.image("enemy", "images/enemy_ph.png")
   }
 
   function onCreate() {
@@ -80,7 +84,7 @@ window.onload = function() {
 
     //adds player
     player = game.add.sprite(0,0,"player");
-    player.anchor.setTo(0.5375);
+    player.anchor.setTo(0.5375, .5);
     player.visible = true;
     player.x = hexagonWidth/4*3*playerStartX+hexagonWidth/2;
     player.y = hexagonHeight*playerStartY;
@@ -91,13 +95,28 @@ window.onload = function() {
       player.y += hexagonHeight;
     }
     hexagonGroup.add(player);
-    game.input.onDown.add(checkHex, this);
+    game.input.onDown.add(checkHex, this); //listens for mouse clicks
+
+    //adds enemy
+     //adds player
+    enemy = game.add.sprite(0,0,"enemy");
+    enemy.anchor.setTo(0.5375, .5);
+    enemy.visible = true;
+    enemy.x = hexagonWidth/4*3*enemyStartX+hexagonWidth/2;
+    enemy.y = hexagonHeight*enemyStartY;
+    if(enemyStartX%2==0){
+      enemy.y += hexagonHeight/2;
+    }
+    else {
+      enemy.y += hexagonHeight;
+    }
+    hexagonGroup.add(enemy);
 
     //adds marker and hides it
-    marker = game.add.sprite(0,0,"marker");
-    marker.anchor.setTo(0.5);
-    marker.visible=false;
-    hexagonGroup.add(marker); //adds marker to hexagonGroup
+    // marker = game.add.sprite(0,0,"marker");
+    // marker.anchor.setTo(0.5);
+    // marker.visible=false;
+    // hexagonGroup.add(marker); //adds marker to hexagonGroup
     // moveIndex = game.input.addMoveCallback(checkHex, this); //listener for mouse move
   }
 
@@ -128,7 +147,7 @@ window.onload = function() {
         }
       }
     }
-    placeMarker(candidateX,candidateY);
+    // placeMarker(candidateX,candidateY);
     moveSprite (candidateX,candidateY)
   }
 
@@ -153,20 +172,20 @@ window.onload = function() {
     tween = game.add.tween(player).to({ x: endX, y: endY }, duration, Phaser.Easing.Linear.None, true);
   }
 
-  function placeMarker(posX,posY,pointer){
-    if(posX<0 || posY<0 || posX>=gridSizeX || posY>columns[posX%2]-1){
-      marker.visible=false;
-    }
-    else{
-      marker.visible=true;
-      marker.x = hexagonWidth/4*3*posX+hexagonWidth/2;
-      marker.y = hexagonHeight*posY;
-      if(posX%2==0){
-        marker.y += hexagonHeight/2;
-      }
-      else{
-        marker.y += hexagonHeight;
-      }
-    }
-  }
+  // function placeMarker(posX,posY,pointer){
+  //   if(posX<0 || posY<0 || posX>=gridSizeX || posY>columns[posX%2]-1){
+  //     marker.visible=false;
+  //   }
+  //   else{
+  //     marker.visible=true;
+  //     marker.x = hexagonWidth/4*3*posX+hexagonWidth/2;
+  //     marker.y = hexagonHeight*posY;
+  //     if(posX%2==0){
+  //       marker.y += hexagonHeight/2;
+  //     }
+  //     else{
+  //       marker.y += hexagonHeight;
+  //     }
+  //   }
+  // }
 }
