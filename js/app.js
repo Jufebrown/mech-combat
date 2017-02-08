@@ -91,18 +91,12 @@ window.onload = function() {
     if(gridSizeX%2==0){
       hexagonGroup.x-=hexagonWidth/8;
     }
-
-    //adds player
-    // player = game.add.sprite(0,0,"player");
-    // player.anchor.setTo(0.5375, .5);
-    // player.visible = true;
-    // player.x = hexToPixelX(playerStartX)
-    // player.y = hexToPixelY(playerStartX,playerStartY)
-    // hexagonGroup.add(player);
-    addPlayerSquad()
+    //gives same position to playerSquad
     playerSquad.x = hexagonGroup.x
     playerSquad.y = hexagonGroup.y
-    game.input.onDown.add(checkHex, this); //listens for mouse clicks
+
+    addPlayerSquad()
+    // game.input.onDown.add(checkHex, this); //listens for mouse clicks
 
     //adds enemy
      //adds player
@@ -135,8 +129,12 @@ window.onload = function() {
       squaddie.x = hexToPixelX(playerSquadArray[i].positionX)
       squaddie.y = hexToPixelY(playerSquadArray[i].positionX,playerSquadArray[i].positionY)
       playerSquad.add(squaddie);
+      squaddie.inputEnabled = true
+      squaddie.events.onInputOver.add(makeMove, this)
     }
   }
+
+
 
   //checks to see what hex the mouse pointer is over
   function checkHex(){
