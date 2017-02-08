@@ -98,7 +98,6 @@ firebase.initializeApp(config);
     // game.input.onDown.add(checkHex, this); //listens for mouse clicks
 
     //adds enemy
-     //adds player
     enemy = game.add.sprite(0,0,"enemy");
     enemy.anchor.setTo(0.5375, .5);
     enemy.visible = true;
@@ -121,22 +120,29 @@ firebase.initializeApp(config);
       {positionX: 18, positionY: 13}
       ]
 
-    for(var i = 0, length1 = startingplayerSquadArray.length; i < length1; i++){
-      squaddie = game.add.sprite(0,0,"player");
-      squaddie.anchor.setTo(0.5375, .5);
-      squaddie.visible = true;
-      squaddie.x = hexToPixelX(startingPlayerSquadArray[i].positionX)
-      squaddie.y = hexToPixelY(startingPlayerSquadArray[i].positionX,startingPlayerSquadArray[i].positionY)
-      playerSquad.add(squaddie);
-      squaddie.inputEnabled = true
-      squaddie.events.onInputOver.add(makeMove, this)
+    for(var i = 0, length1 = startingPlayerSquadArray.length; i < length1; i++){
+      playerSquadArray[i] = game.add.sprite(0,0,"player");
+      playerSquadArray[i].anchor.setTo(0.5375, .5);
+      playerSquadArray[i].visible = true;
+      playerSquadArray[i].x = hexToPixelX(startingPlayerSquadArray[i].positionX)
+      playerSquadArray[i].y = hexToPixelY(startingPlayerSquadArray[i].positionX,startingPlayerSquadArray[i].positionY)
+      playerSquad.add(playerSquadArray[i]);
+      playerSquadArray[i].inputEnabled = true
+      playerSquadArray[i].events.onInputDown.add(makeMove, playerSquadArray[i])
     }
+    console.log(playerSquadArray)
   }
 
+  function makeMove() {
+    console.log(this + " was clicked")
+
+    game.input.onDown.add(checkHex, this); //listens for mouse clicks
+  }
 
 
   //checks to see what hex the mouse pointer is over
   function checkHex(){
+    let currentSprite = this
     var candidateX = Math.floor((game.input.worldX-hexagonGroup.x)/sectorWidth);
     var candidateY = Math.floor((game.input.worldY-hexagonGroup.y)/sectorHeight);
     var deltaX = (game.input.worldX-hexagonGroup.x)%sectorWidth;
