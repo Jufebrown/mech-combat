@@ -34,8 +34,11 @@ window.onload = function() {
   var marker;
   var hexagonGroup;
   var player
+  var enemy
   var playerStartX = 10
   var playerStartY = 13
+  var enemyStartX = 10
+  var enemyStartY = 0
   var tween;
 
   //preloads images
@@ -43,6 +46,7 @@ window.onload = function() {
     game.load.image("hexagon", "images/hexagon.png");
     // game.load.image("marker", "images/marker.png");
     game.load.image("player", "images/player_ph.png")
+    game.load.image("enemy", "images/enemy_ph.png")
   }
 
   function onCreate() {
@@ -91,7 +95,22 @@ window.onload = function() {
       player.y += hexagonHeight;
     }
     hexagonGroup.add(player);
-    game.input.onDown.add(checkHex, this);
+    game.input.onDown.add(checkHex, this); //listens for mouse clicks
+
+    //adds enemy
+     //adds player
+    enemy = game.add.sprite(0,0,"enemy");
+    enemy.anchor.setTo(0.5375, .5);
+    enemy.visible = true;
+    enemy.x = hexagonWidth/4*3*enemyStartX+hexagonWidth/2;
+    enemy.y = hexagonHeight*enemyStartY;
+    if(enemyStartX%2==0){
+      enemy.y += hexagonHeight/2;
+    }
+    else {
+      enemy.y += hexagonHeight;
+    }
+    hexagonGroup.add(enemy);
 
     //adds marker and hides it
     // marker = game.add.sprite(0,0,"marker");
