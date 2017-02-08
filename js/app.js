@@ -199,7 +199,8 @@ firebase.initializeApp(config);
 
     //  300 = 300 pixels per second = the speed the sprite will move at, regardless of the distance it has to travel
     var duration = 1000 //(game.physics.arcade.distanceToPointer(player, pointer) / 300) * 1000;
-    tween = game.add.tween(player).to({ x: endX, y: endY }, duration, Phaser.Easing.Linear.None, true);
+    tween = game.add.tween(currentSprite).to({ x: endX, y: endY }, duration, Phaser.Easing.Linear.None, true);
+    game.input.onDown.remove(checkHex, currentSprite);
   }
 
   // function placeMarker(posX,posY,pointer){
