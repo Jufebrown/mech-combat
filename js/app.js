@@ -45,8 +45,6 @@ window.onload = function() {
   const playerSquadArray
   let player
   let enemy
-  let playerStartX = 10
-  let playerStartY = 13
   let enemyStartX = 10
   let enemyStartY = 0
   let tween;
