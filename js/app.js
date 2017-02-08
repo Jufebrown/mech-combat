@@ -151,7 +151,6 @@ firebase.initializeApp(config);
       if(deltaX<((hexagonWidth/4)-deltaY*gradient)){
         candidateX--;
         candidateY--;
-        // console.log('candidateY', candidateY)
       }
       if(deltaX<((-hexagonWidth/4)+deltaY*gradient)){
         candidateX--;
