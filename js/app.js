@@ -11,11 +11,11 @@ firebase.initializeApp(config);
 
 
 
-
 window.onload = function() {
 
   //starts new canvas
-  var game = new Phaser.Game(640, 480, Phaser.CANVAS, "", {preload: onPreload, create: onCreate, update: onUpdate});
+  var game = new Phaser.Game(640, 480, Phaser.CANVAS, "", {preload: onPreload, create: onCreate,});
+
 
   //sets up hex width and height. height should be sqrt(3)/2 of width but need to tweek to get spacing right
   var hexagonHeight = 32;
@@ -36,6 +36,7 @@ window.onload = function() {
   var player
   var playerStartX = 10
   var playerStartY = 13
+  var tween;
 
   //preloads images
   function onPreload() {
@@ -50,6 +51,8 @@ window.onload = function() {
 
     //background color for whole canvas element
     game.stage.backgroundColor = "#ddd"
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
 
     // loops through and adds rows and columns of hexes to hexagonGroup
     for(var i = 0; i < gridSizeX/2; i ++) {
@@ -88,13 +91,14 @@ window.onload = function() {
       player.y += hexagonHeight;
     }
     hexagonGroup.add(player);
+    game.input.onDown.add(checkHex, this);
 
     //adds marker and hides it
     marker = game.add.sprite(0,0,"marker");
     marker.anchor.setTo(0.5);
     marker.visible=false;
     hexagonGroup.add(marker); //adds marker to hexagonGroup
-    moveIndex = game.input.addMoveCallback(checkHex, this); //listener for mouse move
+    // moveIndex = game.input.addMoveCallback(checkHex, this); //listener for mouse move
   }
 
   function checkHex(){
@@ -125,9 +129,31 @@ window.onload = function() {
       }
     }
     placeMarker(candidateX,candidateY);
+    moveSprite (candidateX,candidateY)
   }
 
-  function placeMarker(posX,posY){
+  function moveSprite (posX,posY) {
+    if (tween && tween.isRunning) {
+      tween.stop();
+    }
+
+    let endX = hexagonWidth/4*3*posX+hexagonWidth/2;
+    let endY = hexagonHeight*posY;
+    if(posX%2==0){
+      endY += hexagonHeight/2;
+    }
+    else{
+      endY += hexagonHeight;
+    }
+
+    // player.rotation = game.physics.arcade.angleToPointer(player, pointer);
+
+    //  300 = 300 pixels per second = the speed the sprite will move at, regardless of the distance it has to travel
+    var duration = 1000 //(game.physics.arcade.distanceToPointer(player, pointer) / 300) * 1000;
+    tween = game.add.tween(player).to({ x: endX, y: endY }, duration, Phaser.Easing.Linear.None, true);
+  }
+
+  function placeMarker(posX,posY,pointer){
     if(posX<0 || posY<0 || posX>=gridSizeX || posY>columns[posX%2]-1){
       marker.visible=false;
     }
@@ -143,25 +169,4 @@ window.onload = function() {
       }
     }
   }
-
-  //moves player with arrow keys
-  function onUpdate() {
-    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
-    {
-        player.x -= 4;
-    }
-    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
-    {
-        player.x += 4;
-    }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
-    {
-        player.y -= 4;
-    }
-    else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN))
-    {
-        player.y += 4;
-    }
-  }
-
 }
