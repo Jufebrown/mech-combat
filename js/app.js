@@ -18,27 +18,28 @@ firebase.initializeApp(config);
 
 
 
+
 window.onload = function() {
 
   //starts new canvas
-  var game = new Phaser.Game(640, 480, Phaser.CANVAS, "", {preload: onPreload, create: onCreate,});
+  const game = new Phaser.Game(640, 480, Phaser.CANVAS, "", {preload: onPreload, create: onCreate,});
 
 
   //sets up hex width and height. height should be sqrt(3)/2 of width but need to tweek to get spacing right
-  var hexagonHeight = 32;
-  var hexagonWidth = 34;
+  const hexagonHeight = 32;
+  const hexagonWidth = 34;
   //number of hexes x and y
-  var gridSizeX = 24;
-  var gridSizeY = 29;
+  const gridSizeX = 24;
+  const gridSizeY = 29;
 
   //for mouse position tracking
-  var columns = [Math.ceil(gridSizeY/2),Math.floor(gridSizeY/2)];
+  const columns = [Math.ceil(gridSizeY/2),Math.floor(gridSizeY/2)];
   var moveIndex;
   var sectorWidth = hexagonWidth/4*3;
   var sectorHeight = hexagonHeight;
   var gradient = (hexagonWidth/4)/(hexagonHeight/2);
 
-  var marker;
+  // var marker;
   var hexagonGroup;
   var player
   var enemy
