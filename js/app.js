@@ -11,11 +11,11 @@ firebase.initializeApp(config);
 
 
 
-
 window.onload = function() {
 
   //starts new canvas
-  var game = new Phaser.Game(640, 480, Phaser.CANVAS, "", {preload: onPreload, create: onCreate, update: onUpdate});
+  var game = new Phaser.Game(640, 480, Phaser.CANVAS, "", {preload: onPreload, create: onCreate,});
+
 
   //sets up hex width and height. height should be sqrt(3)/2 of width but need to tweek to get spacing right
   var hexagonHeight = 32;
@@ -36,6 +36,7 @@ window.onload = function() {
   var player
   var playerStartX = 10
   var playerStartY = 13
+  var tween;
 
   //preloads images
   function onPreload() {
@@ -50,6 +51,8 @@ window.onload = function() {
 
     //background color for whole canvas element
     game.stage.backgroundColor = "#ddd"
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
 
     // loops through and adds rows and columns of hexes to hexagonGroup
     for(var i = 0; i < gridSizeX/2; i ++) {
@@ -88,6 +91,7 @@ window.onload = function() {
       player.y += hexagonHeight;
     }
     hexagonGroup.add(player);
+    game.input.onDown.add(moveSprite, this);
 
     //adds marker and hides it
     marker = game.add.sprite(0,0,"marker");
@@ -127,6 +131,18 @@ window.onload = function() {
     placeMarker(candidateX,candidateY);
   }
 
+  function moveSprite (pointer) {
+    if (tween && tween.isRunning) {
+      tween.stop();
+    }
+
+    player.rotation = game.physics.arcade.angleToPointer(player, pointer);
+
+    //  300 = 300 pixels per second = the speed the sprite will move at, regardless of the distance it has to travel
+    var duration = (game.physics.arcade.distanceToPointer(player, pointer) / 300) * 1000;
+    tween = game.add.tween(player).to({ x: pointer.x, y: pointer.y }, duration, Phaser.Easing.Linear.None, true);
+  }
+
   function placeMarker(posX,posY){
     if(posX<0 || posY<0 || posX>=gridSizeX || posY>columns[posX%2]-1){
       marker.visible=false;
@@ -143,25 +159,4 @@ window.onload = function() {
       }
     }
   }
-
-  //moves player with arrow keys
-  function onUpdate() {
-    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
-    {
-        player.x -= 4;
-    }
-    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
-    {
-        player.x += 4;
-    }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
-    {
-        player.y -= 4;
-    }
-    else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN))
-    {
-        player.y += 4;
-    }
-  }
-
 }
