@@ -42,7 +42,7 @@ firebase.initializeApp(config);
   // var marker;
   let hexagonGroup;
   let playerSquad
-  const playerSquadArray
+  const playerSquadArray = []
   let player
   let enemy
   let enemyStartX = 10
