@@ -143,10 +143,10 @@ firebase.initializeApp(config);
   //checks to see what hex the mouse pointer is over
   function checkHex(){
     let currentSprite = this
-    var candidateX = Math.floor((game.input.worldX-hexagonGroup.x)/sectorWidth);
-    var candidateY = Math.floor((game.input.worldY-hexagonGroup.y)/sectorHeight);
-    var deltaX = (game.input.worldX-hexagonGroup.x)%sectorWidth;
-    var deltaY = (game.input.worldY-hexagonGroup.y)%sectorHeight;
+    let candidateX = Math.floor((game.input.worldX-hexagonGroup.x)/sectorWidth);
+    let candidateY = Math.floor((game.input.worldY-hexagonGroup.y)/sectorHeight);
+    let deltaX = (game.input.worldX-hexagonGroup.x)%sectorWidth;
+    let deltaY = (game.input.worldY-hexagonGroup.y)%sectorHeight;
     if(candidateX%2==0){
       if(deltaX<((hexagonWidth/4)-deltaY*gradient)){
         candidateX--;
