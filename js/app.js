@@ -121,31 +121,60 @@ function addPlayerSquad() {
     playerSquad.add(playerSpriteArray[i]);
     playerSpriteArray[i].inputEnabled = true
     playerSpriteArray[i].events.onInputDown.add(makeMove, playerSpriteArray[i])
+    playerSpriteArray[i].events.onInputDown.add(getMoveRange, playerSpriteArray[i])
   }
 }
 
 function cubeToOffset(x,z) {
-  let offsetCoordinates = {}
+  const offsetCoordinates = {}
   offsetCoordinates.col = x
   offsetCoordinates.row = z + (x - (x&1)) / 2
   return offsetCoordinates
 }
 
 function offsetToCube (row,col) {
-  let cubeCoordinates = {}
+  const cubeCoordinates = {}
   cubeCoordinates.x = col
   cubeCoordinates.z = row - (col - (col&1)) / 2
   cubeCoordinates.y = -cubeCoordinates.x-cubeCoordinates.z
+  return cubeCoordinates
 }
 
 function cubeDistance(a, b) {
-  return (Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z)) / 2
+  return Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y), Math.abs(a.z - b.z))
 }
 
 function offset_distance(a, b){
-  var ac = offsetToCube(a)
-  var bc = offsetToCube(b)
+  let ac = offsetToCube(a)
+  let bc = offsetToCube(b)
   return cubeDistance(ac, bc)
+}
+
+
+function rangeCalc(startCubePosition, nRange) {
+  let rangeResults = []
+  let xMin = startCubePosition.x-nRange
+  let xMax = startCubePosition.x+nRange
+  let yMin = startCubePosition.y-nRange
+  let yMax = startCubePosition.y+nRange
+  let zMin = startCubePosition.z-nRange
+  let zMax = startCubePosition.z+nRange
+  let i = 0
+  for (let x = xMin; x <= xMax; x++) {
+    for (let y = Math.max(yMin, -x-zMax); y <= Math.min(yMax, -x-zMin); y++) {
+        var z = -x-y;
+        rangeResults[i] = {x: x, y: y, z: z,};
+        i++
+    }
+  }
+  console.log(rangeResults)
+  return rangeResults
+}
+
+function getMoveRange(posX,posY) {
+  let startCubePosition = offsetToCube(hexPosition().x,hexPosition().y)
+  let nRange = 3
+  let cubeMoveRange = rangeCalc(startCubePosition, nRange)
 }
 
 
