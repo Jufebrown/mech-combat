@@ -122,55 +122,32 @@ function addPlayerSquad() {
     playerSpriteArray[i].inputEnabled = true
     playerSpriteArray[i].events.onInputDown.add(makeMove, playerSpriteArray[i])
   }
-  console.log(playerSpriteArray)
 }
 
-function makeMove() {
-  console.log(this + " was clicked")
-
-  game.input.onDown.add(checkHex, this); //listens for mouse clicks
+function cubeToOffset(x,z) {
+  let offsetCoordinates = {}
+  offsetCoordinates.col = x
+  offsetCoordinates.row = z + (x - (x&1)) / 2
+  return offsetCoordinates
 }
 
-
-
-//checks to see what hex the mouse pointer is over
-function checkHex(){
-  let currentSprite = this
-  // placeMarker(candidateX,candidateY);
-  moveSprite (hexPosition().candidateX, hexPosition().candidateY, currentSprite)
+function offsetToCube (row,col) {
+  let cubeCoordinates = {}
+  cubeCoordinates.x = col
+  cubeCoordinates.z = row - (col - (col&1)) / 2
+  cubeCoordinates.y = -cubeCoordinates.x-cubeCoordinates.z
 }
 
-
-function hexToPixelX(posX) {
-  let pixelX = hexagonWidth/4*3*posX+hexagonWidth/2;
-  return pixelX
+function cubeDistance(a, b) {
+  return (Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z)) / 2
 }
 
-function hexToPixelY(posX, posY) {
-  let pixelY = hexagonHeight*posY;
-  if(posX%2==0){
-    pixelY += hexagonHeight/2;
-  }
-  else{
-    pixelY += hexagonHeight;
-  }
-  return pixelY
+function offset_distance(a, b){
+  var ac = offsetToCube(a)
+  var bc = offsetToCube(b)
+  return cubeDistance(ac, bc)
 }
 
-
-//moves sprite to specified hex
-function moveSprite (posX,posY,currentSprite) {
-  let endX = hexToPixelX(posX)
-  let endY = hexToPixelY(posX,posY)
-
-  // player.rotation = game.physics.arcade.angleToPointer(player, pointer);
-
-  //  300 = 300 pixels per second = the speed the sprite will move at, regardless of the distance it has to travel
-  var duration = 1000 //(game.physics.arcade.distanceToPointer(player, pointer) / 300) * 1000;
-  tween = game.add.tween(currentSprite).to({ x: endX, y: endY }, duration, Phaser.Easing.Linear.None, true);
-  game.input.onDown.remove(checkHex, currentSprite);
-  currentSprite.events.onInputDown.remove(makeMove, currentSprite)
-}
 
 // function placeMarker(posX,posY,pointer){
 //   if(posX<0 || posY<0 || posX>=gridSizeX || posY>columns[posX%2]-1){
