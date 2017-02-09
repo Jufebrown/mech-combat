@@ -47,7 +47,7 @@ let tween;
 //preloads images
 function onPreload() {
   game.load.image("hexagon", "images/hexagon.png");
-  // game.load.image("marker", "images/marker.png");
+  game.load.image("highlight", "images/highlight.png");
   game.load.image("player", "images/player_ph.png")
   game.load.image("enemy", "images/enemy_ph.png")
 }
