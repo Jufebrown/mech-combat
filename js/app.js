@@ -37,7 +37,8 @@ let gradient = (hexagonWidth/4)/(hexagonHeight/2);
 let hexagonGroup;
 let playerSquad
 const playerSpriteArray = []
-let player
+const highlightSpriteArray = []
+// let player
 let enemy
 let enemyStartX = 10
 let enemyStartY = 0
