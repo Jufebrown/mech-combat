@@ -15,8 +15,8 @@ function moveSprite (posX,posY,currentSprite) {
 //checks to see what hex the mouse pointer is over and sends info to moveSprite()
 function checkHex(){
   let currentSprite = this
-  // placeMarker(candidateX,candidateY);
-  moveSprite (hexPosition().candidateX, hexPosition().candidateY, currentSprite)
+  // placeMarker(x,y);
+  moveSprite (hexPosition().x, hexPosition().y, currentSprite)
 }
 
 function makeMove() {
