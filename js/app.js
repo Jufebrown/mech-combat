@@ -176,22 +176,19 @@ function getMoveRange(posX,posY) {
   let startCubePosition = offsetToCube(hexPosition().x,hexPosition().y)
   let nRange = 3
   let cubeMoveRange = rangeCalc(startCubePosition, nRange)
+  highlightPossibleMoves(cubeMoveRange)
 }
 
-
-// function placeMarker(posX,posY,pointer){
-//   if(posX<0 || posY<0 || posX>=gridSizeX || posY>columns[posX%2]-1){
-//     marker.visible=false;
-//   }
-//   else{
-//     marker.visible=true;
-//     marker.x = hexagonWidth/4*3*posX+hexagonWidth/2;
-//     marker.y = hexagonHeight*posY;
-//     if(posX%2==0){
-//       marker.y += hexagonHeight/2;
-//     }
-//     else{
-//       marker.y += hexagonHeight;
-//     }
-//   }
-// }
+function highlightPossibleMoves(cubeMoveRange) {
+  for(var i = 0, length1 = cubeMoveRange.length; i < length1; i++){
+    highlightSpriteArray[i] = game.add.sprite(0,0,"player");
+    highlightSpriteArray[i].anchor.setTo(0.5375, .5);
+    highlightSpriteArray[i].visible = true;
+    highlightSpriteArray[i].x = hexToPixelX(cubeMoveRange[i].positionX)
+    highlightSpriteArray[i].y = hexToPixelY(cubeMoveRange[i].positionX,cubeMoveRange[i].positionY)
+    playerSquad.add(highlightSpriteArray[i]);
+    highlightSpriteArray[i].inputEnabled = true
+    highlightSpriteArray[i].events.onInputDown.add(makeMove, highlightSpriteArray[i])
+    highlightSpriteArray[i].events.onInputDown.add(getMoveRange, highlightSpriteArray[i])
+  }
+}
