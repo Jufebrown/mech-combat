@@ -19,7 +19,6 @@ firebase.initializeApp(config);
 //starts new canvas
 const game = new Phaser.Game(640, 480, Phaser.CANVAS, "", {preload: onPreload, create: onCreate,});
 
-
 //sets up hex width and height. height should be sqrt(3)/2 of width but need to tweek to get spacing right
 const hexagonHeight = 32;
 const hexagonWidth = 34;
@@ -60,7 +59,6 @@ function onCreate() {
   //background color for whole canvas element
   game.stage.backgroundColor = "#ddd"
   game.physics.startSystem(Phaser.Physics.ARCADE);
-
 
   // loops through and adds rows and columns of hexes to hexagonGroup
   for(var i = 0; i < gridSizeX/2; i ++) {
@@ -133,36 +131,7 @@ function makeMove() {
   game.input.onDown.add(checkHex, this); //listens for mouse clicks
 }
 
-//finds x,y odd-q coordinates based on mouse position returns object
-function hexPosition() {
-  let hexPositionObj = {}
-  hexPositionObj.candidateX = Math.floor((game.input.worldX-hexagonGroup.x)/sectorWidth);
-  hexPositionObj.candidateY = Math.floor((game.input.worldY-hexagonGroup.y)/sectorHeight);
-  let deltaX = (game.input.worldX-hexagonGroup.x)%sectorWidth;
-  let deltaY = (game.input.worldY-hexagonGroup.y)%sectorHeight;
-  if(hexPositionObj.candidateX%2==0){
-    if(deltaX<((hexagonWidth/4)-deltaY*gradient)){
-      hexPositionObj.candidateX--;
-      hexPositionObj.candidateY--;
-    }
-    if(deltaX<((-hexagonWidth/4)+deltaY*gradient)){
-      hexPositionObj.candidateX--;
-    }
-  } else {
-    if(deltaY>=hexagonHeight/2) {
-      if(deltaX<(hexagonWidth/2-deltaY*gradient)){
-        hexPositionObj.candidateX--;
-      }
-    } else {
-      if(deltaX<deltaY*gradient){
-        hexPositionObj.candidateX--;
-      } else {
-        hexPositionObj.candidateY--;
-      }
-    }
-  }
-  return hexPositionObj
-}
+
 
 //checks to see what hex the mouse pointer is over
 function checkHex(){
