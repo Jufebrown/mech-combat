@@ -31,6 +31,7 @@ const gridSizeY = 29;
 
 //for mouse position tracking
 const columns = [Math.ceil(gridSizeY/2),Math.floor(gridSizeY/2)];
+
 let moveIndex;
 let sectorWidth = hexagonWidth/4*3;
 let sectorHeight = hexagonHeight;
@@ -39,21 +40,21 @@ let hexagonGroup;
 let highlightGroup
 let playerSquad
 let enemySquad
-let highlightSpriteArray = []
 let tween;
 let currentSprite
 let currentHex
 
-
 //preloads images
 function onPreload() {
-  game.load.image("hexagon", "images/hexagon.png");
-  game.load.image("highlight", "images/highlight.png");
-  game.load.image("player", "images/player_ph.png")
-  game.load.image("enemy", "images/enemy_ph.png")
+  game.load.image("hexagon", "images/map_tiles/hexagon.png");
+  game.load.image("highlight", "images/map_tiles/highlight.png");
+  game.load.image("player", "images/mechs/player_ph.png")
+  game.load.image("enemy", "images/mechs/enemy_ph.png")
 }
 
 function onCreate() {
+  game.world.setBounds(0, 0, 800, 600);
+
   // adds hexagonGroup
   hexagonGroup = game.add.group();
   playerSquad = game.add.group()
