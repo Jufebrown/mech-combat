@@ -23,7 +23,7 @@ const game = new Phaser.Game(640, 480, Phaser.CANVAS, "", {preload: onPreload, c
 const hexagonHeight = 32;
 const hexagonWidth = 34;
 //number of hexes x and y
-const gridSizeX = 24;
+const gridSizeX = 25;
 const gridSizeY = 29;
 
 //for mouse position tracking
@@ -59,8 +59,10 @@ function onCreate() {
   enemySquad = game.add.group()
 
   //background color for whole canvas element
-  game.stage.backgroundColor = "#ddd"
+  game.stage.backgroundColor = "#b3c2d8"
   game.physics.startSystem(Phaser.Physics.ARCADE);
+  game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+
 
   // loops through and adds rows and columns of hexes to hexagonGroup
   for(var i = 0; i < gridSizeX/2; i ++) {
@@ -91,7 +93,20 @@ function onCreate() {
 
   addPlayerSquad()
   addEnemySquad()
-  console.log(playerSquad)
+  game.input.onDown.add(gofull, this);
+  this.camera.flash('#000000', 2000);
+}
+
+//fullscreen function
+function gofull() {
+    if (game.scale.isFullScreen)
+    {
+        game.scale.stopFullScreen();
+    }
+    else
+    {
+        game.scale.startFullScreen(false);
+    }
 }
 
 function addPlayerSquad() {
@@ -101,7 +116,7 @@ function addPlayerSquad() {
     {positionX: 18, positionY: 13}
     ]
 
-  for(var i = 0, length1 = startingPlayerSquadArray.length; i < length1; i++){
+  for(let i = 0, length1 = startingPlayerSquadArray.length; i < length1; i++){
     let startX = hexToPixelX(startingPlayerSquadArray[i].positionX)
     let startY = hexToPixelY(startingPlayerSquadArray[i].positionX,startingPlayerSquadArray[i].positionY)
     new Scout(game, startX, startY)
@@ -117,9 +132,10 @@ function addEnemySquad() {
     {positionX: 18, positionY: 0}
     ]
 
-  for(var i = 0, length1 = startingEnemySquadArray.length; i < length1; i++){
+  for(let i = 0, length1 = startingEnemySquadArray.length; i < length1; i++){
     let startX = hexToPixelX(startingEnemySquadArray[i].positionX)
     let startY = hexToPixelY(startingEnemySquadArray[i].positionX,startingEnemySquadArray[i].positionY)
     new EnemyScout(game, startX, startY)
+    enemySquad.children[i].anchor.setTo(.6,.5);
   }
 }

@@ -10,7 +10,6 @@ EnemyScout = function(game,x,y) {
   this.weaponRange = 2
   this.health = Math.floor((Math.random() * 50) + 200)
   this.damage = Math.floor((Math.random() * 50) + 200)
-  this.anchor.setTo(.25,.4);
   this.visible = true
   enemySquad.add(this);
 };
