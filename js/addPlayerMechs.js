@@ -10,6 +10,5 @@ function addPlayerSquad() {
     let startY = hexToPixelY(startingPlayerSquadArray[i].positionX,startingPlayerSquadArray[i].positionY)
     new Scout(game, startX, startY)
     playerSquad.children[i].inputEnabled = true
-    playerSquad.children[i].events.onInputDown.add(getMoveRange, playerSquad.children[i])
   }
 }
