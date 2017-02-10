@@ -111,14 +111,14 @@ function onCreate() {
 
 function addPlayerSquad() {
   let startingPlayerSquadArray = [
-    {positionX: 10, positionY: 8},
-    {positionX: 4, positionY: 8},
-    {positionX: 18, positionY: 8}
+    {positionX: 10, positionY: 13},
+    {positionX: 4, positionY: 13},
+    {positionX: 18, positionY: 13}
     ]
 
   for(var i = 0, length1 = startingPlayerSquadArray.length; i < length1; i++){
     playerSpriteArray[i] = game.add.sprite(0,0,"player");
-    playerSpriteArray[i].anchor.setTo(0.5375, .5);
+    playerSpriteArray[i].anchor.setTo(0.5375, .5)
     playerSpriteArray[i].visible = true;
     playerSpriteArray[i].x = hexToPixelX(startingPlayerSquadArray[i].positionX)
     playerSpriteArray[i].y = hexToPixelY(startingPlayerSquadArray[i].positionX,startingPlayerSquadArray[i].positionY)
@@ -126,49 +126,4 @@ function addPlayerSquad() {
     playerSpriteArray[i].inputEnabled = true
     playerSpriteArray[i].events.onInputDown.add(getMoveRange, playerSpriteArray[i])
   }
-}
-
-function cubeToOffset(x,z) {
-  let offsetCoordinates = {}
-  offsetCoordinates.col = x
-  offsetCoordinates.row = z + (x - (x&1)) / 2
-  return offsetCoordinates
-}
-
-function offsetToCube (col, row) {
-  let cubeCoordinates = {}
-  cubeCoordinates.x = col
-  cubeCoordinates.z = row - (col - (col&1)) / 2
-  cubeCoordinates.y = -cubeCoordinates.x-cubeCoordinates.z
-  return cubeCoordinates
-}
-
-function cubeDistance(a, b) {
-  return Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y), Math.abs(a.z - b.z))
-}
-
-function offset_distance(a, b){
-  let ac = offsetToCube(a)
-  let bc = offsetToCube(b)
-  return cubeDistance(ac, bc)
-}
-
-
-function rangeCalc(startCubePosition, nRange) {
-  let rangeResults = []
-  let xMin = startCubePosition.x-nRange
-  let xMax = startCubePosition.x+nRange
-  let yMin = startCubePosition.y-nRange
-  let yMax = startCubePosition.y+nRange
-  let zMin = startCubePosition.z-nRange
-  let zMax = startCubePosition.z+nRange
-  let i = 0
-  for (let x = xMin; x <= xMax; x++) {
-    for (let y = Math.max(yMin, -x-zMax); y <= Math.min(yMax, -x-zMin); y++) {
-        var z = -x-y;
-        rangeResults[i] = {x: x, y: y, z: z,};
-        i++
-    }
-  }
-  return rangeResults
 }
