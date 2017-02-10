@@ -91,9 +91,23 @@ function onCreate() {
 
   addPlayerSquad()
   addEnemySquad()
+
+  startPlayerTurn()
   // game.input.onDown.add(gofull, this);
   this.camera.flash('#000000', 2000);
 }
+
+function enablePlayerMoves() {
+  for(var i = 0, length1 = playerSquad.children.length; i < length1; i++){
+    playerSquad.children[i].events.onInputDown.add(getMoveRange, playerSquad.children[i])
+  }
+}
+
+function startPlayerTurn() {
+  enablePlayerMoves()
+}
+
+
 
 // //fullscreen function
 // function gofull() {
