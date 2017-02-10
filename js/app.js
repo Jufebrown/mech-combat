@@ -38,11 +38,7 @@ let hexagonGroup;
 let highlightGroup
 let playerSquad
 let enemySquad
-let playerSpriteArray = []
-let enemySpriteArray = []
 let highlightSpriteArray = []
-// let player
-let enemy
 let tween;
 let currentSprite
 let currentHex
@@ -125,26 +121,9 @@ function addEnemySquad() {
     let startX = hexToPixelX(startingEnemySquadArray[i].positionX)
     let startY = hexToPixelY(startingEnemySquadArray[i].positionX,startingEnemySquadArray[i].positionY)
     new EnemyScout(game, startX, startY)
-    enemySquad.children[i].inputEnabled = true
-    enemySquad.children[i].events.onInputDown.add(getMoveRange, enemySquad.children[i])
   }
 }
 
-
-Scout = function(game,x,y) {
-  Phaser.Sprite.call(this, game, x, y, 'player');
-  this.name = "Scout";
-  this.movePoints = 4
-  this.weapon = "SMG"
-  this.weaponRange = 2
-  this.health = Math.floor((Math.random() * 50) + 200)
-  this.damage = Math.floor((Math.random() * 50) + 200)
-  this.anchor.setTo(0.5375, .5);
-  this.visible = true
-  playerSquad.add(this);
-};
-Scout.prototype = Object.create(Phaser.Sprite.prototype);
-Scout.prototype.constructor = Scout;
 
 EnemyScout = function(game,x,y) {
   Phaser.Sprite.call(this, game, x, y, "enemy");
