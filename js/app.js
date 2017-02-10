@@ -32,8 +32,6 @@ let moveIndex;
 let sectorWidth = hexagonWidth/4*3;
 let sectorHeight = hexagonHeight;
 let gradient = (hexagonWidth/4)/(hexagonHeight/2);
-
-// var marker;
 let hexagonGroup;
 let highlightGroup
 let playerSquad
