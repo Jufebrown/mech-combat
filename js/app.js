@@ -17,7 +17,19 @@ const config = {
 firebase.initializeApp(config);
 
 //starts new canvas
-const game = new Phaser.Game(800, 600, Phaser.CANVAS, "game-div", {
+const game = new Phaser.Game(640, 480, Phaser.CANVAS, "game-div", {
+  init: function () {
+    this.game.kineticScrolling = this.game.plugins.add(Phaser.Plugin.KineticScrolling);
+    this.game.kineticScrolling.configure({
+      kineticMovement: true,
+      timeConstantScroll: 325, //really mimic iOS
+      horizontalScroll: true,
+      verticalScroll: true,
+      horizontalWheel: false,
+      verticalWheel: false,
+      deltaWheel: 40
+    })
+  },
   preload: onPreload,
   create: onCreate,
 });
@@ -26,8 +38,8 @@ const game = new Phaser.Game(800, 600, Phaser.CANVAS, "game-div", {
 const hexagonHeight = 32;
 const hexagonWidth = 34;
 //number of hexes x and y
-const gridSizeX = 25;
-const gridSizeY = 29;
+const gridSizeX = 50;
+const gridSizeY = 50;
 
 //for mouse position tracking
 const columns = [Math.ceil(gridSizeY/2),Math.floor(gridSizeY/2)];
@@ -53,6 +65,7 @@ function onPreload() {
 }
 
 function onCreate() {
+  this.game.kineticScrolling.start();
   // adds hexagonGroup
   hexagonGroup = game.add.group();
   playerSquad = game.add.group()
@@ -78,20 +91,19 @@ function onCreate() {
     }
   }
 
+
+
   // positions hexagonGroup
-  hexagonGroup.y = (game.height-hexagonHeight*Math.ceil(gridSizeY/2))/2;
-  if(gridSizeY%2==0){
-    hexagonGroup.y-=hexagonHeight/4;
-  }
-  hexagonGroup.x = (game.width-Math.ceil(gridSizeX/2)*hexagonWidth-Math.floor(gridSizeX/2)*hexagonWidth/2)/2;
-  if(gridSizeX%2==0){
-    hexagonGroup.x-=hexagonWidth/8;
-  }
+  hexagonGroup.y = 20
+  hexagonGroup.x = 20
   //gives same position to playerSquad and enemySquad groups
   playerSquad.x = hexagonGroup.x
   playerSquad.y = hexagonGroup.y
   enemySquad.x = hexagonGroup.x
   enemySquad.y = hexagonGroup.y
+
+  this.game.world.setBounds(0, 0, 1530, 860 );
+
 
   addPlayerSquad()
   addEnemySquad()
