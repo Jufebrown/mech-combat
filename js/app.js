@@ -95,12 +95,7 @@ function onCreate() {
   addPlayerSquad()
 
   //adds enemy
-  enemy = game.add.sprite(0,0,"enemy");
-  enemy.anchor.setTo(0.5375, .5);
-  enemy.visible = true;
-  enemy.x = hexToPixelX(enemyStartX)
-  enemy.y = hexToPixelY(enemyStartX,enemyStartY)
-  hexagonGroup.add(enemy);
+ addEnemySquad()
 
   //adds marker and hides it
   // marker = game.add.sprite(0,0,"marker");
@@ -129,13 +124,33 @@ function addPlayerSquad() {
   }
 }
 
+function addEnemySquad() {
+  let startingEnemySquadArray = [
+    {positionX: 10, positionY: 0},
+    {positionX: 4, positionY: 0},
+    {positionX: 18, positionY: 0}
+    ]
+
+  for(var i = 0, length1 = startingEnemySquadArray.length; i < length1; i++){
+    enemySpriteArray[i] = new MechCombat.Vehicle.Mech.EnemyScout(game,0,0)
+    enemySpriteArray[i].x = hexToPixelX(startingEnemySquadArray[i].positionX)
+    enemySpriteArray[i].y = hexToPixelY(startingEnemySquadArray[i].positionX,startingEnemySquadArray[i].positionY)
+    playerSquad.add(enemySpriteArray[i]);
+  }
+}
 
 
 
 
 
 
-let MechCombat.Vehicle = {}
+
+
+
+
+
+let MechCombat = {}
+MechCombat.Vehicle = {}
 
 
 /************************************
