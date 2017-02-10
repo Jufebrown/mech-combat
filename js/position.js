@@ -26,5 +26,6 @@ function hexPosition() {
       }
     }
   }
+  // console.log('hexPositionObj', hexPositionObj)
   return hexPositionObj
 }

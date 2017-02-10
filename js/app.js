@@ -35,14 +35,17 @@ let gradient = (hexagonWidth/4)/(hexagonHeight/2);
 
 // var marker;
 let hexagonGroup;
+let highlightGroup
 let playerSquad
 const playerSpriteArray = []
-const highlightSpriteArray = []
+let highlightSpriteArray = []
 // let player
 let enemy
 let enemyStartX = 10
 let enemyStartY = 0
 let tween;
+let currentSprite
+let currentHex
 
 //preloads images
 function onPreload() {
@@ -108,9 +111,9 @@ function onCreate() {
 
 function addPlayerSquad() {
   let startingPlayerSquadArray = [
-    {positionX: 10, positionY: 13},
-    {positionX: 4, positionY: 13},
-    {positionX: 18, positionY: 13}
+    {positionX: 10, positionY: 8},
+    {positionX: 4, positionY: 8},
+    {positionX: 18, positionY: 8}
     ]
 
   for(var i = 0, length1 = startingPlayerSquadArray.length; i < length1; i++){
@@ -121,20 +124,19 @@ function addPlayerSquad() {
     playerSpriteArray[i].y = hexToPixelY(startingPlayerSquadArray[i].positionX,startingPlayerSquadArray[i].positionY)
     playerSquad.add(playerSpriteArray[i]);
     playerSpriteArray[i].inputEnabled = true
-    playerSpriteArray[i].events.onInputDown.add(makeMove, playerSpriteArray[i])
     playerSpriteArray[i].events.onInputDown.add(getMoveRange, playerSpriteArray[i])
   }
 }
 
 function cubeToOffset(x,z) {
-  const offsetCoordinates = {}
+  let offsetCoordinates = {}
   offsetCoordinates.col = x
   offsetCoordinates.row = z + (x - (x&1)) / 2
   return offsetCoordinates
 }
 
-function offsetToCube (row,col) {
-  const cubeCoordinates = {}
+function offsetToCube (col, row) {
+  let cubeCoordinates = {}
   cubeCoordinates.x = col
   cubeCoordinates.z = row - (col - (col&1)) / 2
   cubeCoordinates.y = -cubeCoordinates.x-cubeCoordinates.z
@@ -168,27 +170,5 @@ function rangeCalc(startCubePosition, nRange) {
         i++
     }
   }
-  console.log(rangeResults)
   return rangeResults
-}
-
-function getMoveRange(posX,posY) {
-  let startCubePosition = offsetToCube(hexPosition().x,hexPosition().y)
-  let nRange = 3
-  let cubeMoveRange = rangeCalc(startCubePosition, nRange)
-  highlightPossibleMoves(cubeMoveRange)
-}
-
-function highlightPossibleMoves(cubeMoveRange) {
-  for(var i = 0, length1 = cubeMoveRange.length; i < length1; i++){
-    highlightSpriteArray[i] = game.add.sprite(0,0,"player");
-    highlightSpriteArray[i].anchor.setTo(0.5375, .5);
-    highlightSpriteArray[i].visible = true;
-    highlightSpriteArray[i].x = hexToPixelX(cubeMoveRange[i].positionX)
-    highlightSpriteArray[i].y = hexToPixelY(cubeMoveRange[i].positionX,cubeMoveRange[i].positionY)
-    playerSquad.add(highlightSpriteArray[i]);
-    highlightSpriteArray[i].inputEnabled = true
-    highlightSpriteArray[i].events.onInputDown.add(makeMove, highlightSpriteArray[i])
-    highlightSpriteArray[i].events.onInputDown.add(getMoveRange, highlightSpriteArray[i])
-  }
 }
