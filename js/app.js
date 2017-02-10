@@ -47,6 +47,8 @@ let tween;
 let currentSprite
 let currentHex
 
+const MechCombat = {}
+
 //preloads images
 function onPreload() {
   game.load.image("hexagon", "images/hexagon.png");
@@ -127,3 +129,40 @@ function addPlayerSquad() {
     playerSpriteArray[i].events.onInputDown.add(getMoveRange, playerSpriteArray[i])
   }
 }
+
+
+
+
+
+
+
+let MechCombat.Vehicle = {}
+
+
+/************************************
+Mech Types:
+Scout
+************************************/
+
+MechCombat.Vehicle.Mech = function() {
+  this.aerial = true;
+};
+MechCombat.Vehicle.Mech.prototype = new MechCombat.Vehicle.Robot();
+
+
+MechCombat.Vehicle.Scout = function() {
+  this.name = "Scout";
+  this.weapon = "MG"
+  this.movePoints = 5
+  this.health = Math.floor((Math.random() * 50) + 200)
+  this.damage = Math.floor((Math.random() * 50) + 200)
+};
+MechCombat.Vehicle.FixedWing.prototype = new MechCombat.Vehicle.Mech();
+
+
+// MechCombat.Vehicle.Rotor = function() {
+//   this.name = "Rotor";
+//   this.health = Math.floor((Math.random() * 50) + 300)
+//   this.damage = Math.floor((Math.random() * 50) + 150)
+// };
+// MechCombat.Vehicle.Rotor.prototype = new MechCombat.Vehicle.Mech();
