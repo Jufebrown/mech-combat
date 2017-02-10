@@ -1,6 +1,6 @@
 /****************************************************
-This is a turn-based strategy game that uses a hex grid
-map. The map uses odd-q offset coodinates
+This is a turn-based strategy game that uses a hex
+grid map. The map uses odd-q offset coodinates
 ****************************************************/
 
 
