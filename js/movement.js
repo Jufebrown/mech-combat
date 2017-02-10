@@ -46,7 +46,7 @@ function highlightPossibleMoves(cubeMoveRange) {
 function getMoveRange(posX,posY) {
   currentSprite = this
   let startCubePosition = offsetToCube(hexPosition().x,hexPosition().y)
-  let nRange = 4
+  let nRange = currentSprite.movePoints
   let cubeMoveRange = rangeCalc(startCubePosition, nRange)
   highlightPossibleMoves(cubeMoveRange)
 }

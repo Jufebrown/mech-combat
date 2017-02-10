@@ -37,6 +37,7 @@ let gradient = (hexagonWidth/4)/(hexagonHeight/2);
 let hexagonGroup;
 let highlightGroup
 let playerSquad
+let enemySquad
 let playerSpriteArray = []
 let enemySpriteArray = []
 let highlightSpriteArray = []
@@ -45,7 +46,6 @@ let enemy
 let tween;
 let currentSprite
 let currentHex
-
 
 
 //preloads images
@@ -60,6 +60,7 @@ function onCreate() {
   // adds hexagonGroup
   hexagonGroup = game.add.group();
   playerSquad = game.add.group()
+  enemySquad = game.add.group()
 
   //background color for whole canvas element
   game.stage.backgroundColor = "#ddd"
@@ -93,16 +94,8 @@ function onCreate() {
   playerSquad.y = hexagonGroup.y
 
   addPlayerSquad()
-
-  //adds enemy
- addEnemySquad()
-
-  //adds marker and hides it
-  // marker = game.add.sprite(0,0,"marker");
-  // marker.anchor.setTo(0.5);
-  // marker.visible=false;
-  // hexagonGroup.add(marker); //adds marker to hexagonGroup
-  // moveIndex = game.input.addMoveCallback(checkHex, this); //listener for mouse move
+  addEnemySquad()
+  console.log(playerSquad)
 }
 
 function addPlayerSquad() {
@@ -113,12 +106,11 @@ function addPlayerSquad() {
     ]
 
   for(var i = 0, length1 = startingPlayerSquadArray.length; i < length1; i++){
-    playerSpriteArray[i] = new MechCombat.Vehicle.Mech.Scout(game,0,0)
-    playerSpriteArray[i].x = hexToPixelX(startingPlayerSquadArray[i].positionX)
-    playerSpriteArray[i].y = hexToPixelY(startingPlayerSquadArray[i].positionX,startingPlayerSquadArray[i].positionY)
-    playerSquad.add(playerSpriteArray[i]);
-    playerSpriteArray[i].inputEnabled = true
-    playerSpriteArray[i].events.onInputDown.add(getMoveRange, playerSpriteArray[i])
+    let startX = hexToPixelX(startingPlayerSquadArray[i].positionX)
+    let startY = hexToPixelY(startingPlayerSquadArray[i].positionX,startingPlayerSquadArray[i].positionY)
+    new Scout(game, startX, startY)
+    playerSquad.children[i].inputEnabled = true
+    playerSquad.children[i].events.onInputDown.add(getMoveRange, playerSquad.children[i])
   }
 }
 
@@ -130,83 +122,41 @@ function addEnemySquad() {
     ]
 
   for(var i = 0, length1 = startingEnemySquadArray.length; i < length1; i++){
-    enemySpriteArray[i] = new MechCombat.Vehicle.Mech.EnemyScout(game,0,0)
-    enemySpriteArray[i].x = hexToPixelX(startingEnemySquadArray[i].positionX)
-    enemySpriteArray[i].y = hexToPixelY(startingEnemySquadArray[i].positionX,startingEnemySquadArray[i].positionY)
-    playerSquad.add(enemySpriteArray[i]);
+    let startX = hexToPixelX(startingEnemySquadArray[i].positionX)
+    let startY = hexToPixelY(startingEnemySquadArray[i].positionX,startingEnemySquadArray[i].positionY)
+    new EnemyScout(game, startX, startY)
+    enemySquad.children[i].inputEnabled = true
+    enemySquad.children[i].events.onInputDown.add(getMoveRange, enemySquad.children[i])
   }
 }
 
 
-
-
-
-
-
-
-
-
-
-let MechCombat = {}
-MechCombat.Vehicle = {}
-
-
-/************************************
-Mech Types:
-Scout
-************************************/
-
-MechCombat.Vehicle.Mech = function() {
-  this.hitLocations = 6
-  this.aerial = false
-};
-// MechCombat.Vehicle.Mech.prototype = new MechCombat.Vehicle;
-
-MechCombat.Vehicle.Mech.Scout = function(game,x,y) {
+Scout = function(game,x,y) {
   Phaser.Sprite.call(this, game, x, y, 'player');
   this.name = "Scout";
-  this.weapon = "SMG"
   this.movePoints = 4
-  this.fireRange = 2
+  this.weapon = "SMG"
+  this.weaponRange = 2
   this.health = Math.floor((Math.random() * 50) + 200)
   this.damage = Math.floor((Math.random() * 50) + 200)
   this.anchor.setTo(0.5375, .5);
   this.visible = true
-  game.add.existing(this);
+  playerSquad.add(this);
 };
-MechCombat.Vehicle.Mech.Scout.prototype = new MechCombat.Vehicle.Mech();
-MechCombat.Vehicle.Mech.Scout.prototype = Object.create(Phaser.Sprite.prototype);
-// MechCombat.Vehicle.Mech.Scout.prototype.constructor = Scout;
+Scout.prototype = Object.create(Phaser.Sprite.prototype);
+Scout.prototype.constructor = Scout;
 
-/**
- * Automatically called by World.update
- */
-// MechCombat.Vehicle.Mech.Scout.prototype.update = function() {
-
-//     // this.angle += this.rotateSpeed;
-
-// };
-
-MechCombat.Vehicle.Mech.EnemyScout = function(game,x,y) {
+EnemyScout = function(game,x,y) {
   Phaser.Sprite.call(this, game, x, y, "enemy");
   this.name = "Scout";
-  this.weapon = "SMG"
   this.movePoints = 4
-  this.fireRange = 2
+  this.weapon = "SMG"
+  this.weaponRange = 2
   this.health = Math.floor((Math.random() * 50) + 200)
   this.damage = Math.floor((Math.random() * 50) + 200)
-  this.anchor.setTo(0.5375, .5);
+  this.anchor.setTo(.25,.4);
   this.visible = true
-  game.add.existing(this);
+  enemySquad.add(this);
 };
-MechCombat.Vehicle.Mech.EnemyScout.prototype = new MechCombat.Vehicle.Mech();
-MechCombat.Vehicle.Mech.EnemyScout.prototype = Object.create(Phaser.Sprite.prototype);
-// MechCombat.Vehicle.Mech.Scout.prototype.constructor = EnemyScout;
-
-
-// MechCombat.Vehicle.Rotor = function() {
-//   this.name = "Rotor";
-//   this.health = Math.floor((Math.random() * 50) + 300)
-//   this.damage = Math.floor((Math.random() * 50) + 150)
-// };
-// MechCombat.Vehicle.Rotor.prototype = new MechCombat.Vehicle.Mech();
+EnemyScout.prototype = Object.create(Phaser.Sprite.prototype);
+EnemyScout.prototype.constructor = EnemyScout;
