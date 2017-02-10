@@ -113,7 +113,6 @@ function startPlayerTurn() {
 }
 
 
-
 // //fullscreen function
 // function gofull() {
 //     if (game.scale.isFullScreen)

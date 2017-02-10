@@ -1,10 +1,11 @@
 function clearMoveListeners() {
+  currentSprite.hasMoved = true
   game.input.onDown.remove(checkHex, currentHex);
   currentSprite.events.onInputDown.remove(getMoveRange, currentSprite)
-  for(var i = 0, length1 = highlightSpriteArray.length; i < length1; i++){
-    highlightSpriteArray[i].visible = false
+  for(var i = 0, length1 = highlightGroup.children.length; i < length1; i++){
+    highlightGroup.children[i].visible = false
   }
-  highlightSpriteArray = []
+  highlightGroup.children = []
 }
 
 //moves sprite to specified hex
