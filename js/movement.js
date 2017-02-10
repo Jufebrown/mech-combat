@@ -26,30 +26,13 @@ function checkHex(){
   moveSprite (hexPosition().x, hexPosition().y, currentSprite)
 }
 
-function highlightPossibleMoves(cubeMoveRange) {
-  highlightGroup = game.add.group()
-  highlightGroup.x = hexagonGroup.x
-  highlightGroup.y = hexagonGroup.y
-  for(var i = 0, length1 = cubeMoveRange.length; i < length1; i++){
-    highlightSpriteArray[i] = game.add.sprite(0,0,"highlight");
-    highlightSpriteArray[i].anchor.setTo(0.5, .5);
-    highlightSpriteArray[i].alpha = .3
-    highlightSpriteArray[i].visible = true;
-    let currentHex = cubeToOffset(cubeMoveRange[i].x, cubeMoveRange[i].z)
-    highlightSpriteArray[i].x = hexToPixelX(currentHex.col)
-    highlightSpriteArray[i].y = hexToPixelY(currentHex.col,currentHex.row)
-    highlightGroup.add(highlightSpriteArray[i]);
-    highlightSpriteArray[i].inputEnabled = true
-    highlightSpriteArray[i].events.onInputDown.add(checkHex, highlightSpriteArray[i])
-  }
-}
-
 function getMoveRange(posX,posY) {
   currentSprite = this
   let startCubePosition = offsetToCube(hexPosition().x,hexPosition().y)
   let nRange = currentSprite.movePoints
   let cubeMoveRange = rangeCalc(startCubePosition, nRange)
-  highlightPossibleMoves(cubeMoveRange)
+  const nextAction = 'move'
+  highlightRange(cubeMoveRange, nextAction)
 }
 
 // function makeMove() {
