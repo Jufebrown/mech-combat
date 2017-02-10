@@ -53,8 +53,6 @@ function onPreload() {
 }
 
 function onCreate() {
-  game.world.setBounds(0, 0, 800, 600);
-
   // adds hexagonGroup
   hexagonGroup = game.add.group();
   playerSquad = game.add.group()
@@ -89,14 +87,17 @@ function onCreate() {
   if(gridSizeX%2==0){
     hexagonGroup.x-=hexagonWidth/8;
   }
-  //gives same position to playerSquad group
+  //gives same position to playerSquad and enemySquad groups
   playerSquad.x = hexagonGroup.x
   playerSquad.y = hexagonGroup.y
+  enemySquad.x = hexagonGroup.x
+  enemySquad.y = hexagonGroup.y
 
   addPlayerSquad()
   addEnemySquad()
 
   startPlayerTurn()
+
   // game.input.onDown.add(gofull, this);
   this.camera.flash('#000000', 2000);
 }
