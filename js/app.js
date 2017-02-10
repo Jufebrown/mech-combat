@@ -17,7 +17,10 @@ const config = {
 firebase.initializeApp(config);
 
 //starts new canvas
-const game = new Phaser.Game(640, 480, Phaser.CANVAS, "game-div", {preload: onPreload, create: onCreate,});
+const game = new Phaser.Game(800, 600, Phaser.CANVAS, "game-div", {
+  preload: onPreload,
+  create: onCreate,
+});
 
 //sets up hex width and height. height should be sqrt(3)/2 of width but need to tweek to get spacing right
 const hexagonHeight = 32;
