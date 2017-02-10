@@ -113,9 +113,7 @@ function addPlayerSquad() {
     ]
 
   for(var i = 0, length1 = startingPlayerSquadArray.length; i < length1; i++){
-    playerSpriteArray[i] = game.add.sprite(0,0,"player");
-    playerSpriteArray[i].anchor.setTo(0.5375, .5)
-    playerSpriteArray[i].visible = true;
+    playerSpriteArray[i] = new MechCombat.Vehicle.Mech.Scout(game,0,0)
     playerSpriteArray[i].x = hexToPixelX(startingPlayerSquadArray[i].positionX)
     playerSpriteArray[i].y = hexToPixelY(startingPlayerSquadArray[i].positionX,startingPlayerSquadArray[i].positionY)
     playerSquad.add(playerSpriteArray[i]);
@@ -159,19 +157,51 @@ Scout
 ************************************/
 
 MechCombat.Vehicle.Mech = function() {
-  this.aerial = true;
+  this.hitLocations = 6
+  this.aerial = false
 };
-MechCombat.Vehicle.Mech.prototype = new MechCombat.Vehicle.Robot();
+// MechCombat.Vehicle.Mech.prototype = new MechCombat.Vehicle;
 
-
-MechCombat.Vehicle.Scout = function() {
+MechCombat.Vehicle.Mech.Scout = function(game,x,y) {
+  Phaser.Sprite.call(this, game, x, y, 'player');
   this.name = "Scout";
-  this.weapon = "MG"
-  this.movePoints = 5
+  this.weapon = "SMG"
+  this.movePoints = 4
+  this.fireRange = 2
   this.health = Math.floor((Math.random() * 50) + 200)
   this.damage = Math.floor((Math.random() * 50) + 200)
+  this.anchor.setTo(0.5375, .5);
+  this.visible = true
+  game.add.existing(this);
 };
-MechCombat.Vehicle.FixedWing.prototype = new MechCombat.Vehicle.Mech();
+MechCombat.Vehicle.Mech.Scout.prototype = new MechCombat.Vehicle.Mech();
+MechCombat.Vehicle.Mech.Scout.prototype = Object.create(Phaser.Sprite.prototype);
+// MechCombat.Vehicle.Mech.Scout.prototype.constructor = Scout;
+
+/**
+ * Automatically called by World.update
+ */
+// MechCombat.Vehicle.Mech.Scout.prototype.update = function() {
+
+//     // this.angle += this.rotateSpeed;
+
+// };
+
+MechCombat.Vehicle.Mech.EnemyScout = function(game,x,y) {
+  Phaser.Sprite.call(this, game, x, y, "enemy");
+  this.name = "Scout";
+  this.weapon = "SMG"
+  this.movePoints = 4
+  this.fireRange = 2
+  this.health = Math.floor((Math.random() * 50) + 200)
+  this.damage = Math.floor((Math.random() * 50) + 200)
+  this.anchor.setTo(0.5375, .5);
+  this.visible = true
+  game.add.existing(this);
+};
+MechCombat.Vehicle.Mech.EnemyScout.prototype = new MechCombat.Vehicle.Mech();
+MechCombat.Vehicle.Mech.EnemyScout.prototype = Object.create(Phaser.Sprite.prototype);
+// MechCombat.Vehicle.Mech.Scout.prototype.constructor = EnemyScout;
 
 
 // MechCombat.Vehicle.Rotor = function() {
