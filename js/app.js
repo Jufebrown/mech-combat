@@ -63,14 +63,14 @@ function onCreate() {
 
 
   // loops through and adds rows and columns of hexes to hexagonGroup
-  for(var i = 0; i < gridSizeX/2; i ++) {
-    for(var j = 0; j < gridSizeY; j ++) {
+  for(let i = 0; i < gridSizeX/2; i ++) {
+    for(let j = 0; j < gridSizeY; j ++) {
       if(gridSizeX%2==0 || i+1<gridSizeX/2 || j%2==0){
         //x position for hex group
-        var hexagonX = hexagonWidth*i*1.5+(hexagonWidth/4*3)*(j%2);
+        let hexagonX = hexagonWidth*i*1.5+(hexagonWidth/4*3)*(j%2);
         //y position for hex group
-        var hexagonY = hexagonHeight*j/2;
-        var hexagon = game.add.sprite(hexagonX,hexagonY,"hexagon");
+        let hexagonY = hexagonHeight*j/2;
+        let hexagon = game.add.sprite(hexagonX,hexagonY,"hexagon");
         hexagonGroup.add(hexagon);
       }
     }
@@ -91,34 +91,18 @@ function onCreate() {
 
   addPlayerSquad()
   addEnemySquad()
-  game.input.onDown.add(gofull, this);
+  // game.input.onDown.add(gofull, this);
   this.camera.flash('#000000', 2000);
 }
 
-//fullscreen function
-function gofull() {
-    if (game.scale.isFullScreen)
-    {
-        game.scale.stopFullScreen();
-    }
-    else
-    {
-        game.scale.startFullScreen(false);
-    }
-}
-
-function addPlayerSquad() {
-  let startingPlayerSquadArray = [
-    {positionX: 10, positionY: 13},
-    {positionX: 4, positionY: 13},
-    {positionX: 18, positionY: 13}
-    ]
-
-  for(let i = 0, length1 = startingPlayerSquadArray.length; i < length1; i++){
-    let startX = hexToPixelX(startingPlayerSquadArray[i].positionX)
-    let startY = hexToPixelY(startingPlayerSquadArray[i].positionX,startingPlayerSquadArray[i].positionY)
-    new Scout(game, startX, startY)
-    playerSquad.children[i].inputEnabled = true
-    playerSquad.children[i].events.onInputDown.add(getMoveRange, playerSquad.children[i])
-  }
-}
+// //fullscreen function
+// function gofull() {
+//     if (game.scale.isFullScreen)
+//     {
+//         game.scale.stopFullScreen();
+//     }
+//     else
+//     {
+//         game.scale.startFullScreen(false);
+//     }
+// }
