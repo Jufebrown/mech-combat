@@ -37,17 +37,16 @@ let gradient = (hexagonWidth/4)/(hexagonHeight/2);
 let hexagonGroup;
 let highlightGroup
 let playerSquad
-const playerSpriteArray = []
+let playerSpriteArray = []
+let enemySpriteArray = []
 let highlightSpriteArray = []
 // let player
 let enemy
-let enemyStartX = 10
-let enemyStartY = 0
 let tween;
 let currentSprite
 let currentHex
 
-const MechCombat = {}
+
 
 //preloads images
 function onPreload() {
