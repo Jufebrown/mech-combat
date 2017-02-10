@@ -9,6 +9,5 @@ function addEnemySquad() {
     let startX = hexToPixelX(startingEnemySquadArray[i].positionX)
     let startY = hexToPixelY(startingEnemySquadArray[i].positionX,startingEnemySquadArray[i].positionY)
     new EnemyScout(game, startX, startY)
-    enemySquad.children[i].anchor.setTo(.6,.5);
   }
 }
