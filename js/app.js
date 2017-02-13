@@ -147,6 +147,22 @@ function spriteTint(highlightSprite) {
   highlightSprite.alpha = .3
 }
 
+function hitCalc() {
+  let hitRoll = Math.random() * 100
+  let hitResolution = {hit: false, crit: false}
+  let toHitNumber = 20
+  if (hitRoll >== 90) {
+    hitResolution.hit = true
+    hitResolution.crit = true
+    return hitResolution
+  } else if (hitRoll >== toHitNumber) {
+    hitResolution.hit = true
+    return hitResolution
+  } else {
+    return hitResolution
+  }
+}
+
 
 
 
