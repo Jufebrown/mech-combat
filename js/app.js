@@ -32,6 +32,7 @@ const game = new Phaser.Game(640, 480, Phaser.CANVAS, "game-div", {
   },
   preload: onPreload,
   create: onCreate,
+  // update: onUpdate,
 });
 
 //sets up hex width and height. height should be sqrt(3)/2 of width but need to tweek to get spacing right
@@ -119,7 +120,9 @@ function onCreate() {
 
 function enablePlayerMoves() {
   for(var i = 0, length1 = playerSquad.children.length; i < length1; i++){
-    playerSquad.children[i].events.onInputDown.add(getMoveRange, playerSquad.children[i])
+    if (playerSquad.children[i].hasMoved === false) {
+      playerSquad.children[i].events.onInputDown.add(getMoveRange, playerSquad.children[i])
+    }
   }
 }
 
