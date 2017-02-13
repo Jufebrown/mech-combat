@@ -35,7 +35,3 @@ function getMoveRange(posX,posY) {
   const nextAction = 'move'
   highlightRange(cubeMoveRange, nextAction)
 }
-
-// function makeMove() {
-//   game.input.onDown.add(getMoveRange, this); //listens for mouse clicks
-// }
