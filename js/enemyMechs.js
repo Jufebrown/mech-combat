@@ -14,6 +14,8 @@ EnemyScout = function(game,x,y) {
   this.hasMoved = false
   this.hasFired = false
 
+  game.physics.enable(this, Phaser.Physics.ARCADE)
+  this.body.setSize(16, 16, 0, 0)
   this.visible = true
   this.anchor.setTo(0.5375, .5);
   enemySquad.add(this);

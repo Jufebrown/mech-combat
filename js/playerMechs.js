@@ -10,6 +10,8 @@ Scout = function(game,x,y) {
   this.hasMoved = false
   this.hasFired = false
 
+  game.physics.enable(this, Phaser.Physics.ARCADE)
+  this.body.setSize(16, 16, 0, 0)
   this.anchor.setTo(0.5375, .5);
   this.visible = true
   playerSquad.add(this);
