@@ -2,10 +2,7 @@ function clearMoveListeners() {
   currentSprite.hasMoved = true
   game.input.onDown.remove(checkHex, currentHex);
   currentSprite.events.onInputDown.remove(getMoveRange, currentSprite)
-  for(var i = 0, length1 = highlightGroup.children.length; i < length1; i++){
-    highlightGroup.children[i].visible = false
-  }
-  highlightGroup.children = []
+  killHighlight()
   getWeaponRange()
 }
 
