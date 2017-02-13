@@ -68,9 +68,12 @@ function onPreload() {
 function onCreate() {
   this.game.kineticScrolling.start();
   // adds hexagonGroup
-  hexagonGroup = game.add.group();
+  hexagonGroup = game.add.group()
+  hexagonGroup.z = 0
   playerSquad = game.add.group()
+  playerSquad.z = 3
   enemySquad = game.add.group()
+  enemySquad.z = 3
 
   //background color for whole canvas element
   game.stage.backgroundColor = "#b3c2d8"
@@ -91,8 +94,6 @@ function onCreate() {
       }
     }
   }
-
-
 
   // positions hexagonGroup
   hexagonGroup.y = 20
@@ -145,17 +146,26 @@ function targetCheck(highlightSprite) {
 function spriteTint(highlightSprite) {
   highlightSprite.tint = 0xff2100
   highlightSprite.alpha = .3
+  for(var i = 0, length1 = enemySquad.children.length; i < length1; i++){
+    let targetCandidate = enemySquad.children[i]
+    game.physics.arcade.overlap(targetCandidate, highlightSprite, this.targetEnable, null, this)
+  }
+}
+
+function targetEnable(targetCandidate) {
+  console.log('targetCandidate', targetCandidate)
+  targetCandidate.events.onInputDown.add(combat, targetCandidate)
 }
 
 function hitCalc() {
   let hitRoll = Math.random() * 100
   let hitResolution = {hit: false, crit: false}
   let toHitNumber = 20
-  if (hitRoll >== 90) {
+  if (hitRoll >= 90) {
     hitResolution.hit = true
     hitResolution.crit = true
     return hitResolution
-  } else if (hitRoll >== toHitNumber) {
+  } else if (hitRoll >= toHitNumber) {
     hitResolution.hit = true
     return hitResolution
   } else {
@@ -163,7 +173,9 @@ function hitCalc() {
   }
 }
 
-function combat() {
+function combat(targetCandidate) {
+  let target = this
+  console.log('target', target)
   if (hitCalc.crit) {
     damage()
   } else if (hitCalc.hit) {

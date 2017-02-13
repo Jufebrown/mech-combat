@@ -12,6 +12,7 @@ function highlightRange(cubeRange, nextAction) {
   highlightGroup = game.add.group()
   highlightGroup.x = hexagonGroup.x
   highlightGroup.y = hexagonGroup.y
+  highlightGroup.z = 1
   for(var i = 0, length1 = cubeRange.length; i < length1; i++){
     let currentHex = cubeToOffset(cubeRange[i].x, cubeRange[i].z)
     let startX = hexToPixelX(currentHex.col)
@@ -23,9 +24,8 @@ function highlightRange(cubeRange, nextAction) {
     if (nextAction === 'move') {
       highlightGroup.children[i].events.onInputDown.add(checkHex, highlightGroup.children[i])
     } else if (nextAction === 'fire') {
-      console.log('fire')
+      // console.log('fire')
       targetCheck(highlightGroup.children[i])
-      highlightGroup.children[i].events.onInputDown.add(combat, highlightGroup.children[i])
     }
   }
 }
