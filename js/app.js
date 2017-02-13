@@ -163,7 +163,13 @@ function hitCalc() {
   }
 }
 
-
+function combat() {
+  if (hitCalc.crit) {
+    damage()
+  } else if (hitCalc.hit) {
+    damage()
+  }
+}
 
 
 

@@ -25,7 +25,7 @@ function highlightRange(cubeRange, nextAction) {
     } else if (nextAction === 'fire') {
       console.log('fire')
       targetCheck(highlightGroup.children[i])
-      highlightGroup.children[i].events.onInputDown.add(hitCalc, highlightGroup.children[i])
+      highlightGroup.children[i].events.onInputDown.add(combat, highlightGroup.children[i])
     }
   }
 }
