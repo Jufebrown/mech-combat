@@ -153,13 +153,15 @@ function spriteTint(highlightSprite) {
 }
 
 function targetEnable(targetCandidate) {
-  console.log('targetCandidate', targetCandidate)
+  game.world.bringToTop(enemySquad)
   targetCandidate.events.onInputDown.add(combat, targetCandidate)
+  console.log('targetCandidate', targetCandidate)
 }
 
 function hitCalc() {
-  let hitRoll = Math.random() * 100
   let hitResolution = {hit: false, crit: false}
+  let hitRoll = Math.floor(Math.random() * 100) + 1
+  console.log('hitRoll', hitRoll)
   let toHitNumber = 20
   if (hitRoll >= 90) {
     hitResolution.hit = true
