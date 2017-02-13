@@ -175,18 +175,36 @@ function hitCalc() {
   }
 }
 
-function combat(targetCandidate) {
-  let target = this
-  console.log('target', target)
-  if (hitCalc.crit) {
-    damage()
-  } else if (hitCalc.hit) {
-    damage()
-  }
+function critDamage(target) {
+  let damage = currentSprite.damage + currentSprite.critDamage
+  console.log('damage', damage)
+  console.log('target.health before hit', target.health)
+  target.health = target.health - damage
+  console.log('target.health after hit', target.health)
 }
 
+function damage(target) {
+  let damage = currentSprite.damage
+  console.log('damage', damage)
+  console.log('target.health before hit', target.health)
+  target.health = target.health - damage
+  console.log('target.health after hit', target.health)
+}
 
+function miss(target) {
+  console.log('miss')
+}
 
+function combat(targetCandidate) {
+  let target = targetCandidate
+  if (hitCalc().crit) {
+    critDamage(target)
+  } else if (hitCalc().hit) {
+    damage(target)
+  } else {
+    miss(target)
+  }
+}
 
 // //fullscreen function
 // function gofull() {
