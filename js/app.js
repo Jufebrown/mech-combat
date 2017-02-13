@@ -102,7 +102,10 @@ function onCreate() {
   enemySquad.x = hexagonGroup.x
   enemySquad.y = hexagonGroup.y
 
-  this.game.world.setBounds(0, 0, 1530, 860 );
+
+  let worldWidth = hexagonWidth * gridSizeX
+  let worldHeight = (hexagonHeight * gridSizeY)/1.75
+  this.game.world.setBounds(0, 0, worldWidth, worldHeight);
 
 
   addPlayerSquad()
