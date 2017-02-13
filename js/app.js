@@ -127,6 +127,32 @@ function startPlayerTurn() {
   enablePlayerMoves()
 }
 
+function getWeaponRange() {
+  let startCubePosition = offsetToCube(hexPosition().x,hexPosition().y)
+  let nRange = currentSprite.weaponRange
+  let cubeMoveRange = rangeCalc(startCubePosition, nRange)
+  const nextAction = 'fire'
+  highlightRange(cubeMoveRange, nextAction)
+}
+
+function targetCheck(highlightSprite) {
+  // console.log('targetCheck')
+  for(let i = 0, length1 = enemySquad.children.length; i < length1; i++){
+    if (checkOverlap(highlightSprite, enemySquad.children[i])) {
+      console.log('target')
+      highlightSprite.tint = Math.random() * 0xff1000
+    }
+  }
+}
+
+
+function checkOverlap(spriteA, spriteB) {
+  var boundsA = spriteA.getBounds();
+  var boundsB = spriteB.getBounds();
+  return Phaser.Rectangle.intersects(boundsA, boundsB);
+}
+
+
 
 // //fullscreen function
 // function gofull() {
