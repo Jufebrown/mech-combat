@@ -8,6 +8,13 @@ Highlight = function(game,x,y) {
 Highlight.prototype = Object.create(Phaser.Sprite.prototype);
 Highlight.prototype.constructor = Highlight;
 
+function killHighlight() {
+  for(var i = 0, length1 = highlightGroup.children.length; i < length1; i++){
+    highlightGroup.children[i].visible = false
+  }
+  highlightGroup.children = []
+}
+
 function highlightRange(cubeRange, nextAction) {
   highlightGroup = game.add.group()
   highlightGroup.x = hexagonGroup.x
