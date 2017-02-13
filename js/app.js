@@ -22,7 +22,7 @@ const game = new Phaser.Game(640, 480, Phaser.CANVAS, "game-div", {
     this.game.kineticScrolling = this.game.plugins.add(Phaser.Plugin.KineticScrolling);
     this.game.kineticScrolling.configure({
       kineticMovement: true,
-      timeConstantScroll: 250, //really mimic iOS
+      timeConstantScroll: 250,
       horizontalScroll: true,
       verticalScroll: true,
       horizontalWheel: true,
