@@ -156,25 +156,7 @@ function startPlayerTurn() {
   enablePlayerMoves()
 }
 
-function getWeaponRange() {
-  let startCubePosition = offsetToCube(hexPosition().x,hexPosition().y)
-  let nRange = currentSprite.weaponRange
-  let cubeMoveRange = rangeCalc(startCubePosition, nRange)
-  const nextAction = 'fire'
-  highlightRange(cubeMoveRange, nextAction)
-}
 
-
-
-function targetEnable(targetCandidate) {
-  game.world.bringToTop(enemySquad)
-  targetCandidate.events.onInputDown.add(combat, targetCandidate)
-  console.log('targetCandidate', targetCandidate)
-}
-
-function targetDisable(targetCandidate) {
-  targetCandidate.events.onInputDown.remove(combat, targetCandidate)
-}
 
 // //fullscreen function
 // function gofull() {
