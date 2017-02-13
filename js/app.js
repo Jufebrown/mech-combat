@@ -231,6 +231,20 @@ function combat(targetCandidate) {
   } else {
     miss(target)
   }
+  destroyCheck(target)
+}
+
+function destroyCheck(target) {
+  if (target.health <= 0) {
+    target.kill()
+    target.destroy()
+    enemySquad.remove(target)
+  }
+}
+
+
+function targetDisable(targetCandidate) {
+  targetCandidate.events.onInputDown.remove(combat, targetCandidate)
 }
 
 // //fullscreen function
