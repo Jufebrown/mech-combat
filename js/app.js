@@ -66,6 +66,7 @@ function onPreload() {
 }
 
 function onCreate() {
+
   this.game.kineticScrolling.start();
   // adds hexagonGroup
   hexagonGroup = game.add.group()
@@ -105,7 +106,7 @@ function onCreate() {
   enemySquad.y = hexagonGroup.y
 
 
-  let worldWidth = hexagonWidth * gridSizeX
+  let worldWidth = hexagonWidth * gridSizeX - 100
   let worldHeight = (hexagonHeight * gridSizeY)/1.75
   this.game.world.setBounds(0, 0, worldWidth, worldHeight);
 
