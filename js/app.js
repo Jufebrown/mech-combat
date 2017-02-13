@@ -164,84 +164,13 @@ function getWeaponRange() {
   highlightRange(cubeMoveRange, nextAction)
 }
 
-function targetCheck(highlightSprite) {
-  game.physics.arcade.overlap(highlightSprite, enemySquad, this.spriteTint, null, this)
-}
 
-function spriteTint(highlightSprite) {
-  highlightSprite.tint = 0xff2100
-  highlightSprite.alpha = .3
-  for(var i = 0, length1 = enemySquad.children.length; i < length1; i++){
-    let targetCandidate = enemySquad.children[i]
-    game.physics.arcade.overlap(targetCandidate, highlightSprite, this.targetEnable, null, this)
-  }
-}
 
 function targetEnable(targetCandidate) {
   game.world.bringToTop(enemySquad)
   targetCandidate.events.onInputDown.add(combat, targetCandidate)
   console.log('targetCandidate', targetCandidate)
 }
-
-function hitCalc() {
-  let hitResolution = {hit: false, crit: false}
-  let hitRoll = Math.floor(Math.random() * 100) + 1
-  console.log('hitRoll', hitRoll)
-  let toHitNumber = 20
-  if (hitRoll >= 90) {
-    hitResolution.hit = true
-    hitResolution.crit = true
-    return hitResolution
-  } else if (hitRoll >= toHitNumber) {
-    hitResolution.hit = true
-    return hitResolution
-  } else {
-    return hitResolution
-  }
-}
-
-function critDamage(target) {
-  let damage = currentSprite.damage + currentSprite.critDamage
-  console.log('damage', damage)
-  console.log('target.health before hit', target.health)
-  target.health = target.health - damage
-  console.log('target.health after hit', target.health)
-}
-
-function damage(target) {
-  let damage = currentSprite.damage
-  console.log('damage', damage)
-  console.log('target.health before hit', target.health)
-  target.health = target.health - damage
-  console.log('target.health after hit', target.health)
-}
-
-function miss(target) {
-  console.log('miss')
-}
-
-function combat(targetCandidate) {
-  killHighlight()
-  targetDisable(targetCandidate)
-  let target = targetCandidate
-  if (hitCalc().crit) {
-    critDamage(target)
-  } else if (hitCalc().hit) {
-    damage(target)
-  } else {
-    miss(target)
-  }
-  destroyCheck(target)
-}
-
-function destroyCheck(target) {
-  if (target.health <= 0) {
-    target.kill()
-    target.destroy()
-    enemySquad.remove(target)
-  }
-}
-
 
 function targetDisable(targetCandidate) {
   targetCandidate.events.onInputDown.remove(combat, targetCandidate)
