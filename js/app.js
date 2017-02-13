@@ -221,6 +221,8 @@ function miss(target) {
 }
 
 function combat(targetCandidate) {
+  killHighlight()
+  targetDisable(targetCandidate)
   let target = targetCandidate
   if (hitCalc().crit) {
     critDamage(target)
