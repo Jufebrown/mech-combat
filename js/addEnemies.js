@@ -1,6 +1,6 @@
 function addEnemySquad() {
   let startingEnemySquadArray = [
-    {positionX: 10, positionY: 0},
+    {positionX: 10, positionY: 9},
     {positionX: 4, positionY: 0},
     {positionX: 18, positionY: 0}
     ]
