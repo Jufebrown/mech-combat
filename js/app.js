@@ -139,21 +139,16 @@ function getWeaponRange() {
 }
 
 function targetCheck(highlightSprite) {
-  // console.log('targetCheck')
-  for(let i = 0, length1 = enemySquad.children.length; i < length1; i++){
-    if (checkOverlap(highlightSprite, enemySquad.children[i])) {
-      console.log('target')
-      highlightSprite.tint = Math.random() * 0xff1000
-    }
-  }
+  game.physics.arcade.overlap(highlightSprite, enemySquad, this.spriteTint, null, this)
+}
+
+function spriteTint(highlightSprite) {
+  highlightSprite.tint = 0xff2100
+  highlightSprite.alpha = .3
 }
 
 
-function checkOverlap(spriteA, spriteB) {
-  var boundsA = spriteA.getBounds();
-  var boundsB = spriteB.getBounds();
-  return Phaser.Rectangle.intersects(boundsA, boundsB);
-}
+
 
 
 
