@@ -12,6 +12,7 @@ EnemyScout = function(game,x,y) {
   this.health = Math.floor((Math.random() * 50) + 200)
   this.damage = Math.floor((Math.random() * 50) + 200)
   this.hasMoved = false
+  this.hasFired = false
 
   this.visible = true
   this.anchor.setTo(0.5375, .5);
