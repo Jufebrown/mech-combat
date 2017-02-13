@@ -19,8 +19,10 @@ function highlightRange(cubeRange, nextAction) {
     new Highlight(game, startX, startY)
     highlightGroup.children[i].inputEnabled = true
     if (nextAction === 'move') {
-      // statement
       highlightGroup.children[i].events.onInputDown.add(checkHex, highlightGroup.children[i])
+    } else if (nextAction === 'fire') {
+      console.log('fire')
+      targetCheck(highlightGroup.children[i])
     }
   }
 }

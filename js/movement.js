@@ -6,6 +6,7 @@ function clearMoveListeners() {
     highlightGroup.children[i].visible = false
   }
   highlightGroup.children = []
+  getWeaponRange()
 }
 
 //moves sprite to specified hex
