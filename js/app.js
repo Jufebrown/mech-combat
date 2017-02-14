@@ -67,6 +67,7 @@ function onPreload() {
   game.load.image("highlight", "images/map_tiles/highlight.png");
   game.load.image("player", "images/mechs/player_ph.png")
   game.load.image("enemy", "images/mechs/enemy_ph.png")
+  game.load.spritesheet('mechExplosion', 'images/explosions/mech-explosion.png', 100, 100)
 }
 
 function onCreate() {
