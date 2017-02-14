@@ -230,24 +230,34 @@ function enemyMoveType() {
   }
 }
 
-function chargeAtPlayer() {
-  let nearestPlayer = findNearestPlayer(enemySquad.children[i])
-  enemyMove(nearestPlayer)
+function chargeAtPlayer(currentlyMovingEnemy) {
+  let nearestPlayer = findNearestPlayer(currentlyMovingEnemy)
+  enemyMove(currentlyMovingEnemy, nearestPlayer)
 }
 
-function enemyMove(destinationSprite) {
-  // body...
+function enemyMove(currentlyMovingEnemy, destinationSprite) {
+  hexPositionFromSpriteCoordinates(currentlyMovingEnemy.x, currentlyMovingEnemy.y)
 }
 
-function findNearestPlayer(enemySquadMember) {
+function getEnemyMoveRange(posX,posY) {
+  currentSprite = this
+  let startCubePosition = offsetToCube(hexPosition().x,hexPosition().y)
+  let nRange = currentSprite.movePoints
+  let cubeMoveRange = rangeCalc(startCubePosition, nRange)
+  const nextAction = 'move'
+  highlightRange(cubeMoveRange, nextAction)
+}
+
+function findNearestPlayer(currentlyMovingEnemy) {
   let nearestPlayerDistance = 5000
   let nearestPlayer
   for(var i = 0, length1 = playerSquad.children.length; i < length1; i++) {
-    if (game.physics.arcade.distanceBetween(enemySquadMember, playerSquad.children[i]) < nearestPlayerDistance) {
-      nearestPlayerDistance = game.physics.arcade.distanceBetween(enemySquadMember, playerSquad.children[i])
+    if (game.physics.arcade.distanceBetween(currentlyMovingEnemy, playerSquad.children[i]) < nearestPlayerDistance) {
+      nearestPlayerDistance = game.physics.arcade.distanceBetween(currentlyMovingEnemy, playerSquad.children[i])
       nearestPlayer = playerSquad.children[i]
     }
   }
+  console.log('nearestPlayer', nearestPlayer)
   return nearestPlayer
 }
 
