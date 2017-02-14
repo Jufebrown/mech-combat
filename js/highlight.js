@@ -8,11 +8,28 @@ Highlight = function(game,x,y) {
 Highlight.prototype = Object.create(Phaser.Sprite.prototype);
 Highlight.prototype.constructor = Highlight;
 
+function killHighlight() {
+  for(var i = 0, length1 = highlightGroup.children.length; i < length1; i++){
+    highlightGroup.children[i].visible = false
+  }
+  highlightGroup.children = []
+}
+
+function resolveTargetNotFound() {
+  if (targetFound === false) {
+    currentSprite.hasFired = true
+    killHighlight()
+    enablePlayerMoves()
+  }
+}
+
 function targetCheck(highlightSprite) {
   game.physics.arcade.overlap(highlightSprite, enemySquad, this.spriteTint, null, this)
+  game.time.events.add(Phaser.Timer.SECOND * .5, resolveTargetNotFound, this)
 }
 
 function spriteTint(highlightSprite) {
+  targetFound = true
   highlightSprite.tint = 0xff2100
   highlightSprite.alpha = .3
   for(var i = 0, length1 = enemySquad.children.length; i < length1; i++){
