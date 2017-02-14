@@ -67,19 +67,18 @@ let explosions
 let explosionSound
 
 
-
 function enemyMoveType() {
   for(var i = 0, length1 = enemySquad.children.length; i < length1; i++){
     if (enemySquad.children[i].hasMoved === false) {
       let currentlyMovingEnemy = enemySquad.children[i]
       if (enemySquad.children[i].movePattern === "patrol") {
-        patrol()
+        patrol(currentlyMovingEnemy)
       } else if (enemySquad.children[i].movePattern === "sentinel") {
-        sentinel()
+        sentinel(currentlyMovingEnemy)
       } else if (enemySquad.children[i].movePattern === "alert") {
         chargeAtPlayer(currentlyMovingEnemy)
       } else if (enemySquad.children[i].movePattern === "objective") {
-        objectiveMove()
+        objectiveMove(currentlyMovingEnemy)
       }
     }
   }
@@ -91,16 +90,16 @@ function chargeAtPlayer(currentlyMovingEnemy) {
 }
 
 function enemyMove(currentlyMovingEnemy, destinationSprite) {
-  hexPositionFromSpriteCoordinates(currentlyMovingEnemy.x, currentlyMovingEnemy.y)
+  getEnemyMoveRange(currentlyMovingEnemy)
 }
 
-function getEnemyMoveRange(posX,posY) {
+function getEnemyMoveRange(currentlyMovingEnemy) {
   currentSprite = this
-  let startCubePosition = offsetToCube(hexPosition().x,hexPosition().y)
-  let nRange = currentSprite.movePoints
+  let startCubePosition = offsetToCube(hexPositionFromSpriteCoordinates(currentlyMovingEnemy.x, currentlyMovingEnemy.y))
+  let nRange = currentlyMovingEnemy.movePoints
   let cubeMoveRange = rangeCalc(startCubePosition, nRange)
-  const nextAction = 'move'
-  highlightRange(cubeMoveRange, nextAction)
+  const nextAction = 'eMove'
+  highlightERange(cubeMoveRange, nextAction, currentlyMovingEnemy)
 }
 
 function findNearestPlayer(currentlyMovingEnemy) {
@@ -116,11 +115,15 @@ function findNearestPlayer(currentlyMovingEnemy) {
   return nearestPlayer
 }
 
-function patrol() {
+function patrol(currentlyMovingEnemy) {
 
 }
 
-function sentinel() {
+function sentinel(currentlyMovingEnemy) {
+
+}
+
+function objectiveMove(currentlyMovingEnemy) {
 
 }
 
