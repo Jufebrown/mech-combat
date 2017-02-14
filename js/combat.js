@@ -75,4 +75,5 @@ function combat(targetCandidate) {
     miss(target)
   }
   destroyCheck(target)
+  enablePlayerMoves()
 }
