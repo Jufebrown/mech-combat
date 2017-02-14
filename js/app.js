@@ -62,6 +62,7 @@ let currentHex
 let turnCounter = 1
 let targetFound = false
 let moveToCubePos
+let victory = false
 
 
 let explosions
