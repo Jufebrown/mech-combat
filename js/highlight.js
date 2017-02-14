@@ -38,18 +38,12 @@ function spriteTint(highlightSprite) {
   }
 }
 
-function killHighlight() {
-  for(var i = 0, length1 = highlightGroup.children.length; i < length1; i++){
-    highlightGroup.children[i].visible = false
-  }
-  highlightGroup.children = []
-}
-
 function highlightRange(cubeRange, nextAction) {
   highlightGroup = game.add.group()
   highlightGroup.x = hexagonGroup.x
   highlightGroup.y = hexagonGroup.y
   highlightGroup.z = 1
+  targetFound = false
   for(var i = 0, length1 = cubeRange.length; i < length1; i++){
     let currentHex = cubeToOffset(cubeRange[i].x, cubeRange[i].z)
     let startX = hexToPixelX(currentHex.col)
