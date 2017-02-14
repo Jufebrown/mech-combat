@@ -106,14 +106,15 @@ function onCreate() {
     }
   }
 
+
   // positions hexagonGroup
-  hexagonGroup.y = 20
-  hexagonGroup.x = 20
+  hexagonGroup.y = groupOffset.y
+  hexagonGroup.x = groupOffset.x
   //gives same position to playerSquad and enemySquad groups
-  playerSquad.x = hexagonGroup.x
-  playerSquad.y = hexagonGroup.y
-  enemySquad.x = hexagonGroup.x
-  enemySquad.y = hexagonGroup.y
+  playerSquad.x = groupOffset.x
+  playerSquad.y = groupOffset.y
+  enemySquad.x = groupOffset.x
+  enemySquad.y = groupOffset.y
 
 
   let worldWidth = hexagonWidth * gridSizeX - 100
