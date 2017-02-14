@@ -216,12 +216,13 @@ function startEnemyTurn() {
 function enemyMoveType() {
   for(var i = 0, length1 = enemySquad.children.length; i < length1; i++){
     if (enemySquad.children[i].hasMoved === false) {
+      let currentlyMovingEnemy = enemySquad.children[i]
       if (enemySquad.children[i].movePattern === "patrol") {
         patrol()
       } else if (enemySquad.children[i].movePattern === "sentinel") {
         sentinel()
       } else if (enemySquad.children[i].movePattern === "alert") {
-        chargeAtPlayer()
+        chargeAtPlayer(currentlyMovingEnemy)
       } else if (enemySquad.children[i].movePattern === "objective") {
         objectiveMove()
       }
