@@ -182,6 +182,80 @@ function startPlayerTurn() {
   enablePlayerMoves()
 }
 
+function checkEndPlayerTurn() {
+  if (checkPlayerDone) {
+    enemyTurnSetup()
+    startEnemyTurn()
+  }
+}
+
+function enemyTurnSetup() {
+  for(var i = 0, length1 = enemySquad.children.length; i < length1; i++){
+    enemySquad.children[i].hasMoved = false
+    enemySquad.children[i].hasFired = false
+  }
+}
+
+function checkPlayerDone() {
+  let allPlayersDone = true
+  for(var i = 0, length1 = playerSquad.chidren.length; i < length1; i++){
+    if(playerSquad.chidren[i].hasFired === false) {
+      allPlayersDone = false
+    }
+  }
+  return allPlayersDone
+}
+
+function startEnemyTurn() {
+  if (!victory) {
+    enemyMoveType()
+  }
+}
+
+function enemyMoveType() {
+  for(var i = 0, length1 = enemySquad.children.length; i < length1; i++){
+    if (enemySquad.children[i].hasMoved === false) {
+      if (enemySquad.children[i].movePattern === "patrol") {
+        patrol()
+      } else if (enemySquad.children[i].movePattern === "sentinel") {
+        sentinel()
+      } else if (enemySquad.children[i].movePattern === "alert") {
+        chargeAtPlayer()
+      } else if (enemySquad.children[i].movePattern === "objective") {
+        objectiveMove()
+      }
+    }
+  }
+}
+
+function chargeAtPlayer() {
+  let nearestPlayer = findNearestPlayer(enemySquad.children[i])
+  enemyMove(nearestPlayer)
+}
+
+
+
+function findNearestPlayer(enemySquadMember) {
+  let nearestPlayerDistance = 5000
+  let nearestPlayer
+  for(var i = 0, length1 = playerSquad.children.length; i < length1; i++) {
+    if (game.physics.arcade.distanceBetween(enemySquadMember, playerSquad.children[i]) < nearestPlayerDistance) {
+      nearestPlayerDistance = game.physics.arcade.distanceBetween(enemySquadMember, playerSquad.children[i])
+      nearestPlayer = playerSquad.children[i]
+    }
+  }
+  return nearestPlayer
+}
+
+function patrol() {
+
+}
+
+function sentinel() {
+
+}
+
+
 // //fullscreen function
 // function gofull() {
 //     if (game.scale.isFullScreen)
