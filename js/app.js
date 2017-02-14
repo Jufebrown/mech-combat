@@ -56,6 +56,10 @@ let enemySquad
 let tween;
 let currentSprite
 let currentHex
+let turnCounter = 1
+
+
+let explosions
 
 //preloads images
 function onPreload() {
