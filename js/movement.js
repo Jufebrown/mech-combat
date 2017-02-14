@@ -1,5 +1,4 @@
 function clearMoveListeners() {
-  currentSprite.hasMoved = true
   game.input.onDown.remove(checkHex, currentHex);
   currentSprite.events.onInputDown.remove(getMoveRange, currentSprite)
   killHighlight()
@@ -8,6 +7,7 @@ function clearMoveListeners() {
 
 //moves sprite to specified hex
 function moveSprite (posX,posY) {
+  currentSprite.hasMoved = true
   let endX = hexToPixelX(posX)
   let endY = hexToPixelY(posX,posY)
 

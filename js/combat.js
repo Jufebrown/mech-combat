@@ -1,5 +1,6 @@
 function destroyCheck(target) {
   if (target.health <= 0) {
+    explodeMech(target)
     target.kill()
     target.destroy()
     enemySquad.remove(target)
@@ -62,6 +63,7 @@ function miss(target) {
 }
 
 function combat(targetCandidate) {
+  currentSprite.hasFired = true
   killHighlight()
   targetDisable(targetCandidate)
   let target = targetCandidate

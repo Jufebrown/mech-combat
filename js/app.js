@@ -119,12 +119,31 @@ function onCreate() {
   addPlayerSquad()
   addEnemySquad()
 
+    explosions = game.add.group();
+    explosions.createMultiple(enemySquad.children.length, 'mechExplosion');
+    explosions.forEach(setupExplosion, this);
+
   startPlayerTurn()
 
   drawHUD()
 
   // game.input.onDown.add(gofull, this);
   this.camera.flash('#000000', 2000);
+}
+
+function setupExplosion (explosions) {
+
+    explosions.anchor.x = 0.5;
+    explosions.anchor.y = 0.5;
+    explosions.animations.add('kaboom');
+
+}
+
+function explodeMech(target) {
+  game.world.bringToTop(explosions)
+  let explosion = explosions.getFirstExists(false);
+  explosion.reset(target.body.x+20, target.body.y+20);
+  explosion.play('kaboom', 20, false, true);
 }
 
 function enablePlayerMoves() {
@@ -138,8 +157,6 @@ function enablePlayerMoves() {
 function startPlayerTurn() {
   enablePlayerMoves()
 }
-
-
 
 // //fullscreen function
 // function gofull() {
