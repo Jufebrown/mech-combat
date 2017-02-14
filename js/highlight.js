@@ -20,6 +20,7 @@ function resolveTargetNotFound() {
     currentSprite.hasFired = true
     killHighlight()
     enablePlayerMoves()
+    checkEndPlayerTurn()
   }
 }
 

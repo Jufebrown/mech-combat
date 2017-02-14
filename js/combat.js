@@ -76,4 +76,5 @@ function combat(targetCandidate) {
   }
   destroyCheck(target)
   enablePlayerMoves()
+  checkEndPlayerTurn()
 }
