@@ -8,11 +8,11 @@ function destroyCheck(target) {
 }
 
 function getWeaponRange() {
-  let startCubePosition = offsetToCube(hexPosition().x,hexPosition().y)
+  let startCubePosition = moveToCubePos
   let nRange = currentSprite.weaponRange
-  let cubeMoveRange = rangeCalc(startCubePosition, nRange)
+  let cubeFireRange = rangeCalc(startCubePosition, nRange)
   const nextAction = 'fire'
-  highlightRange(cubeMoveRange, nextAction)
+  highlightRange(cubeFireRange, nextAction)
 }
 
 function targetEnable(targetCandidate) {
