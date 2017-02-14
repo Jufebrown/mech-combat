@@ -14,7 +14,7 @@ EnemyScout = function(game,x,y) {
   this.critDamage = 20
   this.hasMoved = false
   this.hasFired = false
-  this.movePattern = "sentinel"
+  this.movePattern = "alert"
 
   game.physics.enable(this, Phaser.Physics.ARCADE)
   this.body.setSize(16, 16, 0, 0)
