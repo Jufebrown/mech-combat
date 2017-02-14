@@ -21,7 +21,7 @@ function moveSprite (posX,posY) {
 //checks to see what hex the mouse pointer is over and sends info to moveSprite()
 function checkHex(){
   currentHex = this
-  // placeMarker(x,y);
+  disablePlayerMoves()
   moveSprite (hexPosition().x, hexPosition().y, currentSprite)
 }
 
