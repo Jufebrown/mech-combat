@@ -233,7 +233,9 @@ function chargeAtPlayer() {
   enemyMove(nearestPlayer)
 }
 
-
+function enemyMove(destinationSprite) {
+  // body...
+}
 
 function findNearestPlayer(enemySquadMember) {
   let nearestPlayerDistance = 5000
