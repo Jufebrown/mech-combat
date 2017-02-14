@@ -60,6 +60,8 @@ let tween;
 let currentSprite
 let currentHex
 let turnCounter = 1
+let targetFound = false
+let moveToCubePos
 
 
 let explosions
