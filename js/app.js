@@ -60,6 +60,7 @@ let turnCounter = 1
 
 
 let explosions
+let explosionSound
 
 //preloads images
 function onPreload() {
@@ -68,6 +69,7 @@ function onPreload() {
   game.load.image("player", "images/mechs/player_ph.png")
   game.load.image("enemy", "images/mechs/enemy_ph.png")
   game.load.spritesheet('mechExplosion', 'images/explosions/mech-explosion.png', 100, 100)
+  game.load.audio('mechExplosionSound', 'sounds/big-explosion.mp3');
 }
 
 function onCreate() {
@@ -119,9 +121,13 @@ function onCreate() {
   addPlayerSquad()
   addEnemySquad()
 
-    explosions = game.add.group();
-    explosions.createMultiple(enemySquad.children.length, 'mechExplosion');
-    explosions.forEach(setupExplosion, this);
+  explosionSound = game.add.audio('mechExplosionSound');
+  game.sound.setDecodedCallback(explosionSound, start, this);
+
+
+  explosions = game.add.group();
+  explosions.createMultiple(enemySquad.children.length, 'mechExplosion');
+  explosions.forEach(setupExplosion, this);
 
   startPlayerTurn()
 
@@ -139,11 +145,16 @@ function setupExplosion (explosions) {
 
 }
 
+function start() {
+  console.log('explosion sound is ready')
+}
+
 function explodeMech(target) {
   game.world.bringToTop(explosions)
   let explosion = explosions.getFirstExists(false);
   explosion.reset(target.body.x+20, target.body.y+20);
   explosion.play('kaboom', 20, false, true);
+  explosionSound.play()
 }
 
 function enablePlayerMoves() {
