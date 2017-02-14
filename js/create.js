@@ -10,7 +10,7 @@ function onCreate() {
   enemySquad.z = 3
 
   //background color for whole canvas element
-  game.stage.backgroundColor = "#b3c2d8"
+  game.stage.backgroundColor = "#513d24"
   game.physics.startSystem(Phaser.Physics.ARCADE);
   game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 

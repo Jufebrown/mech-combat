@@ -102,6 +102,30 @@ function getEnemyMoveRange(currentlyMovingEnemy) {
   highlightERange(cubeMoveRange, nextAction, currentlyMovingEnemy)
 }
 
+function highlightERange(cubeRange, nextAction, currentlyMovingEnemy) {
+  highlightGroup = game.add.group()
+  highlightGroup.x = hexagonGroup.x
+  highlightGroup.y = hexagonGroup.y
+  highlightGroup.z = 1
+  targetFound = false
+  for(var i = 0, length1 = cubeRange.length; i < length1; i++){
+    let currentHex = cubeToOffset(cubeRange[i].x, cubeRange[i].z)
+    let startX = hexToPixelX(currentHex.col)
+    let startY = hexToPixelY(currentHex.col,currentHex.row)
+    new Highlight(game, startX, startY)
+    highlightGroup.children[i].inputEnabled = true
+    game.physics.enable(highlightGroup.children[i], Phaser.Physics.ARCADE)
+    highlightGroup.children[i].body.setSize(16, 16, 0, 0)
+    if (nextAction === 'eMove') {
+      highlightGroup.children[i].events.onInputDown.add(checkHex, highlightGroup.children[i])
+    } else if (nextAction === 'eFire') {
+      eTargetCheck(highlightGroup.children[i])
+    }
+  }
+}
+
+
+
 function findNearestPlayer(currentlyMovingEnemy) {
   let nearestPlayerDistance = 5000
   let nearestPlayer
@@ -111,7 +135,7 @@ function findNearestPlayer(currentlyMovingEnemy) {
       nearestPlayer = playerSquad.children[i]
     }
   }
-  console.log('nearestPlayer', nearestPlayer)
+  // console.log('nearestPlayer', nearestPlayer)
   return nearestPlayer
 }
 
