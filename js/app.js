@@ -19,6 +19,7 @@ firebase.initializeApp(config);
 //starts new canvas
 const game = new Phaser.Game(640, 480, Phaser.CANVAS, "game-div", {
   init: function () {
+    //initializes kinetic scrolling plugin
     this.game.kineticScrolling = this.game.plugins.add(Phaser.Plugin.KineticScrolling);
     this.game.kineticScrolling.configure({
       kineticMovement: true,
