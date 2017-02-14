@@ -10,6 +10,7 @@ function moveSprite (posX,posY) {
   currentSprite.hasMoved = true
   let endX = hexToPixelX(posX)
   let endY = hexToPixelY(posX,posY)
+  moveToCubePos = offsetToCube(hexPosition().x,hexPosition().y)
 
   //  300 = 300 pixels per second = the speed the sprite will move at, regardless of the distance it has to travel
   var duration = 1000 //(game.physics.arcade.distanceToPointer(player, pointer) / 300) * 1000;
