@@ -63,6 +63,7 @@ function miss(target) {
 }
 
 function combat(targetCandidate) {
+  currentSprite.rotation = game.physics.arcade.angleBetween(currentSprite, targetCandidate)
   currentSprite.hasFired = true
   killHighlight()
   targetDisable(targetCandidate)
