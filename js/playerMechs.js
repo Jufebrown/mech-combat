@@ -13,7 +13,8 @@ Scout = function(game,x,y) {
 
   game.physics.enable(this, Phaser.Physics.ARCADE)
   this.body.setSize(16, 16, 0, 0)
-  this.anchor.setTo(0.5375, .5);
+  this.anchor.setTo(0.5, .5);
+  this.angle = -90
   this.visible = true
   playerSquad.add(this);
 };
