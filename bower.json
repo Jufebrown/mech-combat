@@ -19,6 +19,7 @@
     "phaser": "^2.6.2",
     "firebase": "^3.6.8",
     "jquery": "^3.1.1",
-    "materialize": "^0.98.0"
+    "materialize": "^0.98.0",
+    "easystarjs": "^0.3.1"
   }
 }
