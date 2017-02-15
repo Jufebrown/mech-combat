@@ -14,5 +14,5 @@ function explodeMech(target) {
   explosion.reset(target.body.x+20, target.body.y+20);
   explosion.play('kaboom', 20, false, true);
   explosionSound.play()
-  game.camera.shake(0.1, 500);
+  game.camera.shake(0.03, 500);
 }
