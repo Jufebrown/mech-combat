@@ -152,6 +152,44 @@ function objectiveMove(currentlyMovingEnemy) {
 }
 
 
+
+// function lerp(a, b, displacement) {
+//   return a + (b - a) * displacement
+// }
+
+// function cube_lerp(a, b, displacement){
+//   return Cube(lerp(a.x, b.x, displacement),
+//                 lerp(a.y, b.y, displacement),
+//                 lerp(a.z, b.z, displacement))
+// }
+
+// function cube_linedraw(a, b):
+//     var N = cube_distance(a, b)
+//     var results = []
+//     for each 0 ≤ i ≤ N:
+//         results.append(cube_round(cube_lerp(a, b, 1.0/N * i)))
+//     return results
+
+
+// function cube_round(h) {
+//     let cube = {}
+//     cube.rx = Math.round(h.x)
+//     cube.ry = Math.round(h.y)
+//     cube.rz = Math.round(h.z)
+
+//     let xDiff = Math.abs(rx - h.x)
+//     let yDiff = Math.abs(ry - h.y)
+//     let zDiff = Math.abs(rz - h.z)
+
+//     if (xDiff > yDiff && xDiff > zDiff) {
+//         rx = -ry-rz
+//     } else if (y_diff > z_diff) {
+//         ry = -rx-rz
+//     } else {
+//         rz = -rx-ry
+//     }
+//     return cube
+// }
 // //fullscreen function
 // function gofull() {
 //     if (game.scale.isFullScreen)
