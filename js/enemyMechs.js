@@ -19,7 +19,8 @@ EnemyScout = function(game,x,y) {
   game.physics.enable(this, Phaser.Physics.ARCADE)
   this.body.setSize(16, 16, 0, 0)
   this.visible = true
-  this.anchor.setTo(0.5375, .5);
+  this.anchor.setTo(0.5, .5);
+  this.angle = 90
   enemySquad.add(this);
 };
 EnemyScout.prototype = Object.create(Phaser.Sprite.prototype);
