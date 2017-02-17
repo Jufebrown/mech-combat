@@ -65,15 +65,31 @@ function combat(targetCandidate) {
   currentSprite.hasFired = true
   killHighlight()
   targetDisable(targetCandidate)
+  let shooter = currentSprite
   let target = targetCandidate
   if (hitCalc().crit) {
-    critDamage(target)
+    critDamage(shooter, target)
   } else if (hitCalc().hit) {
-    damage(target)
+    damage(shooter, target)
   } else {
-    miss(target)
+    miss(shooter, target)
   }
   destroyCheck(target)
   enablePlayerMoves()
-  checkEndPlayerTurn()
+}
+
+function enemyCombat(targetCandidate) {
+  currentlyMovingEnemy.rotation = game.physics.arcade.angleBetween(currentlyMovingEnemy, targetCandidate)
+  currentlyMovingEnemy.hasFired = true
+  killHighlight()
+  let shooter = currentlyMovingEnemy
+  let target = targetCandidate
+  if (hitCalc().crit) {
+    critDamage(shooter, target)
+  } else if (hitCalc().hit) {
+    damage(shooter, target)
+  } else {
+    miss(shooter, target)
+  }
+  destroyCheck(target)
 }
