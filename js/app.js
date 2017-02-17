@@ -3,8 +3,6 @@ This is a turn-based strategy game that uses a hex
 grid map. The map uses odd-q offset coodinates
 ****************************************************/
 
-
-
 // Initialize Firebase
 const config = {
   apiKey: "AIzaSyDnjSA0d_UhYUHmmLft9EV8pWtf14Dqgd8",
@@ -13,11 +11,16 @@ const config = {
   storageBucket: "mech-combat.appspot.com",
   messagingSenderId: "898287259769"
 };
-
 firebase.initializeApp(config);
 
+firebase.auth().onAuthStateChanged(() => {
+  if (firebase.auth().currentUser !== null) {
+  var email = firebase.auth().currentUser.email
+  $('.main-page h1').text(`Welcome ${email}`)
+  $('.login-page').addClass('hidden')
+  $('.main-page').removeClass('hidden')
 //starts new canvas
-const game = new Phaser.Game(640, 480, Phaser.CANVAS, "game-div", {
+  game = new Phaser.Game(640, 480, Phaser.CANVAS, "game-div", {
   init: function () {
     //initializes kinetic scrolling plugin
     this.game.kineticScrolling = this.game.plugins.add(Phaser.Plugin.KineticScrolling);
