@@ -98,3 +98,18 @@ function enemyCombat(targetCandidate) {
   }
   destroyCheck(target)
 }
+
+function enemyAttack() {
+  let positionCurrentEnemy = hexPositionFromSpriteCoordinates(currentlyMovingEnemy.x, currentlyMovingEnemy.y)
+  let cubePositionCurrentEnemy = offsetToCube(positionCurrentEnemy.x, positionCurrentEnemy.y)
+  let cubeEnemyWeaponRange = getEnemyWeaponRange(cubePositionCurrentEnemy)
+  const nextAction = "efire"
+  enemyHighlightRange(cubeEnemyWeaponRange, nextAction)
+}
+
+function getEnemyWeaponRange(cubePositionCurrentEnemy) {
+  let startCubePosition = cubePositionCurrentEnemy
+  let nRange = currentlyMovingEnemy.movePoints
+  let cubeWeaponRange = rangeCalc(startCubePosition, nRange)
+  return cubeWeaponRange
+}

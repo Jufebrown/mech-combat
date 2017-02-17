@@ -26,3 +26,15 @@ function chargeAtPlayer() {
     moveEnemySprite(offsetNearestHex, nearestPlayer)
   }
 }
+
+function patrol() {
+
+}
+
+function sentinel() {
+
+}
+
+function objectiveMove() {
+
+}
