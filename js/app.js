@@ -38,7 +38,13 @@ firebase.auth().onAuthStateChanged(() => {
   create: onCreate,
   update: onUpdate,
 });
+  } else {
+    $('.login-page').removeClass('hidden')
+    $('.main-page').addClass('hidden')
+  }
+})
 
+let game
 let groupOffset = {x: 20, y: 20}
 
 //sets up hex width and height. height should be sqrt(3)/2 of width but need to tweek to get spacing right
