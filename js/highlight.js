@@ -25,6 +25,24 @@ function highlightRange(cubeRange, nextAction) {
   }
 }
 
+function killHighlight() {
+  for(var i = 0, length1 = highlightGroup.children.length; i < length1; i++){
+    highlightGroup.children[i].visible = false
+  }
+  highlightGroup.children = []
+}
+
+function spriteTint(highlightSprite) {
+  targetFound = true
+  highlightSprite.tint = 0xff2100
+  highlightSprite.alpha = .3
+  for(var i = 0, length1 = enemySquad.children.length; i < length1; i++){
+    let targetCandidate = enemySquad.children[i]
+    game.physics.arcade.overlap(targetCandidate, highlightSprite, this.targetEnable, null, this)
+  }
+}
+
+
 /**************************************
                 Enemy
 **************************************/
@@ -63,13 +81,13 @@ EnemyHighlight = function(game,x,y) {
   enemyHighlightGroup.add(this);
 };
 EnemyHighlight.prototype = Object.create(Phaser.Sprite.prototype);
-EnemyHighlight.prototype.constructor = Highlight;
+EnemyHighlight.prototype.constructor = EnemyHighlight;
 
-function killHighlight() {
-  for(var i = 0, length1 = highlightGroup.children.length; i < length1; i++){
-    highlightGroup.children[i].visible = false
+function killEnemyHighlight() {
+  for(var i = 0, length1 = enemyHighlightGroup.children.length; i < length1; i++){
+    enemyHighlightGroup.children[i].visible = false
   }
-  highlightGroup.children = []
+  enemyHighlightGroup.children = []
 }
 
 function resolveTargetNotFound() {
@@ -86,20 +104,12 @@ function targetCheck(highlightSprite) {
   game.time.events.add(Phaser.Timer.SECOND * .5, resolveTargetNotFound, this)
 }
 
-function spriteTint(highlightSprite) {
-  targetFound = true
-  highlightSprite.tint = 0xff2100
-  highlightSprite.alpha = .3
-  for(var i = 0, length1 = enemySquad.children.length; i < length1; i++){
-    let targetCandidate = enemySquad.children[i]
-    game.physics.arcade.overlap(targetCandidate, highlightSprite, this.targetEnable, null, this)
-  }
-}
 
 function enemyResolveTargetNotFound() {
   if (targetFound === false) {
+    console.log('is this working')
     currentlyMovingEnemy.hasFired = true
-    killHighlight()
+    killEnemyHighlight()
   }
 }
 

@@ -2,6 +2,13 @@
                 Player
 **************************************/
 
+function targetEnable(targetCandidate) {
+  game.world.bringToTop(enemySquad)
+  targetCandidate.events.onInputDown.add(combat, targetCandidate)
+}
+
+
+
 /**************************************
                 Enemy
 **************************************/
@@ -27,10 +34,6 @@ function getWeaponRange() {
   highlightRange(cubeFireRange, nextAction)
 }
 
-function targetEnable(targetCandidate) {
-  game.world.bringToTop(enemySquad)
-  targetCandidate.events.onInputDown.add(combat, targetCandidate)
-}
 
 function targetDisable(targetCandidate) {
   targetCandidate.events.onInputDown.remove(combat, targetCandidate)
@@ -93,10 +96,10 @@ function combat(targetCandidate) {
 
 function enemyCombat(targetCandidate) {
   currentlyMovingEnemy.rotation = game.physics.arcade.angleBetween(currentlyMovingEnemy, targetCandidate)
-  killHighlight()
+  currentlyMovingEnemy.hasFired = true
+  killEnemyHighlight()
   let shooter = currentlyMovingEnemy
   let target = targetCandidate
-  currentlyMovingEnemy.hasFired = true
   if (hitCalc().crit) {
     critDamage(shooter, target)
   } else if (hitCalc().hit) {

@@ -44,8 +44,8 @@ function checkEndEnemyTurn() {
   console.log('enemyDone', enemyDone)
   if (enemyDone) {
     playerTurnSetup()
-    startPlayerTurn()
     playerTurn = true
+    startPlayerTurn()
   }
 }
 
