@@ -56,7 +56,7 @@ let hexagonGroup;
 let highlightGroup
 let playerSquad
 let enemySquad
-let tween;
+// let tween;
 let currentSprite
 let currentHex
 let turnCounter = 1
