@@ -3,6 +3,11 @@ function destroyCheck(target) {
     explodeMech(target)
     target.kill()
     target.destroy()
+    if (target.key === 'player') {
+      playerSquad.remove(target)
+    } else if (target.key === 'enemy') {
+      enemySquad.remove(target)
+    }
   }
 }
 
