@@ -39,6 +39,11 @@ function onCreate() {
   enemySquad.x = groupOffset.x
   enemySquad.y = groupOffset.y
 
+  highlightGroup = game.add.group()
+  highlightGroup.x = hexagonGroup.x
+  highlightGroup.y = hexagonGroup.y
+  highlightGroup.z = 1
+
 
   let worldWidth = hexagonWidth * gridSizeX - 100
   let worldHeight = (hexagonHeight * gridSizeY)/1.75
