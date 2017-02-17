@@ -191,15 +191,15 @@ function findNearestPlayer() {
   return nearestPlayer
 }
 
-function patrol(currentlyMovingEnemy) {
+function patrol() {
 
 }
 
-function sentinel(currentlyMovingEnemy) {
+function sentinel() {
 
 }
 
-function objectiveMove(currentlyMovingEnemy) {
+function objectiveMove() {
 
 }
 
