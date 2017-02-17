@@ -1,10 +1,49 @@
 /**************************************
                 Player
 **************************************/
+function highlightRange(cubeRange, nextAction) {
+  highlightGroup = game.add.group()
+  highlightGroup.x = hexagonGroup.x
+  highlightGroup.y = hexagonGroup.y
+  highlightGroup.z = 1
+  targetFound = false
+  for(var i = 0, length1 = cubeRange.length; i < length1; i++){
+    let currentHex = cubeToOffset(cubeRange[i].x, cubeRange[i].z)
+    let startX = hexToPixelX(currentHex.col)
+    let startY = hexToPixelY(currentHex.col,currentHex.row)
+    new Highlight(game, startX, startY)
+    highlightGroup.children[i].inputEnabled = true
+    game.physics.enable(highlightGroup.children[i], Phaser.Physics.ARCADE)
+    highlightGroup.children[i].body.setSize(16, 16, 0, 0)
+    if (nextAction === 'move') {
+      highlightGroup.children[i].events.onInputDown.add(checkHex, highlightGroup.children[i])
+    } else if (nextAction === 'fire') {
+      targetCheck(highlightGroup.children[i])
+    } else if (nextAction === 'efire') {
+      enemyTargetCheck(highlightGroup.children[i])
+    }
+  }
+}
 
 /**************************************
                 Enemy
 **************************************/
+function enemyHighlightRange(cubeRange) {
+  // highlightGroup = game.add.group()
+  // highlightGroup.x = hexagonGroup.x
+  // highlightGroup.y = hexagonGroup.y
+  // highlightGroup.z = 1
+  targetFound = false
+  for(var i = 0, length1 = cubeRange.length; i < length1; i++){
+    let currentHex = cubeToOffset(cubeRange[i].x, cubeRange[i].z)
+    let startX = hexToPixelX(currentHex.col)
+    let startY = hexToPixelY(currentHex.col,currentHex.row)
+    new EnemyHighlight(game, startX, startY)
+    game.physics.enable(enemyHighlightGroup.children[i], Phaser.Physics.ARCADE)
+    enemyHighlightGroup.children[i].body.setSize(16, 16, 0, 0)
+    enemyTargetCheck(enemyHighlightGroup.children[i])
+  }
+}
 
 Highlight = function(game,x,y) {
   Phaser.Sprite.call(this, game, x, y, 'highlight');
@@ -15,6 +54,16 @@ Highlight = function(game,x,y) {
 };
 Highlight.prototype = Object.create(Phaser.Sprite.prototype);
 Highlight.prototype.constructor = Highlight;
+
+EnemyHighlight = function(game,x,y) {
+  Phaser.Sprite.call(this, game, x, y, 'highlight');
+  this.anchor.setTo(0.5, 0.5);
+  this.visible = true
+  this.alpha = .3
+  enemyHighlightGroup.add(this);
+};
+EnemyHighlight.prototype = Object.create(Phaser.Sprite.prototype);
+EnemyHighlight.prototype.constructor = Highlight;
 
 function killHighlight() {
   for(var i = 0, length1 = highlightGroup.children.length; i < length1; i++){
@@ -67,54 +116,6 @@ function enemySpriteTint(highlightSprite) {
     let targetCandidate = playerSquad.children[i]
     if(game.physics.arcade.overlap(targetCandidate, highlightSprite/*, this.enemyCombat, null, this*/)) {
       enemyCombat(targetCandidate)
-      break
-    }
-  }
-}
-
-function enemyHighlightRange(cubeRange, nextAction) {
-  // highlightGroup = game.add.group()
-  // highlightGroup.x = hexagonGroup.x
-  // highlightGroup.y = hexagonGroup.y
-  // highlightGroup.z = 1
-  targetFound = false
-  for(var i = 0, length1 = cubeRange.length; i < length1; i++){
-    let currentHex = cubeToOffset(cubeRange[i].x, cubeRange[i].z)
-    let startX = hexToPixelX(currentHex.col)
-    let startY = hexToPixelY(currentHex.col,currentHex.row)
-    new Highlight(game, startX, startY)
-    game.physics.enable(highlightGroup.children[i], Phaser.Physics.ARCADE)
-    highlightGroup.children[i].body.setSize(16, 16, 0, 0)
-    if (nextAction === 'move') {
-      highlightGroup.children[i].events.onInputDown.add(checkHex, highlightGroup.children[i])
-    } else if (nextAction === 'fire') {
-      targetCheck(highlightGroup.children[i])
-    } else if (nextAction === 'efire') {
-      enemyTargetCheck(highlightGroup.children[i])
-    }
-  }
-}
-
-function highlightRange(cubeRange, nextAction) {
-  highlightGroup = game.add.group()
-  highlightGroup.x = hexagonGroup.x
-  highlightGroup.y = hexagonGroup.y
-  highlightGroup.z = 1
-  targetFound = false
-  for(var i = 0, length1 = cubeRange.length; i < length1; i++){
-    let currentHex = cubeToOffset(cubeRange[i].x, cubeRange[i].z)
-    let startX = hexToPixelX(currentHex.col)
-    let startY = hexToPixelY(currentHex.col,currentHex.row)
-    new Highlight(game, startX, startY)
-    highlightGroup.children[i].inputEnabled = true
-    game.physics.enable(highlightGroup.children[i], Phaser.Physics.ARCADE)
-    highlightGroup.children[i].body.setSize(16, 16, 0, 0)
-    if (nextAction === 'move') {
-      highlightGroup.children[i].events.onInputDown.add(checkHex, highlightGroup.children[i])
-    } else if (nextAction === 'fire') {
-      targetCheck(highlightGroup.children[i])
-    } else if (nextAction === 'efire') {
-      enemyTargetCheck(highlightGroup.children[i])
     }
   }
 }

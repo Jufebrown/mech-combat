@@ -54,6 +54,7 @@ let sectorHeight = hexagonHeight;
 let gradient = (hexagonWidth/4)/(hexagonHeight/2);
 let hexagonGroup;
 let highlightGroup
+let enemyHighlightGroup
 let playerSquad
 let enemySquad
 let currentSprite
@@ -79,18 +80,17 @@ function enemyMoveType() {
   for(var i = 0, length1 = enemySquad.children.length; i < length1; i++) {
     // console.log('length1', length1)
     currentlyMovingEnemy = enemySquad.children[i]
-        game.time.events.add(Phaser.Timer.SECOND * .2, chargeAtPlayer, this)
-    // if (currentlyMovingEnemy.hasMoved === false) {
-    //   if (currentlyMovingEnemy.movePattern === "patrol") {
-    //     patrol()
-    //   } else if (currentlyMovingEnemy.movePattern === "sentinel") {
-    //     sentinel()
-    //   } else if (currentlyMovingEnemy.movePattern === "alert") {
-    //     // chargeAtPlayer()
-    //   } else if (currentlyMovingEnemy.movePattern === "objective") {
-    //     objectiveMove()
-    //   }
-    // }
+    if (currentlyMovingEnemy.hasMoved === false) {
+      if (currentlyMovingEnemy.movePattern === "patrol") {
+        patrol()
+      } else if (currentlyMovingEnemy.movePattern === "sentinel") {
+        sentinel()
+      } else if (currentlyMovingEnemy.movePattern === "alert") {
+        chargeAtPlayer()
+      } else if (currentlyMovingEnemy.movePattern === "objective") {
+        objectiveMove()
+      }
+    }
   }
 }
 

@@ -15,6 +15,7 @@ function playerTurnSetup() {
 
 function checkEndPlayerTurn() {
   let playerDone = checkPlayerDone()
+  console.log('checking player turn end', playerDone)
   if (playerDone) {
     playerTurn = false
     enemyTurnSetup()
@@ -39,7 +40,6 @@ function checkPlayerDone() {
 **************************************/
 
 function checkEndEnemyTurn() {
-  console.log('checking end of enemy turn')
   let enemyDone = checkEnemyDone()
   console.log('enemyDone', enemyDone)
   if (enemyDone) {
