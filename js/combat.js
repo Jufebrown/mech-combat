@@ -3,7 +3,6 @@ function destroyCheck(target) {
     explodeMech(target)
     target.kill()
     target.destroy()
-    enemySquad.remove(target)
   }
 }
 
