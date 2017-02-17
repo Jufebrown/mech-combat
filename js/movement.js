@@ -8,6 +8,7 @@ function clearMoveListeners() {
 //moves sprite to specified hex
 function moveSprite (posX,posY) {
   currentSprite.hasMoved = true
+  let tween
   let endX = hexToPixelX(posX)
   let endY = hexToPixelY(posX,posY)
   moveToCubePos = offsetToCube(hexPosition().x,hexPosition().y)

@@ -39,6 +39,54 @@ function spriteTint(highlightSprite) {
   }
 }
 
+function enemyResolveTargetNotFound() {
+  if (targetFound === false) {
+    currentlyMovingEnemy.hasFired = true
+    killHighlight()
+  }
+}
+
+function enemyTargetCheck(highlightSprite) {
+  game.physics.arcade.overlap(highlightSprite, playerSquad, this.enemySpriteTint, null, this)
+  game.time.events.add(Phaser.Timer.SECOND * .2, enemyResolveTargetNotFound, this)
+}
+
+function enemySpriteTint(highlightSprite) {
+  targetFound = true
+  highlightSprite.tint = 0xff2100
+  highlightSprite.alpha = .3
+  for(var i = 0, length1 = playerSquad.children.length; i < length1; i++){
+    let targetCandidate = playerSquad.children[i]
+    if(game.physics.arcade.overlap(targetCandidate, highlightSprite/*, this.enemyCombat, null, this*/)) {
+      enemyCombat(targetCandidate)
+      break
+    }
+  }
+}
+
+function enemyHighlightRange(cubeRange, nextAction) {
+  // highlightGroup = game.add.group()
+  // highlightGroup.x = hexagonGroup.x
+  // highlightGroup.y = hexagonGroup.y
+  // highlightGroup.z = 1
+  targetFound = false
+  for(var i = 0, length1 = cubeRange.length; i < length1; i++){
+    let currentHex = cubeToOffset(cubeRange[i].x, cubeRange[i].z)
+    let startX = hexToPixelX(currentHex.col)
+    let startY = hexToPixelY(currentHex.col,currentHex.row)
+    new Highlight(game, startX, startY)
+    game.physics.enable(highlightGroup.children[i], Phaser.Physics.ARCADE)
+    highlightGroup.children[i].body.setSize(16, 16, 0, 0)
+    if (nextAction === 'move') {
+      highlightGroup.children[i].events.onInputDown.add(checkHex, highlightGroup.children[i])
+    } else if (nextAction === 'fire') {
+      targetCheck(highlightGroup.children[i])
+    } else if (nextAction === 'efire') {
+      enemyTargetCheck(highlightGroup.children[i])
+    }
+  }
+}
+
 function highlightRange(cubeRange, nextAction) {
   highlightGroup = game.add.group()
   highlightGroup.x = hexagonGroup.x
@@ -57,6 +105,8 @@ function highlightRange(cubeRange, nextAction) {
       highlightGroup.children[i].events.onInputDown.add(checkHex, highlightGroup.children[i])
     } else if (nextAction === 'fire') {
       targetCheck(highlightGroup.children[i])
+    } else if (nextAction === 'efire') {
+      enemyTargetCheck(highlightGroup.children[i])
     }
   }
 }

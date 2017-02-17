@@ -2,11 +2,40 @@ function startPlayerTurn() {
   enablePlayerMoves()
 }
 
+function playerTurnSetup() {
+  for(var i = 0, length1 = playerSquad.children.length; i < length1; i++){
+    playerSquad.children[i].hasMoved = false
+    playerSquad.children[i].hasFired = false
+  }
+}
+
 function checkEndPlayerTurn() {
-  if (checkPlayerDone) {
+  let playerDone = checkPlayerDone()
+  if (playerDone) {
+    playerTurn = false
     enemyTurnSetup()
     startEnemyTurn()
   }
+}
+
+function checkEndEnemyTurn() {
+  let enemyDone = checkEnemyDone()
+  if (enemyDone) {
+    playerTurnSetup()
+    startPlayerTurn()
+    playerTurn = true
+  }
+}
+
+function checkEnemyDone() {
+  let allEnemiesDone = true
+  for(var i = 0, length1 = enemySquad.children.length; i < length1; i++){
+    if(enemySquad.children[i].hasFired === false) {
+      allEnemiesDone = false
+      return allEnemiesDone
+    }
+  }
+  return allEnemiesDone
 }
 
 function enemyTurnSetup() {
@@ -18,9 +47,10 @@ function enemyTurnSetup() {
 
 function checkPlayerDone() {
   let allPlayersDone = true
-  for(var i = 0, length1 = playerSquad.chidren.length; i < length1; i++){
-    if(playerSquad.chidren[i].hasFired === false) {
+  for(var i = 0, length1 = playerSquad.children.length; i < length1; i++){
+    if(playerSquad.children[i].hasFired === false) {
       allPlayersDone = false
+      return allPlayersDone
     }
   }
   return allPlayersDone
@@ -28,6 +58,7 @@ function checkPlayerDone() {
 
 function startEnemyTurn() {
   if (!victory) {
+    // console.log('enemyMoveType is called next')
     enemyMoveType()
   }
 }
