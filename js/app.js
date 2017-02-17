@@ -65,69 +65,121 @@ let moveToCubePos
 let victory = false
 let explosions
 let explosionSound
+let playerTurn = true
+let currentlyMovingEnemy
 
+function onUpdate() {
+  if (playerTurn) {
+    checkEndPlayerTurn()
+  } else {
+    checkEndEnemyTurn()
+  }
+}
 
 function enemyMoveType() {
-  for(var i = 0, length1 = enemySquad.children.length; i < length1; i++){
-    if (enemySquad.children[i].hasMoved === false) {
-      let currentlyMovingEnemy = enemySquad.children[i]
-      if (enemySquad.children[i].movePattern === "patrol") {
-        patrol(currentlyMovingEnemy)
-      } else if (enemySquad.children[i].movePattern === "sentinel") {
-        sentinel(currentlyMovingEnemy)
-      } else if (enemySquad.children[i].movePattern === "alert") {
-        chargeAtPlayer(currentlyMovingEnemy)
-      } else if (enemySquad.children[i].movePattern === "objective") {
-        objectiveMove(currentlyMovingEnemy)
+  for(var i = 0, length1 = enemySquad.children.length; i < length1; i++) {
+    // console.log('length1', length1)
+    currentlyMovingEnemy = enemySquad.children[i]
+    if (currentlyMovingEnemy.hasMoved === false) {
+      if (currentlyMovingEnemy.movePattern === "patrol") {
+        patrol()
+      } else if (currentlyMovingEnemy.movePattern === "sentinel") {
+        sentinel()
+      } else if (currentlyMovingEnemy.movePattern === "alert") {
+        chargeAtPlayer()
+      } else if (currentlyMovingEnemy.movePattern === "objective") {
+        objectiveMove()
       }
     }
   }
 }
 
-function chargeAtPlayer(currentlyMovingEnemy) {
-  let nearestPlayer = findNearestPlayer(currentlyMovingEnemy)
-  enemyMove(currentlyMovingEnemy, nearestPlayer)
-}
-
-function enemyMove(currentlyMovingEnemy, destinationSprite) {
-  getEnemyMoveRange(currentlyMovingEnemy)
-}
-
-function getEnemyMoveRange(currentlyMovingEnemy) {
-  currentSprite = this
-  let startCubePosition = offsetToCube(hexPositionFromSpriteCoordinates(currentlyMovingEnemy.x, currentlyMovingEnemy.y))
-  let nRange = currentlyMovingEnemy.movePoints
-  let cubeMoveRange = rangeCalc(startCubePosition, nRange)
-  const nextAction = 'eMove'
-  highlightERange(cubeMoveRange, nextAction, currentlyMovingEnemy)
-}
-
-function highlightERange(cubeRange, nextAction, currentlyMovingEnemy) {
-  highlightGroup = game.add.group()
-  highlightGroup.x = hexagonGroup.x
-  highlightGroup.y = hexagonGroup.y
-  highlightGroup.z = 1
-  targetFound = false
-  for(var i = 0, length1 = cubeRange.length; i < length1; i++){
-    let currentHex = cubeToOffset(cubeRange[i].x, cubeRange[i].z)
-    let startX = hexToPixelX(currentHex.col)
-    let startY = hexToPixelY(currentHex.col,currentHex.row)
-    new Highlight(game, startX, startY)
-    highlightGroup.children[i].inputEnabled = true
-    game.physics.enable(highlightGroup.children[i], Phaser.Physics.ARCADE)
-    highlightGroup.children[i].body.setSize(16, 16, 0, 0)
-    if (nextAction === 'eMove') {
-      highlightGroup.children[i].events.onInputDown.add(checkHex, highlightGroup.children[i])
-    } else if (nextAction === 'eFire') {
-      eTargetCheck(highlightGroup.children[i])
-    }
+function chargeAtPlayer() {
+  let nearestPlayer = findNearestPlayer()
+  // console.log('nearestPlayer', nearestPlayer)
+  // console.log('currentlyMovingEnemy', currentlyMovingEnemy)
+  let positionCurrentEnemy = hexPositionFromSpriteCoordinates(currentlyMovingEnemy.x, currentlyMovingEnemy.y)
+  let cubePositionCurrentEnemy = offsetToCube(positionCurrentEnemy.x, positionCurrentEnemy.y)
+  //get position of nearest player
+  let nearestPlayerHexPos = hexPositionFromSpriteCoordinates(nearestPlayer.x, nearestPlayer.y)
+  let cubeNearestPlayerPos = offsetToCube(nearestPlayerHexPos.x, nearestPlayerHexPos.y)
+  //get distance to nearest player
+  let distanceBetweenEnemyAndNearestPlayer = cubeDistance(cubePositionCurrentEnemy, cubeNearestPlayerPos)
+  // console.log('cubeDistanceBetweenEnemyAndNearestPlayer', distanceBetweenEnemyAndNearestPlayer)
+  //if nearest player is in weapon range => attack
+  if (distanceBetweenEnemyAndNearestPlayer <= currentlyMovingEnemy.weaponRange) {
+    // fire on nearestPlayer
+    currentlyMovingEnemy.hasMoved = true
+    enemyAttack()
+  } else { //else move to hex closest to nearest player
+    //get enemy move range
+    let enemyMoveCubeRangeArray = getEnemyMoveRange(cubePositionCurrentEnemy)
+    // console.log('enemyMoveCubeRangeArray', enemyMoveCubeRangeArray)
+    //test each range hex to see if it's closest to nearest player
+    let cubeNearestHex = findNearestHex(cubeNearestPlayerPos, enemyMoveCubeRangeArray)
+    // console.log('cubeNearestHex', cubeNearestHex)
+    let offsetNearestHex = cubeToOffset(cubeNearestHex.x, cubeNearestHex.z)
+    moveEnemySprite(offsetNearestHex, nearestPlayer)
   }
 }
 
+//moves sprite to specified hex
+function moveEnemySprite(offsetNearestHex, nearestPlayer) {
+  // console.log('offsetNearestHex', offsetNearestHex)
+  currentlyMovingEnemy.hasMoved = true
+  let hexEndX = offsetNearestHex.col + 1
+  let hexEndY = offsetNearestHex.row + 2
+  let endX = hexToPixelX(hexEndX)
+  let endY = hexToPixelY(hexEndX, hexEndY)
+  let tween
+  // moveToCubePos = offsetToCube(hexPosition().x,hexPosition().y)
+  // currentSprite.rotation = game.physics.arcade.angleToPointer(currentSprite)
+  //  300 = 300 pixels per second = the speed the sprite will move at, regardless of the distance it has to travel
+  var duration = 1000 //(game.physics.arcade.distanceToPointer(player, pointer) / 300) * 1000;
+  tween = game.add.tween(currentlyMovingEnemy).to({ x: endX, y: endY }, duration, Phaser.Easing.Linear.None, true);
+  tween.onComplete.add(enemyAttack, this)
+}
+
+function enemyAttack() {
+  let positionCurrentEnemy = hexPositionFromSpriteCoordinates(currentlyMovingEnemy.x, currentlyMovingEnemy.y)
+  let cubePositionCurrentEnemy = offsetToCube(positionCurrentEnemy.x, positionCurrentEnemy.y)
+  let cubeEnemyWeaponRange = getEnemyWeaponRange(cubePositionCurrentEnemy)
+  const nextAction = "efire"
+  enemyHighlightRange(cubeEnemyWeaponRange, nextAction)
+}
+
+function getEnemyWeaponRange(cubePositionCurrentEnemy) {
+  let startCubePosition = cubePositionCurrentEnemy
+  let nRange = currentlyMovingEnemy.movePoints
+  let cubeWeaponRange = rangeCalc(startCubePosition, nRange)
+  return cubeWeaponRange
+}
+
+function findNearestHex(cubeNearestPlayerPos, enemyMoveCubeRangeArray) {
+  let nearestHexDistance = 10000
+  let nearestCubeHex
+  for(var i = 0, length1 = enemyMoveCubeRangeArray.length; i < length1; i++){
+    let distanceBetweenNearPlayerPosAndHex = cubeDistance(cubeNearestPlayerPos, enemyMoveCubeRangeArray[i])
+    // console.log('distanceBetweenNearPlayerPosAndHex', distanceBetweenNearPlayerPosAndHex)
+    if (nearestHexDistance > distanceBetweenNearPlayerPosAndHex) {
+      nearestHexDistance = distanceBetweenNearPlayerPosAndHex
+      nearestCubeHex = enemyMoveCubeRangeArray[i]
+      // console.log('nearestHexDistance', nearestHexDistance)
+    }
+  }
+  return nearestCubeHex
+}
 
 
-function findNearestPlayer(currentlyMovingEnemy) {
-  let nearestPlayerDistance = 5000
+function getEnemyMoveRange(cubePositionCurrentEnemy) {
+  let startCubePosition = cubePositionCurrentEnemy
+  let nRange = currentlyMovingEnemy.movePoints
+  let cubeMoveRange = rangeCalc(startCubePosition, nRange)
+  return cubeMoveRange
+}
+
+function findNearestPlayer() {
+  let nearestPlayerDistance = 10000
   let nearestPlayer
   for(var i = 0, length1 = playerSquad.children.length; i < length1; i++) {
     if (game.physics.arcade.distanceBetween(currentlyMovingEnemy, playerSquad.children[i]) < nearestPlayerDistance) {
