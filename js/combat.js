@@ -17,7 +17,6 @@ function getWeaponRange() {
 function targetEnable(targetCandidate) {
   game.world.bringToTop(enemySquad)
   targetCandidate.events.onInputDown.add(combat, targetCandidate)
-  console.log('targetCandidate', targetCandidate)
 }
 
 function targetDisable(targetCandidate) {
