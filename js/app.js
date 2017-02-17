@@ -56,7 +56,6 @@ let hexagonGroup;
 let highlightGroup
 let playerSquad
 let enemySquad
-// let tween;
 let currentSprite
 let currentHex
 let turnCounter = 1
@@ -96,127 +95,6 @@ function enemyMoveType() {
 
 
 
-//moves sprite to specified hex
-function moveEnemySprite(offsetNearestHex, nearestPlayer) {
-  // console.log('offsetNearestHex', offsetNearestHex)
-  currentlyMovingEnemy.hasMoved = true
-  let hexEndX = offsetNearestHex.col + 1
-  let hexEndY = offsetNearestHex.row + 2
-  let endX = hexToPixelX(hexEndX)
-  let endY = hexToPixelY(hexEndX, hexEndY)
-  let tween
-  // moveToCubePos = offsetToCube(hexPosition().x,hexPosition().y)
-  // currentSprite.rotation = game.physics.arcade.angleToPointer(currentSprite)
-  //  300 = 300 pixels per second = the speed the sprite will move at, regardless of the distance it has to travel
-  var duration = 1000 //(game.physics.arcade.distanceToPointer(player, pointer) / 300) * 1000;
-  tween = game.add.tween(currentlyMovingEnemy).to({ x: endX, y: endY }, duration, Phaser.Easing.Linear.None, true);
-  tween.onComplete.add(enemyAttack, this)
-}
-
-function enemyAttack() {
-  let positionCurrentEnemy = hexPositionFromSpriteCoordinates(currentlyMovingEnemy.x, currentlyMovingEnemy.y)
-  let cubePositionCurrentEnemy = offsetToCube(positionCurrentEnemy.x, positionCurrentEnemy.y)
-  let cubeEnemyWeaponRange = getEnemyWeaponRange(cubePositionCurrentEnemy)
-  const nextAction = "efire"
-  enemyHighlightRange(cubeEnemyWeaponRange, nextAction)
-}
-
-function getEnemyWeaponRange(cubePositionCurrentEnemy) {
-  let startCubePosition = cubePositionCurrentEnemy
-  let nRange = currentlyMovingEnemy.movePoints
-  let cubeWeaponRange = rangeCalc(startCubePosition, nRange)
-  return cubeWeaponRange
-}
-
-function findNearestHex(cubeNearestPlayerPos, enemyMoveCubeRangeArray) {
-  let nearestHexDistance = 10000
-  let nearestCubeHex
-  for(var i = 0, length1 = enemyMoveCubeRangeArray.length; i < length1; i++){
-    let distanceBetweenNearPlayerPosAndHex = cubeDistance(cubeNearestPlayerPos, enemyMoveCubeRangeArray[i])
-    // console.log('distanceBetweenNearPlayerPosAndHex', distanceBetweenNearPlayerPosAndHex)
-    if (nearestHexDistance > distanceBetweenNearPlayerPosAndHex) {
-      nearestHexDistance = distanceBetweenNearPlayerPosAndHex
-      nearestCubeHex = enemyMoveCubeRangeArray[i]
-      // console.log('nearestHexDistance', nearestHexDistance)
-    }
-  }
-  return nearestCubeHex
-}
-
-
-function getEnemyMoveRange(cubePositionCurrentEnemy) {
-  let startCubePosition = cubePositionCurrentEnemy
-  let nRange = currentlyMovingEnemy.movePoints
-  let cubeMoveRange = rangeCalc(startCubePosition, nRange)
-  return cubeMoveRange
-}
-
-function findNearestPlayer() {
-  let nearestPlayerDistance = 10000
-  let nearestPlayer
-  for(var i = 0, length1 = playerSquad.children.length; i < length1; i++) {
-    if (game.physics.arcade.distanceBetween(currentlyMovingEnemy, playerSquad.children[i]) < nearestPlayerDistance) {
-      nearestPlayerDistance = game.physics.arcade.distanceBetween(currentlyMovingEnemy, playerSquad.children[i])
-      nearestPlayer = playerSquad.children[i]
-    }
-  }
-  // console.log('nearestPlayer', nearestPlayer)
-  return nearestPlayer
-}
-
-function patrol() {
-
-}
-
-function sentinel() {
-
-}
-
-function objectiveMove() {
-
-}
-
-
-
-// function lerp(a, b, displacement) {
-//   return a + (b - a) * displacement
-// }
-
-// function cubeLerp(a, b, displacement){
-//   let cube = {}
-
-//   return Cube(lerp(a.x, b.x, displacement),
-//                 lerp(a.y, b.y, displacement),
-//                 lerp(a.z, b.z, displacement))
-// }
-
-// function cubeLinedraw(a, b):
-//     var N = cube_distance(a, b)
-//     var results = []
-//     for each 0 ≤ i ≤ N:
-//         results.append(cubeRound(cubeLerp(a, b, 1.0/N * i)))
-//     return results
-
-
-// function cube_round(h) {
-//     let cube = {}
-//     cube.rx = Math.round(h.x)
-//     cube.ry = Math.round(h.y)
-//     cube.rz = Math.round(h.z)
-
-//     let xDiff = Math.abs(rx - h.x)
-//     let yDiff = Math.abs(ry - h.y)
-//     let zDiff = Math.abs(rz - h.z)
-
-//     if (xDiff > yDiff && xDiff > zDiff) {
-//         rx = -ry-rz
-//     } else if (y_diff > z_diff) {
-//         ry = -rx-rz
-//     } else {
-//         rz = -rx-ry
-//     }
-//     return cube
-// }
 // //fullscreen function
 // function gofull() {
 //     if (game.scale.isFullScreen)
