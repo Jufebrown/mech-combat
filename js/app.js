@@ -33,7 +33,7 @@ const game = new Phaser.Game(640, 480, Phaser.CANVAS, "game-div", {
   },
   preload: onPreload,
   create: onCreate,
-  // update: onUpdate,
+  update: onUpdate,
 });
 
 let groupOffset = {x: 20, y: 20}
