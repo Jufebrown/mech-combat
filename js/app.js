@@ -209,17 +209,19 @@ function objectiveMove() {
 //   return a + (b - a) * displacement
 // }
 
-// function cube_lerp(a, b, displacement){
+// function cubeLerp(a, b, displacement){
+//   let cube = {}
+
 //   return Cube(lerp(a.x, b.x, displacement),
 //                 lerp(a.y, b.y, displacement),
 //                 lerp(a.z, b.z, displacement))
 // }
 
-// function cube_linedraw(a, b):
+// function cubeLinedraw(a, b):
 //     var N = cube_distance(a, b)
 //     var results = []
 //     for each 0 ≤ i ≤ N:
-//         results.append(cube_round(cube_lerp(a, b, 1.0/N * i)))
+//         results.append(cubeRound(cubeLerp(a, b, 1.0/N * i)))
 //     return results
 
 
