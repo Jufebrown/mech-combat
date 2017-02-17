@@ -70,7 +70,7 @@ let currentlyMovingEnemy
 function onUpdate() {
   if (playerTurn) {
     checkEndPlayerTurn()
-  } else {
+  } else if (!playerTurn) {
     checkEndEnemyTurn()
   }
 }
