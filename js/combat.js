@@ -40,23 +40,23 @@ function hitCalc() {
   }
 }
 
-function critDamage(target) {
-  let damage = currentSprite.damage + currentSprite.critDamage
+function critDamage(shooter, target) {
+  let damage = shooter.damage + shooter.critDamage
   console.log('damage', damage)
   console.log('target.health before hit', target.health)
   target.health = target.health - damage
   console.log('target.health after hit', target.health)
 }
 
-function damage(target) {
-  let damage = currentSprite.damage
+function damage(shooter, target) {
+  let damage = shooter.damage
   console.log('damage', damage)
   console.log('target.health before hit', target.health)
   target.health = target.health - damage
   console.log('target.health after hit', target.health)
 }
 
-function miss(target) {
+function miss(shooter, target) {
   console.log('miss')
 }
 
