@@ -106,7 +106,7 @@ function targetCheck(highlightSprite) {
 
 
 function enemyResolveTargetNotFound() {
-  if (targetFound === false) {
+  if (enemyTargetFound === false) {
     console.log('is this working')
     currentlyMovingEnemy.hasFired = true
     killEnemyHighlight()
@@ -119,7 +119,7 @@ function enemyTargetCheck(highlightSprite) {
 }
 
 function enemySpriteTint(highlightSprite) {
-  targetFound = true
+  enemyTargetFound = true
   highlightSprite.tint = 0xff2100
   highlightSprite.alpha = .3
   for(var i = 0, length1 = playerSquad.children.length; i < length1; i++){

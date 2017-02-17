@@ -70,6 +70,7 @@ let currentSprite
 let currentHex
 let turnCounter = 1
 let targetFound = false
+let enemyTargetFound = false
 let moveToCubePos
 let victory = false
 let explosions
