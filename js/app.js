@@ -104,6 +104,53 @@ function enemyMoveType() {
   }
 }
 
+$('.login-page form').submit((e) => {
+  e.preventDefault()
+  var email = $('input[type="email"]').val()
+  var password = $('input[type="password"]').val()
+  firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // ...
+  alert(errorMessage)
+})
+  .then(() => {
+    $('form')[0].reset()
+  })
+})
+
+//sign-out button
+$('.sign-out').click(()=>{
+  firebase.auth().signOut()
+})
+
+//register button
+$('.register').click(()=>{
+  var email = $('input[type="email"]').val()
+  var password = $('input[type="password"]').val()
+  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // ...
+    alert(errorMessage)
+  })
+  .then(() => {
+    $('form')[0].reset()
+  })
+})
+
+$('.main-page form').submit((e) => {
+  e.preventDefault()
+  var task = $('.main-page input[type="text"]').val()
+  var uid = firebase.auth().currentUser.uid
+  $.post(
+    `https://c17-firebase-auth-jufe.firebaseio.com/${uid}.json`,
+    JSON.stringify({task : task})
+  ).then(console.log)
+})
+
 
 
 // //fullscreen function
