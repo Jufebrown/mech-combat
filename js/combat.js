@@ -1,3 +1,11 @@
+/**************************************
+                Player
+**************************************/
+
+/**************************************
+                Enemy
+**************************************/
+
 function destroyCheck(target) {
   if (target.health <= 0) {
     explodeMech(target)
@@ -85,10 +93,10 @@ function combat(targetCandidate) {
 
 function enemyCombat(targetCandidate) {
   currentlyMovingEnemy.rotation = game.physics.arcade.angleBetween(currentlyMovingEnemy, targetCandidate)
-  currentlyMovingEnemy.hasFired = true
   killHighlight()
   let shooter = currentlyMovingEnemy
   let target = targetCandidate
+  currentlyMovingEnemy.hasFired = true
   if (hitCalc().crit) {
     critDamage(shooter, target)
   } else if (hitCalc().hit) {
@@ -103,7 +111,7 @@ function enemyAttack() {
   let positionCurrentEnemy = hexPositionFromSpriteCoordinates(currentlyMovingEnemy.x, currentlyMovingEnemy.y)
   let cubePositionCurrentEnemy = offsetToCube(positionCurrentEnemy.x, positionCurrentEnemy.y)
   let cubeEnemyWeaponRange = getEnemyWeaponRange(cubePositionCurrentEnemy)
-  const nextAction = "efire"
+  let nextAction = "efire"
   enemyHighlightRange(cubeEnemyWeaponRange, nextAction)
 }
 

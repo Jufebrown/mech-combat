@@ -1,10 +1,6 @@
-function clearMoveListeners() {
-  game.input.onDown.remove(checkHex, currentHex);
-  currentSprite.events.onInputDown.remove(getMoveRange, currentSprite)
-  killHighlight()
-  getWeaponRange()
-}
-
+/**************************************
+                Player
+**************************************/
 //moves sprite to specified hex
 function moveSprite (posX,posY) {
   currentSprite.hasMoved = true
@@ -18,6 +14,20 @@ function moveSprite (posX,posY) {
   tween = game.add.tween(currentSprite).to({ x: endX, y: endY }, duration, Phaser.Easing.Linear.None, true);
   tween.onComplete.add(clearMoveListeners, this)
 }
+
+
+
+/**************************************
+                Enemy
+**************************************/
+
+function clearMoveListeners() {
+  game.input.onDown.remove(checkHex, currentHex);
+  currentSprite.events.onInputDown.remove(getMoveRange, currentSprite)
+  killHighlight()
+  getWeaponRange()
+}
+
 
 //checks to see what hex the mouse pointer is over and sends info to moveSprite()
 function checkHex(){
@@ -39,8 +49,8 @@ function getMoveRange(posX,posY) {
 function moveEnemySprite(offsetNearestHex, nearestPlayer) {
   // console.log('offsetNearestHex', offsetNearestHex)
   currentlyMovingEnemy.hasMoved = true
-  let hexEndX = offsetNearestHex.col + 1
-  let hexEndY = offsetNearestHex.row + 2
+  let hexEndX = offsetNearestHex.col
+  let hexEndY = offsetNearestHex.row
   let endX = hexToPixelX(hexEndX)
   let endY = hexToPixelY(hexEndX, hexEndY)
   let tween

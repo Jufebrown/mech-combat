@@ -79,17 +79,18 @@ function enemyMoveType() {
   for(var i = 0, length1 = enemySquad.children.length; i < length1; i++) {
     // console.log('length1', length1)
     currentlyMovingEnemy = enemySquad.children[i]
-    if (currentlyMovingEnemy.hasMoved === false) {
-      if (currentlyMovingEnemy.movePattern === "patrol") {
-        patrol()
-      } else if (currentlyMovingEnemy.movePattern === "sentinel") {
-        sentinel()
-      } else if (currentlyMovingEnemy.movePattern === "alert") {
-        chargeAtPlayer()
-      } else if (currentlyMovingEnemy.movePattern === "objective") {
-        objectiveMove()
-      }
-    }
+        game.time.events.add(Phaser.Timer.SECOND * .2, chargeAtPlayer, this)
+    // if (currentlyMovingEnemy.hasMoved === false) {
+    //   if (currentlyMovingEnemy.movePattern === "patrol") {
+    //     patrol()
+    //   } else if (currentlyMovingEnemy.movePattern === "sentinel") {
+    //     sentinel()
+    //   } else if (currentlyMovingEnemy.movePattern === "alert") {
+    //     // chargeAtPlayer()
+    //   } else if (currentlyMovingEnemy.movePattern === "objective") {
+    //     objectiveMove()
+    //   }
+    // }
   }
 }
 
