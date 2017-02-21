@@ -23,7 +23,7 @@ function onCreate() {
         let hexagonX = hexagonWidth*i*1.5+(hexagonWidth/4*3)*(j%2);
         //y position for hex group
         let hexagonY = hexagonHeight*j/2;
-        let hexagon = game.add.sprite(hexagonX,hexagonY,"hexagon");
+        let hexagon = game.add.sprite(hexagonX,hexagonY,"grassland");
         hexagonGroup.add(hexagon);
       }
     }
@@ -49,11 +49,9 @@ function onCreate() {
   enemyHighlightGroup.y = groupOffset.y
   enemyHighlightGroup.z = 1
 
-
   let worldWidth = hexagonWidth * gridSizeX - 100
   let worldHeight = (hexagonHeight * gridSizeY)/1.75
   this.game.world.setBounds(0, 0, worldWidth, worldHeight);
-
 
   addPlayerSquad()
   addEnemySquad()
@@ -61,9 +59,9 @@ function onCreate() {
   explosionSound = game.add.audio('mechExplosionSound');
   game.sound.setDecodedCallback(explosionSound, start, this);
 
-
   explosions = game.add.group();
-  explosions.createMultiple(enemySquad.children.length, 'mechExplosion');
+  let numExplosions = enemySquad.children.length + playerSquad.children.length
+  explosions.createMultiple(numExplosions, 'mechExplosion');
   explosions.forEach(setupExplosion, this);
 
   startPlayerTurn()
