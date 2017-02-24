@@ -104,8 +104,40 @@ function enemyMoveType() {           //  create a loop function
         objectiveMove()
       }
     }
+    enemyCounter++;                     //  increment the counter
+    if (enemyCounter < enemySquad.children.length) {
+      enemyMoveType();       //  ..  again which will trigger another
+    }                        //  ..  setTimeout()
+  }, 3000)
+}
+
+function enemyRangeTo(shooter, target) {
+  let targetHexPos = hexPositionFromSpriteCoordinates(target.x, target.y)
+  let targetCubePos = offsetToCube(targetHexPos.x, targetHexPos.y)
+  let shooterHexPos = hexPositionFromSpriteCoordinates(shooter.x, shooter.y)
+  let shooterCubePos = offsetToCube(shooterHexPos.x, shooterHexPos.y)
+  let distanceBetween = cubeDistance(shooterCubePos, targetHexPos)
+  return distanceBetween
+}
+
+function checkForTargetInWeaponsRange() {
+  for(let i = 0, length1 = playerSquad.children.length; i < length1; i++){
+    if (!currentlyMovingEnemy.hasFired) {
+      let targetDistance = enemyRangeTo(currentlyMovingEnemy, playerSquad.children[i])
+      if ( <= currentlyMovingEnemy.weaponRange) {
+        let targetCandidate = playerSquad.children[i]
+        enemyCombat(targetCandidate)
+      }
+    }
   }
 }
+
+
+// function enemyMoveType() {
+//   for(var i = 0, length1 = enemySquad.children.length; i < length1; i++) {
+//     // console.log('length1', length1)
+//   }
+// }
 
 $('.login-page form').submit((e) => {
   e.preventDefault()
