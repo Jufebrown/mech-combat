@@ -114,8 +114,8 @@ function enemyAttack() {
   let positionCurrentEnemy = hexPositionFromSpriteCoordinates(currentlyMovingEnemy.x, currentlyMovingEnemy.y)
   let cubePositionCurrentEnemy = offsetToCube(positionCurrentEnemy.x, positionCurrentEnemy.y)
   let cubeEnemyWeaponRange = getEnemyWeaponRange(cubePositionCurrentEnemy)
-  let nextAction = "efire"
-  enemyHighlightRange(cubeEnemyWeaponRange, nextAction)
+  // let nextAction = "efire"
+  // enemyHighlightRange(cubeEnemyWeaponRange, nextAction)
 }
 
 function getEnemyWeaponRange(cubePositionCurrentEnemy) {
