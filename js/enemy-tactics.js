@@ -2,8 +2,8 @@ function chargeAtPlayer() {
   let nearestPlayer = findNearestPlayer()
   // console.log('nearestPlayer', nearestPlayer)
   // console.log('currentlyMovingEnemy', currentlyMovingEnemy)
-  let xPos = currentlyMovingEnemy.x + 20
-  let yPos = currentlyMovingEnemy.y + 20
+  let xPos = currentlyMovingEnemy.x
+  let yPos = currentlyMovingEnemy.y
   let positionCurrentEnemy = hexPositionFromSpriteCoordinates(xPos, yPos)
   let cubePositionCurrentEnemy = offsetToCube(positionCurrentEnemy.x, positionCurrentEnemy.y)
   //get position of nearest player
