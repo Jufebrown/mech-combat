@@ -86,10 +86,13 @@ function onUpdate() {
   }
 }
 
-function enemyMoveType() {
-  for(var i = 0, length1 = enemySquad.children.length; i < length1; i++) {
-    // console.log('length1', length1)
-    currentlyMovingEnemy = enemySquad.children[i]
+
+let enemyCounter = 0;                     //  set your counter to 1
+
+function enemyMoveType() {           //  create a loop function
+  currentlyMovingEnemy = enemySquad.children[enemyCounter]
+  setTimeout(function() {    //  call a 3s setTimeout when the loop is called
+  console.log('currentlyMovingEnemy', currentlyMovingEnemy)
     if (currentlyMovingEnemy.hasMoved === false) {
       if (currentlyMovingEnemy.movePattern === "patrol") {
         patrol()
