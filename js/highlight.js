@@ -19,8 +19,6 @@ function highlightRange(cubeRange, nextAction) {
       highlightGroup.children[i].events.onInputDown.add(checkHex, highlightGroup.children[i])
     } else if (nextAction === 'fire') {
       targetCheck(highlightGroup.children[i])
-    } else if (nextAction === 'efire') {
-      enemyTargetCheck(highlightGroup.children[i])
     }
   }
 }
