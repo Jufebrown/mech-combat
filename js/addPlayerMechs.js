@@ -1,8 +1,8 @@
 function addPlayerSquad() {
   let startingPlayerSquadArray = [
-    {positionX: 10, positionY: 13},
-    {positionX: 4, positionY: 13},
-    {positionX: 18, positionY: 13}
+    {positionX: 6, positionY: 6},
+    {positionX: 4, positionY: 6},
+    {positionX: 8, positionY: 6}
     ]
 
   for(let i = 0, length1 = startingPlayerSquadArray.length; i < length1; i++){
