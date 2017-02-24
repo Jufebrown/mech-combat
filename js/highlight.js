@@ -63,30 +63,63 @@ function resolveTargetNotFound() {
     checkEndPlayerTurn()
   }
 }
+/**************************************
+                Enemy
+**************************************/
+// function enemyHighlightRange(cubeRange) {
+//   targetFound = false
+//   for(var i = 0, length1 = cubeRange.length; i < length1; i++){
+//     let currentHex = cubeToOffset(cubeRange[i].x, cubeRange[i].z)
+//     let startX = hexToPixelX(currentHex.col)
+//     let startY = hexToPixelY(currentHex.col,currentHex.row)
+//     new EnemyHighlight(game, startX, startY)
+//     game.physics.enable(enemyHighlightGroup.children[i], Phaser.Physics.ARCADE)
+//     enemyHighlightGroup.children[i].body.setSize(16, 16, 0, 0)
+//     enemyTargetCheck(enemyHighlightGroup.children[i])
+//   }
+// }
+
+// function killEnemyHighlight() {
+//   for(var i = 0, length1 = enemyHighlightGroup.children.length; i < length1; i++){
+//     enemyHighlightGroup.children[i].visible = false
+//   }
+//   enemyHighlightGroup.children = []
+// }
 
 
 
-function enemyResolveTargetNotFound() {
-  if (enemyTargetFound === false) {
-    console.log('is this working')
-    currentlyMovingEnemy.hasFired = true
-    killEnemyHighlight()
-  }
-}
 
-function enemyTargetCheck(highlightSprite) {
-  game.physics.arcade.overlap(highlightSprite, playerSquad, this.enemySpriteTint, null, this)
-  game.time.events.add(Phaser.Timer.SECOND * .2, enemyResolveTargetNotFound, this)
-}
+// function enemyResolveTargetNotFound() {
+//   if (enemyTargetFound === false) {
+//     console.log('is this working')
+//     currentlyMovingEnemy.hasFired = true
+//     killEnemyHighlight()
+//   }
+// }
 
-function enemySpriteTint(highlightSprite) {
-  enemyTargetFound = true
-  highlightSprite.tint = 0xff2100
-  highlightSprite.alpha = .3
-  for(var i = 0, length1 = playerSquad.children.length; i < length1; i++){
-    let targetCandidate = playerSquad.children[i]
-    if(game.physics.arcade.overlap(targetCandidate, highlightSprite/*, this.enemyCombat, null, this*/)) {
-      enemyCombat(targetCandidate)
-    }
-  }
-}
+// function enemyTargetCheck(highlightSprite) {
+//   game.physics.arcade.overlap(highlightSprite, playerSquad, this.enemySpriteTint, null, this)
+//   game.time.events.add(Phaser.Timer.SECOND * .2, enemyResolveTargetNotFound, this)
+// }
+
+// function enemySpriteTint(highlightSprite) {
+//   enemyTargetFound = true
+//   highlightSprite.tint = 0xff2100
+//   highlightSprite.alpha = .3
+//   for(var i = 0, length1 = playerSquad.children.length; i < length1; i++){
+//     let targetCandidate = playerSquad.children[i]
+//     if(game.physics.arcade.overlap(targetCandidate, highlightSprite/*, this.enemyCombat, null, this*/)) {
+//       enemyCombat(targetCandidate)
+//     }
+//   }
+// }
+
+// EnemyHighlight = function(game,x,y) {
+//   Phaser.Sprite.call(this, game, x, y, 'highlight');
+//   this.anchor.setTo(0.5, 0.5);
+//   this.visible = true
+//   this.alpha = .3
+//   enemyHighlightGroup.add(this);
+// };
+// EnemyHighlight.prototype = Object.create(Phaser.Sprite.prototype);
+// EnemyHighlight.prototype.constructor = EnemyHighlight;
