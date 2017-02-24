@@ -55,40 +55,6 @@ Highlight = function(game,x,y) {
 Highlight.prototype = Object.create(Phaser.Sprite.prototype);
 Highlight.prototype.constructor = Highlight;
 
-/**************************************
-                Enemy
-**************************************/
-function enemyHighlightRange(cubeRange) {
-  targetFound = false
-  for(var i = 0, length1 = cubeRange.length; i < length1; i++){
-    let currentHex = cubeToOffset(cubeRange[i].x, cubeRange[i].z)
-    let startX = hexToPixelX(currentHex.col)
-    let startY = hexToPixelY(currentHex.col,currentHex.row)
-    new EnemyHighlight(game, startX, startY)
-    game.physics.enable(enemyHighlightGroup.children[i], Phaser.Physics.ARCADE)
-    enemyHighlightGroup.children[i].body.setSize(16, 16, 0, 0)
-    enemyTargetCheck(enemyHighlightGroup.children[i])
-  }
-}
-
-
-EnemyHighlight = function(game,x,y) {
-  Phaser.Sprite.call(this, game, x, y, 'highlight');
-  this.anchor.setTo(0.5, 0.5);
-  this.visible = true
-  this.alpha = .3
-  enemyHighlightGroup.add(this);
-};
-EnemyHighlight.prototype = Object.create(Phaser.Sprite.prototype);
-EnemyHighlight.prototype.constructor = EnemyHighlight;
-
-function killEnemyHighlight() {
-  for(var i = 0, length1 = enemyHighlightGroup.children.length; i < length1; i++){
-    enemyHighlightGroup.children[i].visible = false
-  }
-  enemyHighlightGroup.children = []
-}
-
 function resolveTargetNotFound() {
   if (targetFound === false) {
     currentSprite.hasFired = true
