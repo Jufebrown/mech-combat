@@ -11,7 +11,7 @@ function moveSprite (posX,posY) {
   //let facingAngle = Math.round((game.physics.arcade.angleToPointer(currentSprite)*180/Math.PI)/60)*60
   //console.log('pointer angle', game.physics.arcade.angleToPointer(currentSprite))
   currentSprite.rotation = game.physics.arcade.angleToPointer(currentSprite)//facingAngle
-  //console.log("facingAngle", facingAngle)
+  currentSprite.animations.play('walk', 30, true)
   //  300 = 300 pixels per second = the speed the sprite will move at, regardless of the distance it has to travel
   var duration = 1000 //(game.physics.arcade.distanceToPointer(player, pointer) / 300) * 1000;
   tween = game.add.tween(currentSprite).to({ x: endX, y: endY }, duration, Phaser.Easing.Linear.None, true);
@@ -26,6 +26,7 @@ function moveSprite (posX,posY) {
 
 function clearMoveListeners() {
   game.input.onDown.remove(checkHex, currentHex);
+  currentSprite.animations.stop('walk')
   currentSprite.events.onInputDown.remove(getMoveRange, currentSprite)
   killHighlight()
   getWeaponRange()

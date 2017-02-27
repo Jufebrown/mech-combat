@@ -4,6 +4,7 @@
 
 function startPlayerTurn(playerTurnText) {
   playerTurnText.destroy()
+  game.world.bringToTop(playerSquad)
   enablePlayerMoves()
 }
 
@@ -93,8 +94,8 @@ function enemyTurnSetup() {
 
 function startEnemyTurn(enemyTurnText) {
   if (!victory) {
-    // console.log('enemyMoveType is called next')
     enemyTurnText.destroy()
+    game.world.bringToTop(enemySquad)
     enemyMoveType()
   }
 }

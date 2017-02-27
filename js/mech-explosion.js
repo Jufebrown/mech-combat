@@ -11,8 +11,10 @@ function start() {
 function explodeMech(target) {
   game.world.bringToTop(explosions)
   let explosion = explosions.getFirstExists(false);
-  explosion.reset(target.body.x, target.body.y);
+  explosion.reset(target.body.x + 10, target.body.y + 10);
   explosion.play('kaboom', 20, false, true);
   explosionSound.play()
   game.camera.shake(0.03, 500);
+  let crater = game.add.sprite(target.body.x - 15, target.body.y - 10, "crater")
+  craters.add(crater)
 }

@@ -8,6 +8,8 @@ function onCreate() {
   playerSquad.z = 3
   enemySquad = game.add.group()
   enemySquad.z = 3
+  craters = game.add.group()
+  craters.z = 1
 
   //background color for whole canvas element
   game.stage.backgroundColor = "#515863"
@@ -40,16 +42,13 @@ function onCreate() {
   playerSquad.y = groupOffset.y
   enemySquad.x = groupOffset.x
   enemySquad.y = groupOffset.y
+  // craters.x = groupOffset.x
+  // craters.y = groupOffset.y
 
   highlightGroup = game.add.group()
   highlightGroup.x = groupOffset.x
   highlightGroup.y = groupOffset.y
   highlightGroup.z = 1
-
-  // enemyHighlightGroup = game.add.group()
-  // enemyHighlightGroup.x = groupOffset.x
-  // enemyHighlightGroup.y = groupOffset.y
-  // enemyHighlightGroup.z = 1
 
   let worldWidth = ((hexagonWidth * 1.5) * (gridSizeX/2)) + 50
   let worldHeight = (hexagonHeight * gridSizeY)/2 + 50
