@@ -76,24 +76,24 @@ let victory = false
 let explosions
 let explosionSound
 let playerTurn = true
-// let currentlyMovingEnemy
+let gameOver = false
+
 
 function onUpdate() {
-  gameOverCheck()
-  // if (playerTurn) {
-  //   checkEndPlayerTurn()
-  // } else if (!playerTurn) {
-  //   checkEndEnemyTurn()
-  // }
+
 }
 
 function gameOverCheck() {
   if (enemySquad.children.length === 0) {
+    gameOver = true
     playerWin()
   } else if (playerSquad.children.length === 0) {
+    gameOver = true
     playerDefeat()
   }
 }
+
+
 
 function playerWin() {
   let playerWinText = game.add.text(300, 200, "You Win!");
@@ -108,7 +108,7 @@ function playerWin() {
   playerWinText.fontSize = 40;
   playerWinText.fill = '#ffffff';
   playerWinText.fixedToCamera = true
-  // game.lockRender = true
+
   // playerWinText.cameraOffset.setTo(200, 500);
   // playerWinText.bringToTop()
 
@@ -177,10 +177,15 @@ function playerDefeat() {
 }
 
 function enemyMoveType() {
+  let enemyMoveTime = 0;
+
   enemySquad.forEach(function(enemySquadMember) {
     let currentlyMovingEnemy = enemySquadMember
-    chargeAtPlayer(currentlyMovingEnemy)
-  }, this);
+
+        game.time.events.add(1000 + (enemyMoveTime * 1000), chargeAtPlayer, this, currentlyMovingEnemy);
+        enemyMoveTime++;
+
+    });
 }
 
 function enemyRangeTo(shooter, target) {

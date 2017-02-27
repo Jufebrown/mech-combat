@@ -23,6 +23,7 @@ function destroyCheck(target) {
     } else if (target.key === 'enemy') {
       enemySquad.remove(target)
     }
+    gameOverCheck()
   }
 }
 

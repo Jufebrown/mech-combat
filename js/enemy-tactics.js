@@ -1,16 +1,16 @@
 function chargeAtPlayer(currentlyMovingEnemy) {
-  let nearestPlayer = findNearestPlayer(currentlyMovingEnemy)
   let xPos = currentlyMovingEnemy.x
   let yPos = currentlyMovingEnemy.y
   let positionCurrentEnemy = hexPositionFromSpriteCoordinates(xPos, yPos)
   let cubePositionCurrentEnemy = offsetToCube(positionCurrentEnemy.x, positionCurrentEnemy.y)
-  //get position of nearest player
-  let nearestPlayerHexPos = hexPositionFromSpriteCoordinates(nearestPlayer.x, nearestPlayer.y)
-  let cubeNearestPlayerPos = offsetToCube(nearestPlayerHexPos.x, nearestPlayerHexPos.y)
-  //get distance to nearest player
-  let distanceBetweenEnemyAndNearestPlayer = cubeDistance(cubePositionCurrentEnemy, cubeNearestPlayerPos)
   //if nearest player is in weapon range => attack
   if (currentlyMovingEnemy.hasMoved === false) {
+    let nearestPlayer = findNearestPlayer(currentlyMovingEnemy)
+    //get position of nearest player
+    let nearestPlayerHexPos = hexPositionFromSpriteCoordinates(nearestPlayer.x, nearestPlayer.y)
+    let cubeNearestPlayerPos = offsetToCube(nearestPlayerHexPos.x, nearestPlayerHexPos.y)
+    //get distance to nearest player
+    let distanceBetweenEnemyAndNearestPlayer = cubeDistance(cubePositionCurrentEnemy, cubeNearestPlayerPos)
     if (distanceBetweenEnemyAndNearestPlayer <= currentlyMovingEnemy.weaponRange) {
       // fire on nearestPlayer
       currentlyMovingEnemy.hasMoved = true
