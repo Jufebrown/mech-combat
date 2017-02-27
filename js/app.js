@@ -79,12 +79,7 @@ let playerTurn = true
 // let currentlyMovingEnemy
 
 function onUpdate() {
-  gameOverCheck()
-  // if (playerTurn) {
-  //   checkEndPlayerTurn()
-  // } else if (!playerTurn) {
-  //   checkEndEnemyTurn()
-  // }
+  // gameOverCheck()
 }
 
 function gameOverCheck() {
