@@ -96,22 +96,84 @@ function gameOverCheck() {
 }
 
 function playerWin() {
-    let playerWinText = game.add.text(game.world.centerX, game.world.centerY, "You Win!");
+  let playerWinText = game.add.text(300, 200, "You Win!");
 
-    //  Centers the text
-    playerWinText.anchor.set(0.5);
-    playerWinText.align = 'center';
+  //  Centers the text
+  playerWinText.anchor.set(0.5);
+  // playerWinText.align = 'center';
 
-    //  Our font + size
-    playerWinText.font = 'Arial';
-    playerWinText.fontWeight = 'bold';
-    playerWinText.fontSize = 70;
-    playerWinText.fill = '#ffffff';
-  // console.log('You Win!')
+  //  Our font + size
+  playerWinText.font = 'Arial';
+  playerWinText.fontWeight = 'bold';
+  playerWinText.fontSize = 40;
+  playerWinText.fill = '#ffffff';
+  playerWinText.fixedToCamera = true
+  // game.lockRender = true
+  // playerWinText.cameraOffset.setTo(200, 500);
+  // playerWinText.bringToTop()
+
+  // let playerWinTextReflect = game.add.text(game.world.centerX, game.world.centerY + 50, "You Win!");
+
+  // //  Centers the text
+  // playerWinTextReflect.anchor.set(0.5);
+  // playerWinTextReflect.align = 'center';
+  // playerWinTextReflect.scale.y = -1;
+
+  // //  Our font + size
+  // playerWinTextReflect.font = 'Arial';
+  // playerWinTextReflect.fontWeight = 'bold';
+  // playerWinTextReflect.fontSize = 70;
+
+  // //  Here we create a linear gradient on the Text context.
+  // //  This uses the exact same method of creating a gradient as you do on a normal Canvas context.
+  // let grd = playerWinTextReflect.context.createLinearGradient(0, 0, 0, 10);
+
+  // //  Add in 2 color stops
+  // grd.addColorStop(0, 'rgba(255,255,255,0)');
+  // grd.addColorStop(1, 'rgba(255,255,255,0.08)');
+
+  // //  And apply to the Text
+  // playerWinTextReflect.fill = grd;
 }
 
 function playerDefeat() {
-  console.log('You Have Been Defeated')
+  let enemyWinText = game.add.text(300, 200, "You Have Been Defeated");
+
+  //  Centers the text
+  enemyWinText.anchor.set(0.5);
+  enemyWinText.align = 'center';
+
+  //  Our font + size
+  enemyWinText.font = 'Arial';
+  enemyWinText.fontWeight = 'bold';
+  enemyWinText.fontSize = 40;
+  enemyWinText.fill = '#ffffff';
+  enemyWinText.fixedToCamera = true
+  // game.lockRender = true
+  // enemyWinText.bringToTop()
+
+  // let enemyWinTextReflect = game.add.text(game.world.centerX, game.world.centerY + 50, "You Have Been Defeated");
+
+  // //  Centers the text
+  // enemyWinTextReflect.anchor.set(0.5);
+  // enemyWinTextReflect.align = 'center';
+  // enemyWinTextReflect.scale.y = -1;
+
+  // //  Our font + size
+  // enemyWinTextReflect.font = 'Arial';
+  // enemyWinTextReflect.fontWeight = 'bold';
+  // enemyWinTextReflect.fontSize = 70;
+
+  // //  Here we create a linear gradient on the Text context.
+  // //  This uses the exact same method of creating a gradient as you do on a normal Canvas context.
+  // let grd = enemyWinTextReflect.context.createLinearGradient(0, 0, 0, enemyWinText.canvas.height);
+
+  // //  Add in 2 color stops
+  // grd.addColorStop(0, 'rgba(255,255,255,0)');
+  // grd.addColorStop(1, 'rgba(255,255,255,0.08)');
+
+  // //  And apply to the Text
+  // enemyWinTextReflect.fill = grd;
 }
 
 function enemyMoveType() {
