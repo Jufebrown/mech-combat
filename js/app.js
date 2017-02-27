@@ -76,16 +76,19 @@ let victory = false
 let explosions
 let explosionSound
 let playerTurn = true
-// let currentlyMovingEnemy
+let gameOver = false
+
 
 function onUpdate() {
-  // gameOverCheck()
+
 }
 
 function gameOverCheck() {
   if (enemySquad.children.length === 0) {
+    gameOver = true
     playerWin()
   } else if (playerSquad.children.length === 0) {
+    gameOver = true
     playerDefeat()
   }
 }
