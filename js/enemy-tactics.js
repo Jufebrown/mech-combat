@@ -13,30 +13,32 @@ function chargeAtPlayer() {
   let distanceBetweenEnemyAndNearestPlayer = cubeDistance(cubePositionCurrentEnemy, cubeNearestPlayerPos)
   // console.log('cubeDistanceBetweenEnemyAndNearestPlayer', distanceBetweenEnemyAndNearestPlayer)
   //if nearest player is in weapon range => attack
-  if (distanceBetweenEnemyAndNearestPlayer <= currentlyMovingEnemy.weaponRange) {
-    // fire on nearestPlayer
-    currentlyMovingEnemy.hasMoved = true
-    enemyAttack()
-  } else { //else move to hex closest to nearest player
-    //get enemy move range
-    let enemyMoveCubeRangeArray = getEnemyMoveRange(cubePositionCurrentEnemy)
-    // console.log('enemyMoveCubeRangeArray', enemyMoveCubeRangeArray)
-    //test each range hex to see if it's closest to nearest player
-    let cubeNearestHex = findNearestHex(cubeNearestPlayerPos, enemyMoveCubeRangeArray)
-    // console.log('cubeNearestHex', cubeNearestHex)
-    let offsetNearestHex = cubeToOffset(cubeNearestHex.x, cubeNearestHex.z)
-    moveEnemySprite(offsetNearestHex, nearestPlayer)
+  if (currentlyMovingEnemy.hasFired === false) {
+    if (distanceBetweenEnemyAndNearestPlayer <= currentlyMovingEnemy.weaponRange) {
+      // fire on nearestPlayer
+      currentlyMovingEnemy.hasMoved = true
+      enemyAttack()
+    } else { //else move to hex closest to nearest player
+      //get enemy move range
+      let enemyMoveCubeRangeArray = getEnemyMoveRange(cubePositionCurrentEnemy)
+      // console.log('enemyMoveCubeRangeArray', enemyMoveCubeRangeArray)
+      //test each range hex to see if it's closest to nearest player
+      let cubeNearestHex = findNearestHex(cubeNearestPlayerPos, enemyMoveCubeRangeArray)
+      // console.log('cubeNearestHex', cubeNearestHex)
+      let offsetNearestHex = cubeToOffset(cubeNearestHex.x, cubeNearestHex.z)
+      moveEnemySprite(offsetNearestHex, nearestPlayer)
+    }
   }
 }
 
-function patrol() {
+// function patrol() {
 
-}
+// }
 
-function sentinel() {
+// function sentinel() {
 
-}
+// }
 
-function objectiveMove() {
+// function objectiveMove() {
 
-}
+// }

@@ -1,6 +1,6 @@
 function cubeDistance(a, b) {
-  console.log('a', a)
-  console.log('b', b)
+  // console.log('a', a)
+  // console.log('b', b)
   return Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y), Math.abs(a.z - b.z))
 }
 

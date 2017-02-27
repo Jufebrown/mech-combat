@@ -79,36 +79,54 @@ let playerTurn = true
 let currentlyMovingEnemy
 
 function onUpdate() {
-  if (playerTurn) {
-    checkEndPlayerTurn()
-  } else if (!playerTurn) {
-    checkEndEnemyTurn()
+  gameOverCheck()
+  // if (playerTurn) {
+  //   checkEndPlayerTurn()
+  // } else if (!playerTurn) {
+  //   checkEndEnemyTurn()
+  // }
+}
+
+function gameOverCheck() {
+  if (enemySquad.children.length === 0) {
+    playerWin()
+  } else if (playerSquad.children.length === 0) {
+    playerDefeat()
   }
 }
 
+function playerWin() {
+  console.log('You Win!')
+}
 
-let enemyCounter = 0;                     //  set your counter to 1
+function playerDefeat() {
+  console.log('You Have Been Defeated')
+}
+
+// let enemyCounter = 0;                     //  set your counter to 1
 
 function enemyMoveType() {           //  create a loop function
-  currentlyMovingEnemy = enemySquad.children[enemyCounter]
-  setTimeout(function() {    //  call a 3s setTimeout when the loop is called
-  console.log('currentlyMovingEnemy', currentlyMovingEnemy)
-    if (currentlyMovingEnemy.hasMoved === false) {
-      if (currentlyMovingEnemy.movePattern === "patrol") {
-        patrol()
-      } else if (currentlyMovingEnemy.movePattern === "sentinel") {
-        sentinel()
-      } else if (currentlyMovingEnemy.movePattern === "alert") {
+  // setTimeout(function() {    //  call a 3s setTimeout when the loop is called
+  enemySquad.forEach(function(enemySquadMember) {
+    currentlyMovingEnemy = enemySquadMember
+    console.log('currentlyMovingEnemy', currentlyMovingEnemy)
+    // if (currentlyMovingEnemy.hasMoved === false) {
+    //   if (currentlyMovingEnemy.movePattern === "patrol") {
+    //     patrol()
+    //   } else if (currentlyMovingEnemy.movePattern === "sentinel") {
+    //     sentinel()
+    //   } else if (currentlyMovingEnemy.movePattern === "alert") {
         chargeAtPlayer()
-      } else if (currentlyMovingEnemy.movePattern === "objective") {
-        objectiveMove()
-      }
-    }
-    enemyCounter++;                     //  increment the counter
-    if (enemyCounter < enemySquad.children.length) {
-      enemyMoveType();       //  ..  again which will trigger another
-    }                        //  ..  setTimeout()
-  }, 3000)
+    //   } else if (currentlyMovingEnemy.movePattern === "objective") {
+    //     objectiveMove()
+    //   }
+    // }
+    // enemyCounter++;                     //  increment the counter
+    // if (enemyCounter < enemySquad.children.length) {
+    // enemyMoveType();       //  ..  again which will trigger another
+    // }                        //  ..  setTimeout()
+  }, this);
+  // }, 1000)
 }
 
 function enemyRangeTo(shooter, target) {
@@ -121,12 +139,6 @@ function enemyRangeTo(shooter, target) {
 }
 
 function checkForTargetInWeaponsRange() {
-
-
-
-
-
-
   for(let i = 0, length1 = playerSquad.children.length; i < length1; i++){
     if (!currentlyMovingEnemy.hasFired) {
       // console.log('currentlyMovingEnemy', currentlyMovingEnemy)
@@ -136,6 +148,8 @@ function checkForTargetInWeaponsRange() {
         console.log('checkForTargetInWeaponsRange running')
         let targetCandidate = playerSquad.children[i]
         enemyCombat(targetCandidate)
+      } else {
+        currentlyMovingEnemy.hasFired = true
       }
     }
   }
