@@ -46,13 +46,13 @@ function onCreate() {
   highlightGroup.y = groupOffset.y
   highlightGroup.z = 1
 
-  enemyHighlightGroup = game.add.group()
-  enemyHighlightGroup.x = groupOffset.x
-  enemyHighlightGroup.y = groupOffset.y
-  enemyHighlightGroup.z = 1
+  // enemyHighlightGroup = game.add.group()
+  // enemyHighlightGroup.x = groupOffset.x
+  // enemyHighlightGroup.y = groupOffset.y
+  // enemyHighlightGroup.z = 1
 
-  let worldWidth = hexagonWidth * gridSizeX - 100
-  let worldHeight = (hexagonHeight * gridSizeY)/1.75
+  let worldWidth = ((hexagonWidth * 1.5) * (gridSizeX/2)) + 50
+  let worldHeight = (hexagonHeight * gridSizeY)/2 + 50
   this.game.world.setBounds(0, 0, worldWidth, worldHeight);
 
   addPlayerSquad()
