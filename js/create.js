@@ -66,7 +66,14 @@ function onCreate() {
   explosions.createMultiple(numExplosions, 'mechExplosion');
   explosions.forEach(setupExplosion, this);
 
-  startPlayerTurn()
+  let playerTurnText = game.add.text(300, 200, "Player Turn Start");
+  playerTurnText.anchor.set(0.5);
+  playerTurnText.align = 'center';
+  playerTurnText.font = 'Arial';
+  playerTurnText.fontSize = 40;
+  playerTurnText.fill = '#ffffff';
+  playerTurnText.fixedToCamera = true
+  game.time.events.add(Phaser.Timer.SECOND * 1, startPlayerTurn, this, playerTurnText);
 
   drawHUD()
 

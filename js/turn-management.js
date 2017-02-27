@@ -2,7 +2,8 @@
                 Player
 **************************************/
 
-function startPlayerTurn() {
+function startPlayerTurn(playerTurnText) {
+  playerTurnText.destroy()
   enablePlayerMoves()
 }
 
@@ -17,10 +18,20 @@ function checkEndPlayerTurn() {
   let playerDone = checkPlayerDone()
   console.log('checking player turn end', playerDone)
   if (playerDone) {
-    playerTurn = false
-    gameOverCheck()
-    enemyTurnSetup()
-    startEnemyTurn()
+    // gameOverCheck()
+    if (!gameOver) {
+      playerTurn = false
+      enemyTurnSetup()
+      let enemyTurnText = game.add.text(300, 200, "Enemy Turn Start");
+      enemyTurnText.anchor.set(0.5);
+      enemyTurnText.align = 'center';
+      enemyTurnText.font = 'Arial';
+      enemyTurnText.fontWeight = 'bold';
+      enemyTurnText.fontSize = 40;
+      enemyTurnText.fill = '#ffffff';
+      enemyTurnText.fixedToCamera = true
+      game.time.events.add(Phaser.Timer.SECOND * 1, startEnemyTurn, this, enemyTurnText);
+    }
   }
 }
 
@@ -44,10 +55,20 @@ function checkEndEnemyTurn() {
   let enemyDone = checkEnemyDone()
   console.log('enemyDone', enemyDone)
   if (enemyDone) {
-    gameOverCheck()
-    playerTurnSetup()
-    playerTurn = true
-    startPlayerTurn()
+    // gameOverCheck()
+    if (!gameOver) {
+      playerTurn = true
+      playerTurnSetup()
+      let playerTurnText = game.add.text(300, 200, "Player Turn Start");
+      playerTurnText.anchor.set(0.5);
+      playerTurnText.align = 'center';
+      playerTurnText.font = 'Arial';
+      playerTurnText.fontWeight = 'bold';
+      playerTurnText.fontSize = 40;
+      playerTurnText.fill = '#ffffff';
+      playerTurnText.fixedToCamera = true
+      game.time.events.add(Phaser.Timer.SECOND * 1, startPlayerTurn, this, playerTurnText);
+    }
   }
 }
 
@@ -70,9 +91,10 @@ function enemyTurnSetup() {
 }
 
 
-function startEnemyTurn() {
+function startEnemyTurn(enemyTurnText) {
   if (!victory) {
     // console.log('enemyMoveType is called next')
+    enemyTurnText.destroy()
     enemyMoveType()
   }
 }
