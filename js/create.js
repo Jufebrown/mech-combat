@@ -62,6 +62,8 @@ function onCreate() {
   game.sound.setDecodedCallback(explosionSound, start, this);
 
   explosions = game.add.group();
+  explosions.x = groupOffset.x
+  explosions.y = groupOffset.y
   let numExplosions = enemySquad.children.length + playerSquad.children.length
   explosions.createMultiple(numExplosions, 'mechExplosion');
   explosions.forEach(setupExplosion, this);

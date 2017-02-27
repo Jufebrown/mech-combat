@@ -11,7 +11,7 @@ function start() {
 function explodeMech(target) {
   game.world.bringToTop(explosions)
   let explosion = explosions.getFirstExists(false);
-  explosion.reset(target.body.x+20, target.body.y+20);
+  explosion.reset(target.body.x, target.body.y);
   explosion.play('kaboom', 20, false, true);
   explosionSound.play()
   game.camera.shake(0.03, 500);
