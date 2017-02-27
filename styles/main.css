@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'Ailerons';
+  src: url("/assests/fonts/Ailerons/Ailerons.otf");
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Ailerons';
+}
+
+.hidden {
+  display: none;
+}
+
+.fontLoader {    position: absolute;    left: -1000px;}

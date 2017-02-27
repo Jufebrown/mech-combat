@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Mech Combat</title>
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+  </head>
+  <body>
+
+    <div class="container row hidden login-page">
+      <div class="alert alert-danger alert-dismissible login-warning hidden" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Warning!</strong>
+      </div>
+      <form class="col-md-4 col-md-offset-4">
+        <div class="input-wrapper form-group">
+          <input type="email" name="email" placeholder="username" class="form-control">
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" placeholder="password" class="form-control">
+        </div>
+        <div class="form-group">
+          <button class="btn-warning btn register">Register</button>
+          <input type="submit" name="submit" class="btn-primary btn" value="login">
+        </div>
+      </form>
+    </div>
+
+    <div id="main-page hidden game-div"></div>
+
+
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/firebase/firebase.js"></script>
+    <script src="lib/phaser/build/phaser.min.js"></script>
+    <script src="lib/phaser-kinetic-scrolling-plugin/dist/phaser-kinetic-scrolling-plugin.min.js"></script>
+    <script src="lib/easystarjs/bin/easystar-0.3.1.min.js"></script>
+    <script src="js/preload.js"></script>
+    <script src="js/create.js"></script>
+    <script src="js/addPlayerMechs.js"></script>
+    <script src="js/addEnemies.js"></script>
+    <script src="js/enemyMechs.js"></script>
+    <script src="js/mech-explosion.js"></script>
+    <script src="js/position.js"></script>
+    <script src="js/movement.js"></script>
+    <script src="js/cubeOffsetConversions.js"></script>
+    <script src="js/hexToPix.js"></script>
+    <script src="js/toggle-player-moves.js"></script>
+    <script src="js/rangeCalc.js"></script>
+    <script src="js/distance.js"></script>
+    <script src="js/playerMechs.js"></script>
+    <script src="js/enemy-tactics.js"></script>
+    <script src="js/drawHUD.js"></script>
+    <script src="js/highlight.js"></script>
+    <script src="js/combat.js"></script>
+    <script src="js/turn-management.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
