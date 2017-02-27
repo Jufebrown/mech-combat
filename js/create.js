@@ -29,6 +29,8 @@ function onCreate() {
     }
   }
 
+  let music = game.add.audio('alertMusic');
+  music.play();
 
   // positions hexagonGroup
   hexagonGroup.y = groupOffset.y
