@@ -116,15 +116,24 @@ function enemyRangeTo(shooter, target) {
   let targetCubePos = offsetToCube(targetHexPos.x, targetHexPos.y)
   let shooterHexPos = hexPositionFromSpriteCoordinates(shooter.x, shooter.y)
   let shooterCubePos = offsetToCube(shooterHexPos.x, shooterHexPos.y)
-  let distanceBetween = cubeDistance(shooterCubePos, targetHexPos)
+  let distanceBetween = cubeDistance(shooterCubePos, targetCubePos)
   return distanceBetween
 }
 
 function checkForTargetInWeaponsRange() {
+
+
+
+
+
+
   for(let i = 0, length1 = playerSquad.children.length; i < length1; i++){
     if (!currentlyMovingEnemy.hasFired) {
+      // console.log('currentlyMovingEnemy', currentlyMovingEnemy)
+      // console.log('playerSquad.children[i]', playerSquad.children[i])
       let targetDistance = enemyRangeTo(currentlyMovingEnemy, playerSquad.children[i])
-      if ( <= currentlyMovingEnemy.weaponRange) {
+      if (targetDistance <= currentlyMovingEnemy.weaponRange) {
+        console.log('checkForTargetInWeaponsRange running')
         let targetCandidate = playerSquad.children[i]
         enemyCombat(targetCandidate)
       }
@@ -132,12 +141,6 @@ function checkForTargetInWeaponsRange() {
   }
 }
 
-
-// function enemyMoveType() {
-//   for(var i = 0, length1 = enemySquad.children.length; i < length1; i++) {
-//     // console.log('length1', length1)
-//   }
-// }
 
 $('.login-page form').submit((e) => {
   e.preventDefault()

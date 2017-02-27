@@ -95,9 +95,10 @@ function combat(targetCandidate) {
 }
 
 function enemyCombat(targetCandidate) {
+  console.log('enemyCombat')
   currentlyMovingEnemy.rotation = game.physics.arcade.angleBetween(currentlyMovingEnemy, targetCandidate)
   currentlyMovingEnemy.hasFired = true
-  killEnemyHighlight()
+  // killEnemyHighlight()
   let shooter = currentlyMovingEnemy
   let target = targetCandidate
   if (hitCalc().crit) {
@@ -111,16 +112,18 @@ function enemyCombat(targetCandidate) {
 }
 
 function enemyAttack() {
-  let positionCurrentEnemy = hexPositionFromSpriteCoordinates(currentlyMovingEnemy.x, currentlyMovingEnemy.y)
-  let cubePositionCurrentEnemy = offsetToCube(positionCurrentEnemy.x, positionCurrentEnemy.y)
-  let cubeEnemyWeaponRange = getEnemyWeaponRange(cubePositionCurrentEnemy)
+  // console.log('enemyAttack running')
+  // let positionCurrentEnemy = hexPositionFromSpriteCoordinates(currentlyMovingEnemy.x, currentlyMovingEnemy.y)
+  // let cubePositionCurrentEnemy = offsetToCube(positionCurrentEnemy.x, positionCurrentEnemy.y)
+  // let cubeEnemyWeaponRange = getEnemyWeaponRange(cubePositionCurrentEnemy)
+  checkForTargetInWeaponsRange()
   // let nextAction = "efire"
   // enemyHighlightRange(cubeEnemyWeaponRange, nextAction)
 }
 
-function getEnemyWeaponRange(cubePositionCurrentEnemy) {
-  let startCubePosition = cubePositionCurrentEnemy
-  let nRange = currentlyMovingEnemy.movePoints
-  let cubeWeaponRange = rangeCalc(startCubePosition, nRange)
-  return cubeWeaponRange
-}
+// function getEnemyWeaponRange(cubePositionCurrentEnemy) {
+//   let startCubePosition = cubePositionCurrentEnemy
+//   let nRange = currentlyMovingEnemy.movePoints
+//   let cubeWeaponRange = rangeCalc(startCubePosition, nRange)
+//   return cubeWeaponRange
+// }
