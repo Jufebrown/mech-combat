@@ -76,7 +76,7 @@ let victory = false
 let explosions
 let explosionSound
 let playerTurn = true
-let currentlyMovingEnemy
+// let currentlyMovingEnemy
 
 function onUpdate() {
   gameOverCheck()
@@ -96,37 +96,29 @@ function gameOverCheck() {
 }
 
 function playerWin() {
-  console.log('You Win!')
+    let playerWinText = game.add.text(game.world.centerX, game.world.centerY, "You Win!");
+
+    //  Centers the text
+    playerWinText.anchor.set(0.5);
+    playerWinText.align = 'center';
+
+    //  Our font + size
+    playerWinText.font = 'Arial';
+    playerWinText.fontWeight = 'bold';
+    playerWinText.fontSize = 70;
+    playerWinText.fill = '#ffffff';
+  // console.log('You Win!')
 }
 
 function playerDefeat() {
   console.log('You Have Been Defeated')
 }
 
-// let enemyCounter = 0;                     //  set your counter to 1
-
-function enemyMoveType() {           //  create a loop function
-  // setTimeout(function() {    //  call a 3s setTimeout when the loop is called
+function enemyMoveType() {
   enemySquad.forEach(function(enemySquadMember) {
-    currentlyMovingEnemy = enemySquadMember
-    console.log('currentlyMovingEnemy', currentlyMovingEnemy)
-    // if (currentlyMovingEnemy.hasMoved === false) {
-    //   if (currentlyMovingEnemy.movePattern === "patrol") {
-    //     patrol()
-    //   } else if (currentlyMovingEnemy.movePattern === "sentinel") {
-    //     sentinel()
-    //   } else if (currentlyMovingEnemy.movePattern === "alert") {
-        chargeAtPlayer()
-    //   } else if (currentlyMovingEnemy.movePattern === "objective") {
-    //     objectiveMove()
-    //   }
-    // }
-    // enemyCounter++;                     //  increment the counter
-    // if (enemyCounter < enemySquad.children.length) {
-    // enemyMoveType();       //  ..  again which will trigger another
-    // }                        //  ..  setTimeout()
+    let currentlyMovingEnemy = enemySquadMember
+    chargeAtPlayer(currentlyMovingEnemy)
   }, this);
-  // }, 1000)
 }
 
 function enemyRangeTo(shooter, target) {
@@ -138,18 +130,17 @@ function enemyRangeTo(shooter, target) {
   return distanceBetween
 }
 
-function checkForTargetInWeaponsRange() {
+function checkForTargetInWeaponsRange(currentlyMovingEnemy) {
   for(let i = 0, length1 = playerSquad.children.length; i < length1; i++){
     if (!currentlyMovingEnemy.hasFired) {
-      // console.log('currentlyMovingEnemy', currentlyMovingEnemy)
-      // console.log('playerSquad.children[i]', playerSquad.children[i])
       let targetDistance = enemyRangeTo(currentlyMovingEnemy, playerSquad.children[i])
       if (targetDistance <= currentlyMovingEnemy.weaponRange) {
         console.log('checkForTargetInWeaponsRange running')
         let targetCandidate = playerSquad.children[i]
-        enemyCombat(targetCandidate)
+        enemyCombat(currentlyMovingEnemy, targetCandidate)
       } else {
         currentlyMovingEnemy.hasFired = true
+        checkEndEnemyTurn()
       }
     }
   }

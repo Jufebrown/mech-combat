@@ -1,7 +1,5 @@
-function chargeAtPlayer() {
-  let nearestPlayer = findNearestPlayer()
-  // console.log('nearestPlayer', nearestPlayer)
-  // console.log('currentlyMovingEnemy', currentlyMovingEnemy)
+function chargeAtPlayer(currentlyMovingEnemy) {
+  let nearestPlayer = findNearestPlayer(currentlyMovingEnemy)
   let xPos = currentlyMovingEnemy.x
   let yPos = currentlyMovingEnemy.y
   let positionCurrentEnemy = hexPositionFromSpriteCoordinates(xPos, yPos)
@@ -11,22 +9,22 @@ function chargeAtPlayer() {
   let cubeNearestPlayerPos = offsetToCube(nearestPlayerHexPos.x, nearestPlayerHexPos.y)
   //get distance to nearest player
   let distanceBetweenEnemyAndNearestPlayer = cubeDistance(cubePositionCurrentEnemy, cubeNearestPlayerPos)
-  // console.log('cubeDistanceBetweenEnemyAndNearestPlayer', distanceBetweenEnemyAndNearestPlayer)
   //if nearest player is in weapon range => attack
-  if (currentlyMovingEnemy.hasFired === false) {
+  if (currentlyMovingEnemy.hasMoved === false) {
     if (distanceBetweenEnemyAndNearestPlayer <= currentlyMovingEnemy.weaponRange) {
       // fire on nearestPlayer
       currentlyMovingEnemy.hasMoved = true
-      enemyAttack()
+      // enemyAttack()
+      checkForTargetInWeaponsRange(currentlyMovingEnemy)
     } else { //else move to hex closest to nearest player
       //get enemy move range
-      let enemyMoveCubeRangeArray = getEnemyMoveRange(cubePositionCurrentEnemy)
+      let enemyMoveCubeRangeArray = getEnemyMoveRange(currentlyMovingEnemy, cubePositionCurrentEnemy)
       // console.log('enemyMoveCubeRangeArray', enemyMoveCubeRangeArray)
       //test each range hex to see if it's closest to nearest player
       let cubeNearestHex = findNearestHex(cubeNearestPlayerPos, enemyMoveCubeRangeArray)
       // console.log('cubeNearestHex', cubeNearestHex)
       let offsetNearestHex = cubeToOffset(cubeNearestHex.x, cubeNearestHex.z)
-      moveEnemySprite(offsetNearestHex, nearestPlayer)
+      moveEnemySprite(currentlyMovingEnemy, offsetNearestHex, nearestPlayer)
     }
   }
 }

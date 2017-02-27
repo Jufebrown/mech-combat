@@ -49,23 +49,19 @@ function getMoveRange(posX,posY) {
 }
 
 //moves sprite to specified hex
-function moveEnemySprite(offsetNearestHex, nearestPlayer) {
-  // console.log('offsetNearestHex', offsetNearestHex)
+function moveEnemySprite(currentlyMovingEnemy, offsetNearestHex, nearestPlayer) {
   currentlyMovingEnemy.hasMoved = true
   let hexEndX = offsetNearestHex.col
   let hexEndY = offsetNearestHex.row
   let endX = hexToPixelX(hexEndX)
   let endY = hexToPixelY(hexEndX, hexEndY)
-  let tween
-  // moveToCubePos = offsetToCube(hexPosition().x,hexPosition().y)
-  // currentSprite.rotation = game.physics.arcade.angleToPointer(currentSprite)
-  //  300 = 300 pixels per second = the speed the sprite will move at, regardless of the distance it has to travel
-  var duration = 1000 //(game.physics.arcade.distanceToPointer(player, pointer) / 300) * 1000;
-  tween = game.add.tween(currentlyMovingEnemy).to({ x: endX, y: endY }, duration, Phaser.Easing.Linear.None, true);
-  tween.onComplete.add(enemyAttack, this)
+  // let tween
+  var duration = 1000
+  let tween = game.add.tween(currentlyMovingEnemy).to({ x: endX, y: endY }, duration, Phaser.Easing.Linear.None, true);
+  tween.onComplete.add(checkForTargetInWeaponsRange, this)
 }
 
-function getEnemyMoveRange(cubePositionCurrentEnemy) {
+function getEnemyMoveRange(currentlyMovingEnemy, cubePositionCurrentEnemy) {
   let startCubePosition = cubePositionCurrentEnemy
   let nRange = currentlyMovingEnemy.movePoints
   let cubeMoveRange = rangeCalc(startCubePosition, nRange)
@@ -87,7 +83,7 @@ function findNearestHex(cubeNearestPlayerPos, enemyMoveCubeRangeArray) {
   return nearestCubeHex
 }
 
-function findNearestPlayer() {
+function findNearestPlayer(currentlyMovingEnemy) {
   let nearestPlayerDistance = 10000
   let nearestPlayer
   for(var i = 0, length1 = playerSquad.children.length; i < length1; i++) {

@@ -95,7 +95,7 @@ function combat(targetCandidate) {
   checkEndPlayerTurn()
 }
 
-function enemyCombat(targetCandidate) {
+function enemyCombat(currentlyMovingEnemy, targetCandidate) {
   console.log('enemyCombat')
   currentlyMovingEnemy.rotation = game.physics.arcade.angleBetween(currentlyMovingEnemy, targetCandidate)
   let shooter = currentlyMovingEnemy
@@ -109,9 +109,6 @@ function enemyCombat(targetCandidate) {
   }
   destroyCheck(target)
   currentlyMovingEnemy.hasFired = true
+  currentlyMovingEnemy = {}
   checkEndEnemyTurn()
-}
-
-function enemyAttack() {
-  checkForTargetInWeaponsRange()
 }
