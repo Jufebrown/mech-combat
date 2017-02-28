@@ -14,7 +14,7 @@ function highlightRange(cubeRange, nextAction) {
     new Highlight(game, startX, startY)
     highlightGroup.children[i].inputEnabled = true
     game.physics.enable(highlightGroup.children[i], Phaser.Physics.ARCADE)
-    highlightGroup.children[i].body.setSize(16, 16, 0, 0)
+    highlightGroup.children[i].body.setSize(32, 32, 0, 0)
     if (nextAction === 'move') {
       highlightGroup.children[i].events.onInputDown.add(checkHex, highlightGroup.children[i])
     } else if (nextAction === 'fire') {

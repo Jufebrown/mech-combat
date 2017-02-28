@@ -64,8 +64,9 @@ let gradient = (hexagonWidth/4)/(hexagonHeight/2);
 let hexagonGroup;
 let highlightGroup
 let enemyHighlightGroup
-let playerSquad
 let enemySquad
+let playerSquad
+let craters
 let currentSprite
 let currentHex
 let turnCounter = 1
