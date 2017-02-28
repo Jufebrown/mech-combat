@@ -17,8 +17,8 @@ https://trello.com/b/DlQu8S14/front-end-capstone
 ## Resources:
 
 ### Technologies Used:
-Phaser.js
-Firebase
+* Phaser.js
+* Firebase
 
 ### Tutorial:
 http://www.redblobgames.com/grids/hexagons/
