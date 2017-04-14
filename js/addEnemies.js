@@ -1,3 +1,4 @@
+// function to add enemy squad to map. Plan on having squad array in level data
 function addEnemySquad() {
   let startingEnemySquadArray = [
     {positionX: 6, positionY: 0},
