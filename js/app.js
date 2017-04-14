@@ -3,6 +3,13 @@ This is a turn-based strategy game that uses a hex
 grid map. The map uses odd-q offset coodinates
 ****************************************************/
 
+/****************************************
+TODO: clean up snippets used for dev
+****************************************/
+
+let game
+let groupOffset = {x: 10, y: 10}
+
 // Initialize Firebase
 const config = {
   apiKey: "AIzaSyDnjSA0d_UhYUHmmLft9EV8pWtf14Dqgd8",
@@ -13,39 +20,39 @@ const config = {
 };
 firebase.initializeApp(config);
 
+// checks to see if user is logged in
 firebase.auth().onAuthStateChanged(() => {
   if (firebase.auth().currentUser !== null) {
-  var email = firebase.auth().currentUser.email
-  $('.main-page h1').text(`Welcome ${email}`)
-  $('.login-page').addClass('hidden')
-  $('.main-page').removeClass('hidden')
-//starts new canvas
-  game = new Phaser.Game(640, 480, Phaser.CANVAS, "game-div", {
-  init: function () {
-    //initializes kinetic scrolling plugin
-    this.game.kineticScrolling = this.game.plugins.add(Phaser.Plugin.KineticScrolling);
-    this.game.kineticScrolling.configure({
-      kineticMovement: true,
-      timeConstantScroll: 250,
-      horizontalScroll: true,
-      verticalScroll: true,
-      horizontalWheel: true,
-      verticalWheel: false,
-      deltaWheel: 40
-    })
-  },
-  preload: onPreload,
-  create: onCreate,
-  update: onUpdate,
-});
+    var email = firebase.auth().currentUser.email
+    $('.main-page h1').text(`Welcome ${email}`)
+    $('.login-page').addClass('hidden')
+    $('.main-page').removeClass('hidden')
+    //starts new canvas
+    game = new Phaser.Game(640, 480, Phaser.CANVAS, "game-div", {
+    init: function () {
+      //initializes kinetic scrolling plugin
+      this.game.kineticScrolling = this.game.plugins.add(Phaser.Plugin.KineticScrolling);
+      this.game.kineticScrolling.configure({
+        kineticMovement: true,
+        timeConstantScroll: 250,
+        horizontalScroll: true,
+        verticalScroll: true,
+        horizontalWheel: true,
+        verticalWheel: false,
+        deltaWheel: 40
+      })
+    },
+    preload: onPreload,
+    create: onCreate,
+    update: onUpdate,
+    });
   } else {
+    // shows login page, hides main page
     $('.login-page').removeClass('hidden')
     $('.main-page').addClass('hidden')
   }
 })
 
-let game
-let groupOffset = {x: 10, y: 10}
 
 //sets up hex width and height. height should be sqrt(3)/2 of width but need to tweek to get spacing right
 const hexagonHeight = 55;
@@ -79,15 +86,18 @@ let explosionSound
 let playerTurn = true
 let gameOver = false
 
-
+// game listens constantly for any changes on contents of this function
 function onUpdate() {
 
 }
 
+// function to check for game over
 function gameOverCheck() {
+  // checks if all enemies are killed
   if (enemySquad.children.length === 0) {
     gameOver = true
     playerWin()
+  // checks if all players are killed
   } else if (playerSquad.children.length === 0) {
     gameOver = true
     playerDefeat()
@@ -95,7 +105,7 @@ function gameOverCheck() {
 }
 
 
-
+// function to handle player victory
 function playerWin() {
   let playerWinText = game.add.text(300, 200, "You Win!");
 
@@ -137,6 +147,7 @@ function playerWin() {
   // playerWinTextReflect.fill = grd;
 }
 
+// function to handle player defeat
 function playerDefeat() {
   let enemyWinText = game.add.text(300, 200, "You Have Been Defeated");
 
@@ -177,18 +188,17 @@ function playerDefeat() {
   // enemyWinTextReflect.fill = grd;
 }
 
-function enemyMoveType() {
-  let enemyMoveTime = 0;
 
+function enemyMoveType() {
+  let enemyMoveTime = 0
   enemySquad.forEach(function(enemySquadMember) {
     let currentlyMovingEnemy = enemySquadMember
-
-        game.time.events.add(1000 + (enemyMoveTime * 1000), chargeAtPlayer, this, currentlyMovingEnemy);
-        enemyMoveTime++;
-
-    });
+    game.time.events.add(1000 + (enemyMoveTime * 1000), chargeAtPlayer, this, currentlyMovingEnemy)
+    enemyMoveTime++
+  })
 }
 
+// checks distance between enemy and player
 function enemyRangeTo(shooter, target) {
   let targetHexPos = hexPositionFromSpriteCoordinates(target.x, target.y)
   let targetCubePos = offsetToCube(targetHexPos.x, targetHexPos.y)
@@ -198,6 +208,7 @@ function enemyRangeTo(shooter, target) {
   return distanceBetween
 }
 
+// checks for a target within the range of current weapon
 function checkForTargetInWeaponsRange(currentlyMovingEnemy) {
   for(let i = 0, length1 = playerSquad.children.length; i < length1; i++){
     if (!currentlyMovingEnemy.hasFired) {
@@ -214,7 +225,7 @@ function checkForTargetInWeaponsRange(currentlyMovingEnemy) {
   }
 }
 
-
+// handles submit on login page
 $('.login-page form').submit((e) => {
   e.preventDefault()
   var email = $('input[type="email"]').val()

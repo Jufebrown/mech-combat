@@ -1,7 +1,14 @@
 /**************************************
+TODO: simplify functions, split them up
+**************************************/
+
+
+
+/**************************************
                 Player
 **************************************/
 
+// brings enemy squad sprite to top display layer, adds click listener
 function targetEnable(targetCandidate) {
   game.world.bringToTop(enemySquad)
   targetCandidate.events.onInputDown.add(combat, targetCandidate)
@@ -12,6 +19,7 @@ function targetEnable(targetCandidate) {
 /**************************************
                 Enemy
 **************************************/
+
 
 function destroyCheck(target) {
   if (target.health <= 0) {
