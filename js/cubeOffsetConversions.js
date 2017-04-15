@@ -1,3 +1,4 @@
+// converts cubic coordinates to offset coordinates
 function cubeToOffset(x,z) {
   let offsetCoordinates = {}
   offsetCoordinates.col = x
@@ -5,6 +6,7 @@ function cubeToOffset(x,z) {
   return offsetCoordinates
 }
 
+// converts offset coordinates to cubic coordinates
 function offsetToCube (col, row) {
   let cubeCoordinates = {}
   cubeCoordinates.x = col

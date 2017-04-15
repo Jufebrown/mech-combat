@@ -1,3 +1,4 @@
+// draws hud elements
 function drawHUD() {
   // let infoHUD = game.add.graphics(100, 100);
 

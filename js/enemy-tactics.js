@@ -1,3 +1,4 @@
+// movement pattern for enemies that move and fire at nearest player unit
 function chargeAtPlayer(currentlyMovingEnemy) {
   let xPos = currentlyMovingEnemy.x
   let yPos = currentlyMovingEnemy.y
