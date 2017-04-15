@@ -8,9 +8,10 @@ TODO: simplify functions, split them up
                 Player
 **************************************/
 
-// brings enemy squad sprite to top display layer, adds click listener
 function targetEnable(targetCandidate) {
+  // brings enemy squad sprite to top display layer so it is clickable for player
   game.world.bringToTop(enemySquad)
+  // adds click listener
   targetCandidate.events.onInputDown.add(combat, targetCandidate)
 }
 
