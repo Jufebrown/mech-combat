@@ -50,6 +50,7 @@ function spriteTint(highlightSprite) {
   // loops over enemy squad and checks to see if they are within highlighted hexes
   for(let i = 0, length1 = enemySquad.children.length; i < length1; i++){
     let targetCandidate = enemySquad.children[i]
+    // phaser method checks if 2 physics bodies overlap
     game.physics.arcade.overlap(targetCandidate, highlightSprite, this.targetEnable, null, this)
   }
 }
@@ -57,9 +58,11 @@ function spriteTint(highlightSprite) {
 // checks to see if enemy units are within highlight hexes
 function targetCheck(highlightSprite) {
   game.physics.arcade.overlap(highlightSprite, enemySquad, this.spriteTint, null, this)
+  // waits .5 seconds to hide highlights (mostly for UX, seems weird when highlight hexes disappear immediately)
   game.time.events.add(Phaser.Timer.SECOND * .5, resolveTargetNotFound, this)
 }
 
+// sets up highlight prototype
 Highlight = function(game,x,y) {
   Phaser.Sprite.call(this, game, x, y, 'highlight');
   this.anchor.setTo(0.5, 0.5);
@@ -70,11 +73,16 @@ Highlight = function(game,x,y) {
 Highlight.prototype = Object.create(Phaser.Sprite.prototype);
 Highlight.prototype.constructor = Highlight;
 
+// if no target found
 function resolveTargetNotFound() {
   if (targetFound === false) {
+    // sets hasFired property of sprite to true
     currentSprite.hasFired = true
+    // turns off highlight hexes
     killHighlight()
+    // turns click listener on player units back on
     enablePlayerMoves()
+    // checks to see if player turn is over
     checkEndPlayerTurn()
   }
 }
