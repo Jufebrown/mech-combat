@@ -3,24 +3,8 @@ This is a turn-based strategy game that uses a hex
 grid map. The map uses odd-q offset coodinates
 ****************************************************/
 
-// Initialize Firebase
-const config = {
-  apiKey: "AIzaSyDnjSA0d_UhYUHmmLft9EV8pWtf14Dqgd8",
-  authDomain: "mech-combat.firebaseapp.com",
-  databaseURL: "https://mech-combat.firebaseio.com",
-  storageBucket: "mech-combat.appspot.com",
-  messagingSenderId: "898287259769"
-};
-firebase.initializeApp(config);
-
-firebase.auth().onAuthStateChanged(() => {
-  if (firebase.auth().currentUser !== null) {
-  var email = firebase.auth().currentUser.email
-  $('.main-page h1').text(`Welcome ${email}`)
-  $('.login-page').addClass('hidden')
-  $('.main-page').removeClass('hidden')
 //starts new canvas
-  game = new Phaser.Game(640, 480, Phaser.CANVAS, "game-div", {
+const game = new Phaser.Game(640, 480, Phaser.CANVAS, "game-div", {
   init: function () {
     //initializes kinetic scrolling plugin
     this.game.kineticScrolling = this.game.plugins.add(Phaser.Plugin.KineticScrolling);
@@ -38,13 +22,7 @@ firebase.auth().onAuthStateChanged(() => {
   create: onCreate,
   update: onUpdate,
 });
-  } else {
-    $('.login-page').removeClass('hidden')
-    $('.main-page').addClass('hidden')
-  }
-})
 
-let game
 let groupOffset = {x: 10, y: 10}
 
 //sets up hex width and height. height should be sqrt(3)/2 of width but need to tweek to get spacing right
