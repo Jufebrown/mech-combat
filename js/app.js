@@ -34,7 +34,7 @@ const game = new Phaser.Game(640, 480, Phaser.CANVAS, "game-div", {
 
 let groupOffset = { x: 10, y: 10 };
 
-//sets up hex width and height. height should be sqrt(3)/2 of width but need to tweek to get spacing right
+//sets up hex width and height. height should be sqrt(3)/2 of width but need to tweak to get spacing right
 const hexagonHeight = 55;
 const hexagonWidth = 64;
 //number of hexes x and y
