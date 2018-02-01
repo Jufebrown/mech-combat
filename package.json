@@ -1,0 +1,25 @@
+{
+  "name": "mech-combat",
+  "version": "1.0.0",
+  "description": "## Game: https://jufebrown.github.io/mech-combat/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jufebrown/mech-combat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jufebrown/mech-combat/issues"
+  },
+  "homepage": "https://github.com/Jufebrown/mech-combat#readme",
+  "dependencies": {
+    "easystarjs": "^0.4.2",
+    "jquery": "^3.3.1",
+    "phaser-ce": "^2.10.0",
+    "phaser-kinetic-scrolling-plugin": "^1.0.4"
+  }
+}
