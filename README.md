@@ -3,6 +3,8 @@
 ## Game:
 https://jufebrown.github.io/mech-combat/
 
+*This link may not work if I'm updating the code.*
+
 ## Concept:
 
 ### Outline:
