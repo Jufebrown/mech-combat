@@ -4,10 +4,10 @@ This is a turn-based strategy game that uses a hex
 grid map. The map uses odd-q offset coodinates
 ****************************************************/
 
-require("./combat");
 require("./game-state");
-require("./gui");
 require("./math");
+require("./combat");
+require("./gui");
 require("./movement");
 require("./units");
 
@@ -578,14 +578,14 @@ module.exports = function () {
 const addEnemies = require('./addEnemies');
 const addPlayerMechs = require('./addPlayerMechs');
 const create = require('./create.js');
-const preload = require('./preload.js');
+const onPreload = require('./preload');
 const turnManagement = require('./turn-management.js');
-},{"./addEnemies":5,"./addPlayerMechs":6,"./create.js":7,"./preload.js":9,"./turn-management.js":10}],9:[function(require,module,exports){
+},{"./addEnemies":5,"./addPlayerMechs":6,"./create.js":7,"./preload":9,"./turn-management.js":10}],9:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
-  //preloads images and audio
   function onPreload() {
+    //preloads images and audio 
     game.load.image("grassland", "assets/images/map_tiles/grassland.png");
     game.load.image("highlight", "assets/images/map_tiles/highlight.png");
     game.load.image("crater", "assets/images/map_tiles/crater.png");

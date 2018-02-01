@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = function() {
-  //preloads images and audio
   function onPreload() {
+    //preloads images and audio 
     game.load.image("grassland", "assets/images/map_tiles/grassland.png");
     game.load.image("highlight", "assets/images/map_tiles/highlight.png");
     game.load.image("crater", "assets/images/map_tiles/crater.png");

@@ -3,10 +3,10 @@ This is a turn-based strategy game that uses a hex
 grid map. The map uses odd-q offset coodinates
 ****************************************************/
 
-require("./combat");
 require("./game-state");
-require("./gui");
 require("./math");
+require("./combat");
+require("./gui");
 require("./movement");
 require("./units");
 
