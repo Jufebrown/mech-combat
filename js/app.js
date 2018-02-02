@@ -4,7 +4,7 @@ grid map. The map uses odd-q offset coodinates
 ****************************************************/
 
 //starts new canvas
-const game = new Phaser.Game(640, 480, Phaser.CANVAS, "game-div", {
+const game = new Phaser.Game(window.innerWidth, window.innerHeight * .977, Phaser.CANVAS, "game-div", {
   init: function () {
     //initializes kinetic scrolling plugin
     this.game.kineticScrolling = this.game.plugins.add(Phaser.Plugin.KineticScrolling);
