@@ -5,6 +5,10 @@ https://jufebrown.github.io/mech-combat/
 
 *This link may not work if I'm updating the code.*
 
+## Local Installation:
+
+After forking this repo you will need to run an `npm install` to get the project dependencies.
+
 ## Concept:
 
 ### Outline:
