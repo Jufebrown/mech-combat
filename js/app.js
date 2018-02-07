@@ -3,6 +3,10 @@ This is a turn-based strategy game that uses a hex
 grid map. The map uses odd-q offset coodinates
 ****************************************************/
 
+import 'pixi';
+// import 'p2'
+import Phaser from "phaser";
+
 //starts new canvas
 const game = new Phaser.Game(window.innerWidth, window.innerHeight * .977, Phaser.CANVAS, "game-div", {
   init: function () {
