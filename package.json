@@ -8,7 +8,9 @@
     "phaser-ce": "^2.10.0",
     "phaser-kinetic-scrolling-plugin": "^1.0.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
