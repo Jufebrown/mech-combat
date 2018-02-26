@@ -4,7 +4,7 @@ grid map. The map uses odd-q offset coodinates
 ****************************************************/
 
 import 'pixi';
-// import 'p2'
+import 'p2'
 import Phaser from "phaser";
 
 //starts new canvas
